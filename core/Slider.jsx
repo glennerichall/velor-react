@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
-import Slider from "bootstrap-slider";
+const Slider = await import('bootstrap-slider');
+
 
 const ReactSlider = (props, thisRef) => {
     const sliderAttributes = {
