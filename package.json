@@ -8,23 +8,23 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "bootstrap-slider": "^11.0.2",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "marked": "^15.0.7",
     "preact": "^10.26.4",
-    "rc-slider": "^11.1.8",
     "react-bootstrap": "^2.10.9",
     "react-bootstrap-icons": "^1.11.5",
     "react-contexify": "^6.0.0",
     "react-notifications": "^1.7.4",
     "react-paginate": "^8.3.0",
+    "react-range-slider-input": "^3.2.1",
     "react-resize-detector": "^12.0.2",
     "react-string-replace": "^1.1.1",
     "velor-utils": "github:glennerichall/velor-utils"
   },
   "devDependencies": {
     "playwright": "^1.47.2",
+    "sass-embedded": "^1.85.1",
     "vite": "^6.2.1"
   }
 }
