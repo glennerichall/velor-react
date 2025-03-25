@@ -3,8 +3,10 @@ import React from 'react';
 import ReactDom from "react-dom";
 import Checkbox from "./core/Checkbox";
 import './css/vanilla.scss';
+import './css/slider.scss';
+import './css/bootstrap.scss';
 import 'react-range-slider-input/dist/style.css';
-import Slider from "react-range-slider-input";
+import Slider from "./core/Slider";
 
 const domRoot = document.getElementById("content");
 
@@ -34,6 +36,7 @@ const Root = <div>
         <Slider
             orientation="vertical"
             value={[10, 80]}
+            onChange={()=> {}}
         />
     </div>
 
