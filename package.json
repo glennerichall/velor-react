@@ -1,12 +1,13 @@
 {
   "name": "velor-react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "license": "ISC",
   "author": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "dependencies": {
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
