@@ -7,6 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "dist/",
+    "package.json"
+  ],
   "dependencies": {
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
