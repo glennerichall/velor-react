@@ -2,9 +2,9 @@
 import React from 'react';
 import ReactDom from "react-dom";
 import Checkbox from "./core/Checkbox";
-import './css/vanilla.scss';
-import './css/slider.scss';
-import './css/bootstrap.scss';
+import './public/css/vanilla.scss';
+import './public/css/slider.scss';
+import './public/css/bootstrap.scss';
 import 'react-range-slider-input/dist/style.css';
 import Slider from "./core/Slider";
 

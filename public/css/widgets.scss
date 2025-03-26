@@ -1,0 +1,9 @@
+.widget-group {
+  display: flex;
+  gap: var(--gap);
+  position: relative;
+
+  &.no-wrap {
+    flex-flow: initial;
+  }
+}
