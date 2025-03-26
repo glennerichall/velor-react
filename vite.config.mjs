@@ -30,9 +30,8 @@ export default defineConfig({
         },
         rollupOptions: {
             external: (id) => {
-                console.log(id);
-                return ["preact", "velor"]
-                    .forEach(x => id.startsWith(x));
+                return ["preact", "velor", "crypto", "react-bootstrap", "react"]
+                    .some(x => id.startsWith(x));
             },
         }
     },
