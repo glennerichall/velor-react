@@ -10,7 +10,7 @@ import {NotificationManager} from "react-notifications";
 
 let count = 0;
 
-export const RenderInWindow = (props) => {
+export default (props) => {
     const [container, setContainer] = useState(null);
     const newWindow = useRef(window);
     const [id, setId] = useState(() => count++);

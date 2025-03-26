@@ -5,7 +5,7 @@ import React, {
 
 import {useResizeDetector} from "react-resize-detector";
 import Slider from "./Slider.jsx";
-import {useInvalidate} from "../../utils/hooks.mjs";
+import {useInvalidate} from "../utils/hooks.mjs";
 
 class ListManager {
     constructor() {

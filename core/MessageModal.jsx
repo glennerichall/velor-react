@@ -5,7 +5,9 @@ import {
 } from "react-bootstrap-icons";
 
 import classNames from "classnames";
-import {
+
+// noinspection ES6UnusedImports
+import React, {
     useEffect,
     useState
 } from "react";

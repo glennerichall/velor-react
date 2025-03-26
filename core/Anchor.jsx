@@ -1,3 +1,4 @@
+// noinspection ES6UnusedImports
 import React, {
     createPortal,
     useEffect,
@@ -5,8 +6,8 @@ import React, {
     useState,
     useCallback
 } from "react";
+import {waitForStableBoundingRect} from "../utils/utils.mjs";
 
-import {waitForStableBoundingRect} from "../../utils/utils.mjs";
 
 function getCoords(anchor, element) {
     const rect = element.getBoundingClientRect();

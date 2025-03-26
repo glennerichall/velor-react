@@ -3,10 +3,11 @@ import {
     Menu, useContextMenu
 } from "react-contexify";
 
-import {useEffect, useState} from "react";
+// noinspection ES6UnusedImports
+import React, {useEffect, useState} from "react";
 
 
-export const TableContextMenu = props => {
+export default props => {
     const {
         id
     } = props;

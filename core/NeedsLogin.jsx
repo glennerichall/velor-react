@@ -1,10 +1,11 @@
 import React from 'react';
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import reactStringReplace from "react-string-replace";
 import {Lock} from "react-bootstrap-icons";
 
-import {recursiveMap} from "../../utils/utils.mjs";
+import {recursiveMap} from "../utils/utils.mjs";
 
 const LoginRequest = props => {
     const {

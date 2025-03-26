@@ -1,6 +1,4 @@
 import {defineConfig} from 'vite';
-import fs from 'fs';
-import path from 'path';
 
 export default defineConfig({
     define:
@@ -17,5 +15,25 @@ export default defineConfig({
             'react-dom': 'preact/compat',
             'react/jsx-runtime': 'preact/jsx-runtime',
         },
+    },
+    build: {
+        assetsInlineLimit: 0,
+        lib: {
+            entry: {
+                utils: 'utils/utils.mjs',
+                hooks: 'utils/hooks.mjs',
+                widgets: 'core/index.mjs',
+            },
+            name: 'VelorReact',
+            fileName: (format, entry) => `${entry}.${format}.js`, // Output filenames
+            formats: ['es'], // Output formats: ES Module
+        },
+        rollupOptions: {
+            external: (id) => {
+                console.log(id);
+                return ["preact", "velor"]
+                    .forEach(x => id.startsWith(x));
+            },
+        }
     },
 });

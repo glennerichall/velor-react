@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import {
+// noinspection ES6UnusedImports
+import React, {
     useEffect,
     useRef,
     useState
@@ -8,7 +9,7 @@ import {
 import Anchor from "./Anchor";
 
 
-export const DotNotification = props => {
+export default props => {
     const {
         notifications,
         variant,

@@ -1,9 +1,11 @@
+// noinspection ES6UnusedImports
 import React from 'react';
+
 import {ProgressBar} from "react-bootstrap";
 
 import classNames from "classnames";
 
-export const Progress = props => {
+export default props => {
     const {
         progress,
         label

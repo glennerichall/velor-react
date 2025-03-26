@@ -1,6 +1,7 @@
+// noinspection ES6UnusedImports
 import React, {useEffect, useState} from "react";
 import classNames from "classnames";
-import {useInvalidate} from "../../utils/hooks.mjs";
+import {useInvalidate} from "../utils/hooks.mjs";
 
 class ItemManager {
     constructor() {

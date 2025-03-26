@@ -1,8 +1,9 @@
 import Modal from "react-bootstrap/Modal";
 import {ExclamationDiamondFill} from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
-import React from "react";
 
+// noinspection ES6UnusedImports
+import React from "react";
 
 export default props => {
 

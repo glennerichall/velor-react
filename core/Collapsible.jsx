@@ -1,6 +1,7 @@
 import classNames from "classnames";
 
-import {
+// noinspection ES6UnusedImports
+import React, {
     forwardRef,
     useEffect,
     useRef,
@@ -9,7 +10,7 @@ import {
 } from "react";
 
 import {useResizeDetector} from "react-resize-detector";
-import {waitForStableBoundingRect} from "../../utils/utils.mjs";
+import {waitForStableBoundingRect} from "../utils/utils.mjs";
 
 function getStyleValue(elem, name) {
     let value = window.getComputedStyle(elem, null).getPropertyValue(name)

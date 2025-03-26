@@ -1,5 +1,6 @@
+// noinspection NpmUsedModulesInstalled
 import React from "react";
-import {recursiveMap} from "../../utils/utils.mjs";
+import {recursiveMap} from "../utils/utils.mjs";
 
 export default props =>{
     return recursiveMap(props.children, child=>{
