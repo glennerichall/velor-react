@@ -5,9 +5,6 @@ import {
     useState
 } from "react";
 
-import {NotificationManager} from "react-notifications";
-
-
 let count = 0;
 
 export default (props) => {
@@ -17,7 +14,8 @@ export default (props) => {
 
     const {
         name = "",
-        options = ""
+        options = "",
+        notifications
     } = props;
 
     function onClose() {
@@ -66,7 +64,7 @@ export default (props) => {
                 );
             }
             if (!newWindow.current) {
-                NotificationManager.error(`Unable to open ${props.name}. Is your browser preventing popups ?`,
+                notifications.error(`Unable to open ${props.name}. Is your browser preventing popups ?`,
                     'Failed opening new window', 10000);
                 props.onBlocked();
                 return;

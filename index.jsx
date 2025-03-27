@@ -6,7 +6,8 @@ import './public/css/vanilla.scss';
 import './public/css/slider.scss';
 import './public/css/bootstrap.scss';
 import 'react-range-slider-input/dist/style.css';
-import Slider from "./core/Slider";
+// import Slider from "./core/Slider";
+import {Slider} from "./dist/widgets.es";
 
 const domRoot = document.getElementById("content");
 
