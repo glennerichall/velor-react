@@ -3,6 +3,9 @@ import React, {
     useEffect,
     useRef
 } from "react";
+
+import 'react-range-slider-input/dist/style.css';
+
 import classNames from "classnames";
 import Slider from "react-range-slider-input";
 import ButtonGroup from "react-bootstrap/ButtonGroup";

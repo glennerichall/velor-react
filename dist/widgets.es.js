@@ -7,6 +7,7 @@ import { OverlayTrigger as Je, Tooltip as et, Spinner as tt, Alert as ge, Progre
 import { useResizeDetector as Ne } from "react-resize-detector";
 import { ArrowBarLeft as rt, ArrowBarRight as it, PlusCircleFill as ke, DashCircleFill as be, InfoCircleFill as xe, ExclamationTriangleFill as lt, ExclamationSquareFill as at, ExclamationDiamondFill as ot, Pin as ct, PinAngle as ut, XLg as ht } from "react-bootstrap-icons";
 import z from "react-bootstrap/Button";
+import "react-range-slider-input/dist/style.css";
 import pt from "react-range-slider-input";
 import we from "react-bootstrap/ButtonGroup";
 import { useInvalidate as Pe } from "./hooks.es.js";
@@ -87,7 +88,7 @@ const kt = (u) => {
     /* @__PURE__ */ h.createElement("div", { ref: l }, n),
     document.body
   );
-}, $n = (u) => {
+}, An = (u) => {
   const {
     id: e = crypto.randomUUID(),
     label: t,
@@ -120,7 +121,7 @@ const kt = (u) => {
     t
   );
   let d;
-  return n === "right" ? d = /* @__PURE__ */ h.createElement("span", null, c, p) : d = /* @__PURE__ */ h.createElement("span", null, p, c), typeof a == "string" && (d = /* @__PURE__ */ h.createElement("span", null, /* @__PURE__ */ h.createElement(
+  return n === "right" ? d = /* @__PURE__ */ h.createElement(h.Fragment, null, c, p) : d = /* @__PURE__ */ h.createElement(h.Fragment, null, p, c), typeof a == "string" && (d = /* @__PURE__ */ h.createElement(h.Fragment, null, /* @__PURE__ */ h.createElement(
     Je,
     {
       key: s,
@@ -241,9 +242,9 @@ const A = /* @__PURE__ */ bt(wt), K = "animating-expand", Y = "animating-collaps
       t
     )
   );
-}), An = (u) => Ye(u.children, (e) => h.cloneElement(e, {
+}), Ln = (u) => Ye(u.children, (e) => h.cloneElement(e, {
   disabled: e.props.disabled || u.disabled
-})), Ln = (u) => {
+})), _n = (u) => {
   const {
     notifications: e,
     variant: t,
@@ -416,7 +417,7 @@ const A = /* @__PURE__ */ bt(wt), K = "animating-expand", Y = "animating-collaps
     v,
     k || !o ? u.children : null
   );
-}, _n = (u) => {
+}, Nn = (u) => {
   const {
     visibleItem: e
   } = u;
@@ -667,7 +668,7 @@ const St = (u) => {
       }
     ))
   );
-}, Nn = h.forwardRef(Ct);
+}, Pn = h.forwardRef(Ct);
 function ie() {
   return {
     async: !1,
@@ -2284,7 +2285,7 @@ const pn = (u) => {
       className: "change"
     }
   ))));
-}, Pn = (u) => {
+}, zn = (u) => {
   const {
     show: e,
     onShow: t,
@@ -2313,7 +2314,7 @@ const pn = (u) => {
     /* @__PURE__ */ h.createElement(_.Header, null, /* @__PURE__ */ h.createElement(_.Title, null, /* @__PURE__ */ h.createElement("span", null, s), /* @__PURE__ */ h.createElement("span", null, i))),
     /* @__PURE__ */ h.createElement(_.Body, null, c)
   );
-}, zn = (u) => {
+}, In = (u) => {
   const {
     show: e,
     onHide: t,
@@ -2407,7 +2408,7 @@ const pn = (u) => {
     },
     c ? /* @__PURE__ */ h.createElement(h.Fragment, null, /* @__PURE__ */ h.createElement(Ae, { buttons: p }, c), u.children) : /* @__PURE__ */ h.createElement(Ae, { buttons: p }, u.children)
   );
-}), In = (u) => {
+}), Bn = (u) => {
   const {
     progress: e,
     label: t
@@ -2427,7 +2428,7 @@ const pn = (u) => {
     /* @__PURE__ */ h.createElement("div", { className: "progress-label" }, t),
     /* @__PURE__ */ h.createElement(nt, { now: e })
   );
-}, Bn = (u) => {
+}, Dn = (u) => {
   const {
     manager: e,
     onHover: t,
@@ -2481,7 +2482,7 @@ const pn = (u) => {
   );
 };
 let fn = 0;
-const Dn = (u) => {
+const Mn = (u) => {
   const [e, t] = C(null), n = P(window), [i, s] = C(() => fn++), {
     name: r = "",
     options: l = "",
@@ -2529,7 +2530,7 @@ const Dn = (u) => {
     if (e)
       return c();
   }, [e]), e && Le(u.children, e);
-}, Mn = (u) => {
+}, On = (u) => {
   const {
     id: e
   } = u, { hideAll: t } = dt({
@@ -2571,7 +2572,7 @@ const Dn = (u) => {
     ),
     /* @__PURE__ */ h.createElement(ye, { id: "cut" }, "Cut")
   );
-}, On = (u) => {
+}, qn = (u) => {
   const {
     target: e,
     onChange: t = () => {
@@ -2610,7 +2611,7 @@ const Dn = (u) => {
       }
     }
   ));
-}, je = Xe(null), qn = (u) => {
+}, je = Xe(null), Gn = (u) => {
   const {
     collapsible: e = !0
   } = u, [t, n] = C();
@@ -2619,7 +2620,7 @@ const Dn = (u) => {
     setExpanded: (i) => n(i),
     expanded: t
   } }, u.children);
-}, Gn = (u) => {
+}, Fn = (u) => {
   const e = Ke(je), {
     canPin: t = !1,
     canClose: n = !1,
@@ -2650,23 +2651,23 @@ const Dn = (u) => {
 };
 export {
   kt as Anchor,
-  $n as Checkbox,
+  An as Checkbox,
   yt as Collapsible,
-  An as Disable,
-  Ln as DotNotification,
+  Ln as Disable,
+  _n as DotNotification,
   Et as Drawer,
-  _n as DrawerContainer,
-  Nn as GargantuaList,
-  Pn as MessageModal,
-  zn as ModalOkCancel,
+  Nn as DrawerContainer,
+  Pn as GargantuaList,
+  zn as MessageModal,
+  In as ModalOkCancel,
   Ae as PinButtons,
   dn as Pinnable,
-  In as Progress,
-  Bn as RangeSelection,
-  Dn as RenderInWindow,
+  Bn as Progress,
+  Dn as RangeSelection,
+  Mn as RenderInWindow,
   Rt as Slider,
-  Mn as TableContextMenu,
-  On as TextField,
-  Gn as Widget,
-  qn as WidgetGroup
+  On as TableContextMenu,
+  qn as TextField,
+  Fn as Widget,
+  Gn as WidgetGroup
 };

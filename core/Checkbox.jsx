@@ -39,19 +39,19 @@ export default props => {
 
     let elem;
     if (placement === 'right') {
-        elem = <span>
+        elem = <>
             {input}
             {lbl}
-        </span>
+        </>
     } else {
-        elem = <span>
+        elem = <>
             {lbl}
             {input}
-        </span>
+        </>
     }
 
     if (typeof tooltip === 'string') {
-        elem = <span>
+        elem = <>
             <OverlayTrigger
                 key={name}
                 placement="right"
@@ -59,7 +59,7 @@ export default props => {
                 overlay={<Tooltip id={`tooltip-${id}`}>{tooltip}</Tooltip>}>
            {elem}
         </OverlayTrigger>
-        </span>
+        </>
     }
 
     return elem;

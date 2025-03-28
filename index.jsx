@@ -2,12 +2,13 @@
 import React, {useState} from 'react';
 import ReactDom from "react-dom";
 import Checkbox from "./core/Checkbox";
+import Slider from "./core/Slider";
+
 import './public/css/vanilla.scss';
 import './public/css/slider.scss';
 import './public/css/bootstrap.scss';
-import 'react-range-slider-input/dist/style.css';
-import Slider from "./core/Slider";
-// import {Slider} from "./dist/widgets.es";
+import './public/css/widgets.scss';
+
 
 const domRoot = document.getElementById("content");
 
@@ -21,8 +22,8 @@ const Root = props => {
     const [sliderValue1, setSliderValue1] = useState([10, 90]);
     const [sliderValue2, setSliderValue2] = useState(90);
 
-    return <div>
-        <div className={"grid grid-2 col-2"}>
+    return <div className="widgets">
+        <div className={"widget-group grid grid-2"}>
             <Checkbox label="hello"
                       tooltip="Ola mundo"
                       onChange={() => console.log(options)}
@@ -35,12 +36,7 @@ const Root = props => {
 
         </div>
 
-        <div style={{
-            display: "flex",
-            gap: "8px",
-            height: "200px",
-            padding: "10px",
-        }}>
+        <div className={"widget-group"}>
             <Slider
                 min={0}
                 max={100}
