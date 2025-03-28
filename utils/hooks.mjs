@@ -20,6 +20,13 @@ export function useInvalidate() {
     }));
 }
 
+export function useInvalidateOnce() {
+    const invalidate = useInvalidate();
+    useEffect(() => {
+        invalidate();
+    }, []);
+}
+
 export const useAutoFocus = () => {
     const inputRef = useRef(null);
 

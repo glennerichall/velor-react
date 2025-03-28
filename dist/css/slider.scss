@@ -4,8 +4,8 @@
 }
 
 .range-slider__thumb {
-  width: 18px!important;
-  height: 18px!important;
+  width: 18px !important;
+  height: 18px !important;
 
   &::before {
     display: none;
@@ -48,8 +48,13 @@
     }
   }
 
-  &:hover .range-slider__thumb::before {
-    display: initial;
+  &:hover {
+    z-index: 100000;
+
+    .range-slider__thumb::before {
+      display: initial;
+      z-index: 100000;
+    }
   }
 
   .btn {
@@ -58,8 +63,8 @@
   }
 
   &:not(.dual) .range-slider__thumb[data-upper] {
-    width: 8px!important;
-    height: 8px!important;
+    width: 8px !important;
+    height: 8px !important;
     background-color: #51ADF6;
   }
 }

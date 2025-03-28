@@ -11,6 +11,10 @@ import {
     DashCircleFill,
     PlusCircleFill
 } from "react-bootstrap-icons";
+import {
+    useInvalidate,
+    useInvalidateOnce
+} from "../utils/hooks.mjs";
 
 export default ({
                     min, max, ticks, value, onChange,
@@ -25,7 +29,10 @@ export default ({
 
     const ref = useRef();
 
+
+
     const isDual = Array.isArray(value);
+    const invalidate = useInvalidate();
 
     function composeOnClick(dir, index) {
         return () => {
@@ -73,16 +80,10 @@ export default ({
         } else {
             ref.current.thumb[0].current.setAttribute('data-value', formatter(value));
         }
+    } else {
+        // mandatory to let the ref.current be set
+        invalidate();
     }
-
-    let otherProps = {};
-    if (ticks !== undefined) {
-        otherProps = {
-            ticks
-        }
-    }
-
-    // Note: Slider from react-range-slider-input values are inverted
 
     const slider = <Slider
         ref={ref}
