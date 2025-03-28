@@ -1,57 +1,64 @@
-import { useState as l, useRef as p, useEffect as s } from "react";
+import { useState as l, useEffect as r, useRef as p } from "react";
 import { noOp as i, broadcast as d } from "velor-utils/utils/functional.mjs";
-function v() {
-  const [e, n] = l(() => () => {
+function m() {
+  const [e, t] = l(() => () => {
   });
   return e(), () => new Promise((o) => {
-    n(() => o);
+    t(() => o);
   });
 }
-const y = () => {
+function y() {
+  const e = m();
+  r(() => {
+    e();
+  }, []);
+}
+const E = () => {
   const e = p(null);
-  return s(() => {
+  return r(() => {
     e.current && e.current.focus();
   }, []), e;
-}, E = (e = {}) => {
+}, h = (e = {}) => {
   const {
-    onClick: n = i,
+    onClick: t = i,
     onKeyDown: o = i,
     show: u = !0
   } = e;
-  s(() => {
+  r(() => {
     if (u) {
-      let c = function(r) {
-        return r.stopPropagation(), r.stopImmediatePropagation(), r.preventDefault(), n(), !0;
+      let c = function(s) {
+        return s.stopPropagation(), s.stopImmediatePropagation(), s.preventDefault(), t(), !0;
       };
-      const t = document.createElement("div");
-      return document.body.append(t), t.style.left = "0", t.style.right = "0", t.style.top = "0", t.style.bottom = "0", t.style.position = "absolute", t.style.zIndex = "1000", document.addEventListener("keydown", o), t.onmousedown = (r) => (r.stopPropagation(), r.stopImmediatePropagation(), !0), t.onclick = c, t.oncontextmenu = c, t.onauxclick = c, () => {
-        t.remove(), document.removeEventListener("keydown", o);
+      const n = document.createElement("div");
+      return document.body.append(n), n.style.left = "0", n.style.right = "0", n.style.top = "0", n.style.bottom = "0", n.style.position = "absolute", n.style.zIndex = "1000", document.addEventListener("keydown", o), n.onmousedown = (s) => (s.stopPropagation(), s.stopImmediatePropagation(), !0), n.onclick = c, n.oncontextmenu = c, n.onauxclick = c, () => {
+        n.remove(), document.removeEventListener("keydown", o);
       };
     }
   }, [u]);
 };
 function a() {
-  const [e, n] = l(0);
-  return [e, () => n((o) => o + 1)];
+  const [e, t] = l(0);
+  return [e, () => t((o) => o + 1)];
 }
-function h(e, n) {
+function I(e, t) {
   const [o, u] = a();
-  s(() => e.on(n, u), [e]);
+  r(() => e.on(t, u), [e]);
 }
-function I(e) {
-  const [n, o] = a();
-  s(() => e.onAny(o), [e]);
+function w(e) {
+  const [t, o] = a();
+  r(() => e.onAny(o), [e]);
 }
-function w(e, n) {
+function b(e, t) {
   const [o, u] = a();
-  s(d(...e.map((t) => t.on(n, u))), [e]);
+  r(d(...e.map((n) => n.on(t, u))), [e]);
 }
 export {
-  y as useAutoFocus,
-  E as useCaptureAll,
+  E as useAutoFocus,
+  h as useCaptureAll,
   a as useEpoch,
-  v as useInvalidate,
-  I as useInvalidateOnAny,
-  w as useInvalidateOnAnyEmitterEvent,
-  h as useInvalidateOnEvent
+  m as useInvalidate,
+  w as useInvalidateOnAny,
+  b as useInvalidateOnAnyEmitterEvent,
+  I as useInvalidateOnEvent,
+  y as useInvalidateOnce
 };
