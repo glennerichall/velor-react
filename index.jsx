@@ -51,6 +51,14 @@ const Root = props => {
                 value={sliderValue2}
                 onChange={setSliderValue2}
             />
+            <Slider
+                disabled={true}
+                min={0}
+                max={100}
+                orientation="vertical"
+                value={sliderValue2}
+                onChange={setSliderValue2}
+            />
         </div>
 
     </div>;
