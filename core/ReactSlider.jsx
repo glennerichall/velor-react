@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import Slider from "bootstrap-slider";
+import "bootstrap-slider/dist/css/bootstrap-slider.css";
 
 const ReactSlider = (props, thisRef) => {
     const sliderAttributes = {
