@@ -1,11 +1,13 @@
 
 
 .slider {
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-Items: center;
-  width: fit-content;
+  &.vertical {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-Items: center;
+    width: fit-content;
+  }
   gap: 5px;
 
   .range-slider[data-disabled] {

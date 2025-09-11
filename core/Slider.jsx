@@ -100,7 +100,7 @@ export default ({
         orientation={orientation}/>;
 
     return (
-        <div className={classNames(className, "slider",
+        <div className={classNames(className, "slider", orientation,
             {
                 dual: isDual,
                 disabled

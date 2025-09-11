@@ -514,6 +514,7 @@ const A = /* @__PURE__ */ bt(wt), K = "animating-expand", Y = "animating-collaps
       className: A(
         r,
         "slider",
+        a,
         {
           dual: p,
           disabled: o
