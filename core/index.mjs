@@ -21,3 +21,5 @@ export { default as TableContextMenu } from './TableContextMenu.jsx';
 export { default as TextField } from './TextField.jsx';
 export { Widget } from './Widget.jsx';
 export { WidgetGroup } from './Widget.jsx';
+
+export {default as ReactSlider} from './ReactSlider.jsx';
