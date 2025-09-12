@@ -32,7 +32,7 @@ export default props => {
     />;
 
     const lbl = <label {...otherProps}
-                       className="text-secondary small"
+                       className="small"
                        htmlFor={id}>
         {label}
     </label>;

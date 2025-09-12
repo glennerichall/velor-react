@@ -115,7 +115,7 @@ const Xt = (p) => {
     "label",
     {
       ...c,
-      className: "text-secondary small",
+      className: "small",
       htmlFor: e
     },
     t
