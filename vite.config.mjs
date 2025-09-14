@@ -30,7 +30,9 @@ export default defineConfig({
         },
         rollupOptions: {
             external: (id) => {
-                return ["preact", "velor", "crypto", "react-bootstrap", "react"]
+                return [
+                    "preact", "velor", "crypto", "react-bootstrap", "react",
+                    "@radix-ui", "@base-ui"]
                     .some(x => id.startsWith(x));
             },
         }
