@@ -12,7 +12,7 @@ function normalize(options) {
         : Object.entries(options).map(([v, l]) => ({value: isNaN(+v) ? v : +v, label: String(l)}));
 }
 
-export default function Dropdown() {
+export default function Dropdown(props) {
     const {
         value,
         options,
