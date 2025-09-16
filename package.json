@@ -16,7 +16,8 @@
   "exports": {
     ".": "./dist/widgets.es.js",
     "./utils": "./dist/utils.es.js",
-    "./hooks": "./dist/hooks.es.js"
+    "./hooks": "./dist/hooks.es.js",
+    "./style.css": "./dist/velor-react.css"
   },
   "dependencies": {
     "classnames": "^2.5.1",
