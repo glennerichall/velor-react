@@ -6,7 +6,6 @@ import React, {
     useState
 } from "react";
 
-import Anchor from "./Anchor";
 
 
 export default props => {

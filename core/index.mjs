@@ -1,4 +1,3 @@
-export { default as Anchor } from './Anchor.jsx';
 export { default as Checkbox } from './Checkbox.jsx';
 export { default as Collapsible } from './Collapsible.jsx';
 export { default as Disable } from './Disable.jsx';

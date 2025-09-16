@@ -1,17 +1,24 @@
 {
   "name": "velor-react",
-  "version": "1.0.9",
+  "version": "1.1.10",
   "description": "",
   "license": "ISC",
   "author": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "main": "dist/widgets.es.js",
   "files": [
     "dist/",
     "package.json"
   ],
+  "exports": {
+    ".": "./dist/widgets.es.js",
+    "./utils": "./dist/utils.es.js",
+    "./style": "./dist/velor-react.css",
+    "./hooks": "./dist/hookes.es.js"
+  },
   "dependencies": {
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
@@ -31,6 +38,6 @@
     "playwright": "^1.47.2",
     "preact": "^10.26.4",
     "sass-embedded": "^1.85.1",
-    "vite": "6.3.4"
+    "vite": "7.1.5"
   }
 }
