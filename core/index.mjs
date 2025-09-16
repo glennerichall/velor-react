@@ -1,3 +1,10 @@
+
+import '../style/bootstrap.scss';
+import '../style/vanilla.scss';
+import '../style/widgets.scss';
+import '../style/slider.scss';
+
+
 export { default as Checkbox } from './Checkbox.jsx';
 export { default as Collapsible } from './Collapsible.jsx';
 export { default as Disable } from './Disable.jsx';

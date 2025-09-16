@@ -4,10 +4,10 @@ import ReactDom from "react-dom";
 import Checkbox from "./core/Checkbox";
 import Slider from "./core/Slider";
 
-import './public/css/vanilla.scss';
-import './public/css/slider.scss';
-import './public/css/bootstrap.scss';
-import './public/css/widgets.scss';
+import './style/vanilla.scss';
+import './style/slider.scss';
+import './style/bootstrap.scss';
+import './style/widgets.scss';
 
 
 const domRoot = document.getElementById("content");

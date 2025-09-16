@@ -1,10 +1,10 @@
 import Form from "react-bootstrap/Form";
-import '../../public/css/user-files.scss';
+import '../../style/css/user-files.scss';
 import ReactPaginate from "react-paginate";
 import Button from "react-bootstrap/Button";
 import classNames from "classnames";
 
-import '../../public/css/paged-content.scss';
+import '../../style/css/paged-content.scss';
 import Table from "./Table.jsx";
 import {Alert} from "react-bootstrap";
 import Disable from "../Disable";
