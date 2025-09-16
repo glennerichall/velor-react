@@ -1,6 +1,6 @@
 {
   "name": "velor-react",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "",
   "license": "ISC",
   "author": "",
@@ -17,7 +17,7 @@
     ".": "./dist/widgets.es.js",
     "./utils": "./dist/utils.es.js",
     "./style": "./dist/velor-react.css",
-    "./hooks": "./dist/hookes.es.js"
+    "./hooks": "./dist/hooks.es.js"
   },
   "dependencies": {
     "classnames": "^2.5.1",
