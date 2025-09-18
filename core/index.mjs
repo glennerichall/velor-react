@@ -25,3 +25,4 @@ export {Widget} from './Widget.jsx';
 export {WidgetGroup} from './Widget.jsx';
 export {default as Dropdown} from './Dropdown.jsx';
 export {default as ReactSlider} from './ReactSlider.jsx';
+export {default as SplitPaneH} from './SplitPaneH.jsx';
