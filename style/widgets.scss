@@ -1,6 +1,5 @@
 
-.widgets {
-  user-select: none;
+:root {
   --gap: 5px;
   --gap-h: 5px;
   --gap-v: 1px;
@@ -11,7 +10,10 @@
   --border-radius: 4px;
   --disabled-opacity: 0.45;
   --animation-duration: 0.3s;
+}
 
+.widgets {
+  user-select: none;
   box-sizing: border-box;
   margin: var(--gap);
   z-index: var(--layer-widgets);
