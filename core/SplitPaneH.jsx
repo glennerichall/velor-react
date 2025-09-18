@@ -131,6 +131,7 @@ export default function SplitPane({initial = 50, minA = 120, minB = 120, style, 
     const gridTemplate = useMemo(() => ({
         gridTemplateColumns: `${percentA}% 10px ${100 - percentA}%`,
         gridTemplateRows: "1fr",
+        display: 'grid'
     }), [percentA]);
 
     return (

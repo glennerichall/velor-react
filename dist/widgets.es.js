@@ -3482,7 +3482,8 @@ function hi({ initial: h = 50, minA: e = 120, minB: t = 120, style: s, children:
     m.key === "ArrowLeft" && (m.preventDefault(), S(-x)), m.key === "ArrowRight" && (m.preventDefault(), S(x)), m.key === "Home" && (m.preventDefault(), S(-100)), m.key === "End" && (m.preventDefault(), S(100));
   }, [e, t]), u = he(() => c(J(h, 0, 100)), [h]), d = dt(() => ({
     gridTemplateColumns: `${a}% 10px ${100 - a}%`,
-    gridTemplateRows: "1fr"
+    gridTemplateRows: "1fr",
+    display: "grid"
   }), [a]);
   return /* @__PURE__ */ g.createElement(
     "div",
