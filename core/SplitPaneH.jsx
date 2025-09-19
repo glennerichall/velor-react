@@ -7,49 +7,30 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 
-/**
- * SplitPane (Horizontal only)
- * - Draggable divider between two panes (left/right)
- * - Children-based API instead of a/b props
- * - Mouse, touch (Pointer events), and keyboard accessible
- * - Min sizes in pixels; internal state stored as percentage
- * - Plain JSX (no TypeScript), no Tailwind
- *
- * Usage:
- *   export default function Page() {
- *     return (
- *       <div style={{ height: "100vh", width: "100vw", padding: 16, boxSizing: "border-box", background: "#f6f7f9" }}>
- *         <h1 style={{ fontSize: 20, margin: 0, marginBottom: 8 }}>Split Pane Demo</h1>
- *         <SplitPane initial={50} minA={160} minB={160} style={{ height: "70vh", border: "1px solid #e1e4ea", borderRadius: 12, background: "#fff" }}>
- *           <div style={{ height: "100%", padding: 12 }}>Left pane (A)</div>
- *           <div style={{ height: "100%", padding: 12 }}>Right pane (B)</div>
- *         </SplitPane>
- *       </div>
- *     );
- *   }
- */
-
-function clamp(n, min, max) {
-    return Math.max(min, Math.min(max, n));
-}
-
-export default function SplitPane({initial = 50, minA = 120, minB = 120, style, children, onChange}) {
+export default function SplitPaneH({initial = 50, minA = 120, minB = 120, maxA, style, children, onChange}) {
     const containerRef = useRef(null);
     const [percentA, setPercentA] = useState(clamp(initial, 0, 100));
     const draggingRef = useRef(false);
 
-    // Ensure two children
     const [childA, childB] = React.Children.toArray(children);
 
-    // Update on window resize to respect min px constraints
+    function clamp(n, min, max) {
+        return Math.max(min, Math.min(max, n));
+    }
+
+    const enforceBounds = useCallback((total, value) => {
+        const minPercentA = (minA / total) * 100;
+        const minPercentB = (minB / total) * 100;
+        const maxPercentA = typeof maxA === "number" ? (maxA / total) * 100 : 100 - minPercentB;
+        return clamp(value, minPercentA, maxPercentA);
+    }, [minA, minB, maxA]);
+
     const enforceMins = useCallback(() => {
         const el = containerRef.current;
         if (!el) return;
         const total = el.clientWidth;
-        const minPercentA = (minA / total) * 100;
-        const minPercentB = (minB / total) * 100;
-        setPercentA((p) => clamp(p, minPercentA, 100 - minPercentB));
-    }, [minA, minB]);
+        setPercentA((p) => enforceBounds(total, p));
+    }, [enforceBounds]);
 
     useEffect(() => {
         enforceMins();
@@ -68,12 +49,10 @@ export default function SplitPane({initial = 50, minA = 120, minB = 120, style, 
         const onMove = (ev) => {
             if (!draggingRef.current) return;
             const rect = el.getBoundingClientRect();
-            const pos = ev.clientX - rect.left;
             const total = rect.width;
+            const pos = ev.clientX - rect.left;
             let nextPercent = (pos / total) * 100;
-            const minPercentA = (minA / total) * 100;
-            const minPercentB = (minB / total) * 100;
-            nextPercent = clamp(nextPercent, minPercentA, 100 - minPercentB);
+            nextPercent = enforceBounds(total, nextPercent);
             setPercentA(nextPercent);
             if (onChange) onChange(Math.round(nextPercent * 100) / 100);
         };
@@ -92,7 +71,7 @@ export default function SplitPane({initial = 50, minA = 120, minB = 120, style, 
         window.addEventListener("pointermove", onMove);
         window.addEventListener("pointerup", onUp);
         window.addEventListener("pointercancel", onUp);
-    }, [minA, minB, onChange]);
+    }, [enforceBounds, onChange]);
 
     const handleKey = useCallback((e) => {
         const el = containerRef.current;
@@ -102,9 +81,7 @@ export default function SplitPane({initial = 50, minA = 120, minB = 120, style, 
         const stepPct = (stepPx / total) * 100;
 
         const apply = (deltaPct) => {
-            const minPctA = (minA / total) * 100;
-            const minPctB = (minB / total) * 100;
-            setPercentA((p) => clamp(p + deltaPct, minPctA, 100 - minPctB));
+            setPercentA((p) => enforceBounds(total, p + deltaPct));
         };
 
         if (e.key === "ArrowLeft") {
@@ -115,7 +92,6 @@ export default function SplitPane({initial = 50, minA = 120, minB = 120, style, 
             e.preventDefault();
             apply(stepPct);
         }
-
         if (e.key === "Home") {
             e.preventDefault();
             apply(-100);
@@ -124,9 +100,9 @@ export default function SplitPane({initial = 50, minA = 120, minB = 120, style, 
             e.preventDefault();
             apply(100);
         }
-    }, [minA, minB]);
+    }, [enforceBounds]);
 
-    const reset = useCallback(() => setPercentA(clamp(initial, 0, 100)), [initial]);
+    const reset = useCallback(() => setPercentA((p) => clamp(initial, 0, 100)), [initial]);
 
     const gridTemplate = useMemo(() => ({
         gridTemplateColumns: `${percentA}% 10px ${100 - percentA}%`,
@@ -163,10 +139,11 @@ export default function SplitPane({initial = 50, minA = 120, minB = 120, style, 
     );
 }
 
-SplitPane.propTypes = {
+SplitPaneH.propTypes = {
     initial: PropTypes.number,
     minA: PropTypes.number,
     minB: PropTypes.number,
+    maxA: PropTypes.number,
     style: PropTypes.object,
     children: PropTypes.node.isRequired,
     onChange: PropTypes.func,
