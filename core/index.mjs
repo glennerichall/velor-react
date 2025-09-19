@@ -2,6 +2,7 @@ import '../style/bootstrap.scss';
 import '../style/vanilla.scss';
 import '../style/widgets.scss';
 import '../style/slider.scss';
+import {useRangeSelection} from "./RangeSelection.jsx";
 
 
 export {default as Checkbox} from './Checkbox.jsx';
@@ -16,7 +17,7 @@ export {default as ModalOkCancel} from './ModalOkCancel.jsx';
 export {default as PinButtons} from './PinButtons.jsx';
 export {default as Pinnable} from './Pinnable.jsx';
 export {default as Progress} from './Progress.jsx';
-export {default as RangeSelection} from './RangeSelection.jsx';
+export {useRangeSelection, default as RangeSelection} from './RangeSelection.jsx';
 export {default as RenderInWindow} from './RenderInWindow.jsx';
 export {default as Slider} from './Slider.jsx';
 export {default as TableContextMenu} from './TableContextMenu.jsx';
