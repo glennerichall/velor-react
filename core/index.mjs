@@ -5,7 +5,6 @@ import '../style/slider.scss';
 import {useRangeSelection} from "./RangeSelection.jsx";
 
 
-export {default as Checkbox} from './Checkbox.jsx';
 export {default as Collapsible} from './Collapsible.jsx';
 export {default as Disable} from './Disable.jsx';
 export {default as DotNotification} from './DotNotification.jsx';

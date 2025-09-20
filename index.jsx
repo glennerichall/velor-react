@@ -1,7 +1,6 @@
 // noinspection ES6UnusedImports
 import React, {useState} from 'react';
 import ReactDom from "react-dom";
-import Checkbox from "./core/Checkbox";
 import Slider from "./core/Slider";
 
 import './style/vanilla.scss';
@@ -23,18 +22,7 @@ const Root = props => {
     const [sliderValue2, setSliderValue2] = useState(90);
 
     return <div className="widgets">
-        <div className={"widget-group grid grid-2"}>
-            <Checkbox label="hello"
-                      tooltip="Ola mundo"
-                      onChange={() => console.log(options)}
-                      target={options}
-                      name={"hello"}/>
 
-            <Checkbox label="world"
-                      target={options}
-                      name={"world"}/>
-
-        </div>
 
         <div className={"widget-group"}>
             <Slider

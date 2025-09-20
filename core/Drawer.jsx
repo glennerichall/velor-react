@@ -1,9 +1,16 @@
-import React, {useEffect, useState} from 'react';
+// noinspection ES6UnusedImports
+import React, {
+    useEffect,
+    useState
+} from 'react';
 
 import classNames from 'classnames';
 
 import {Spinner} from "react-bootstrap";
-import {ArrowBarLeft, ArrowBarRight} from "react-bootstrap-icons";
+import {
+    ArrowBarLeft,
+    ArrowBarRight
+} from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 
 export default props => {
