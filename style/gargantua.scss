@@ -1,0 +1,57 @@
+
+.gargantua {
+  flex-grow: 1;
+  position: relative;
+
+  >div {
+    display: flex;
+    justify-content: stretch;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .slider.slider-disabled .slider-track {
+    cursor: inherit;
+  }
+
+  .mock {
+    width: 10px;
+  }
+
+  .slider.slider-vertical {
+    height: calc(100% - 22px);
+    margin-right: -5px;
+    position: absolute;
+    right: 0;
+
+    .slider-handle {
+      width: 30px;
+      border-radius: 5px;
+      left: -5px;
+
+      &:hover {
+        filter: brightness(65%);
+      }
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+    margin-right: var(--gap);
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .slider-handle.custom {
+    background: grey;
+    width: 15px;
+    left: 3px;
+
+    &::before {
+      content: initial;
+    }
+  }
+}

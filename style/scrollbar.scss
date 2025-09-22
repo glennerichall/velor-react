@@ -1,0 +1,88 @@
+.vertical-range {
+  writing-mode: vertical-lr;
+  -webkit-appearance: none; /* For WebKit browsers (Chrome, Safari, Edge) */
+  appearance: none; /* Standard property */
+  background: transparent; /* Make the input background transparent */
+  --thumb-color: var(--bs-gray);
+  --thumb-hover-color: var(--bs-gray-700);
+  --thumb-active-color: var(--thumb-hover-color);
+  --thumb-width:  15px;
+  --thumb-height:  40px;
+  --thumb-border-radius:  3px;
+  --track-width: 8px;
+  --track-color:var(--bs-gray-400);
+  --track-hover-color:var(--bs-gray-500);
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-slider-thumb {
+    height: var(--thumb-height);
+    width: var(--thumb-width);
+    background: var(--thumb-color);
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin-left: calc((var(--thumb-width) - var(--track-width)) / -2 - 1px);
+    border-radius: var(--thumb-border-radius);
+    border: none;
+  }
+
+  &::-moz-range-thumb {
+    height: var(--thumb-height);
+    width: var(--thumb-width);
+    background: var(--thumb-color);
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin-left: calc((var(--thumb-width) - var(--track-width)) / -2);
+    border-radius: var(--thumb-border-radius);
+    border: none;
+  }
+
+  &::-ms-thumb {
+    height: var(--thumb-height);
+    width: var(--thumb-width);
+    background: var(--thumb-color);
+    cursor: pointer;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin-left: calc((var(--thumb-width) - var(--track-width)) / -2);
+    border-radius: var(--thumb-border-radius);
+    border: none;
+  }
+
+  &:hover {
+    --thumb-color: var(--thumb-hover-color);
+    --track-color: var(--track-hover-color);
+  }
+
+  &:active {
+    --thumb-color: var(--thumb-active-color);
+  }
+
+
+  /* Styling for WebKit browsers */
+  &::-webkit-slider-runnable-track {
+    width: var(--track-width);
+    background: var(--track-color);
+  }
+
+  /* Styling for Firefox */
+  &::-moz-range-track {
+    width: var(--track-width);
+    background: var(--track-color);
+    margin-right: 10px;
+  }
+
+  /* Styling for IE/Edge (legacy) */
+  &::-ms-track {
+    width: var(--track-width);
+    background: var(--track-color);
+    border-color: transparent; /* Important for IE/Edge */
+    color: transparent; /* Important for IE/Edge */
+  }
+
+
+  @supports (-moz-appearance: none) {
+    margin-right: calc(var(--track-width) / 2 * -1 - 2px);
+  }
+}

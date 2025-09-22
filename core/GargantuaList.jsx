@@ -1,135 +1,45 @@
 import React, {
+    useCallback,
+    useEffect,
     useRef,
     useState
 } from "react";
 
 import {useResizeDetector} from "react-resize-detector";
-import Slider from "./Slider.jsx";
-import {useInvalidate} from "../utils/hooks.mjs";
 
-class ListManager {
-    constructor() {
-        this.first = 0;
-        this.last = 0;
-        this.height = 0;
-        this.itemSize = 0;
-        this.itemCount = 0;
-        this.itemCountInViewport = 0;
-        this.items = [];
-        this.onChange = null;
-    }
+const List = (props, ref) => {
 
-    get enabled() {
-        return this.itemCount !== undefined &&
-            this.itemCount !== null && this.itemCount > 0;
-    }
+    // console.debug('GargantuaList.jsx');
 
-    get maxSlider() {
-        return this.itemCount - this.itemCountInViewport;
-    }
+    const targetRef = useRef();
 
-    hook(props) {
-        const {
-            itemSize,
-            itemCount,
-            itemRenderer,
-            onChange,
-            index
-        } = props;
+    const {
+        itemCount,
+        itemRenderer,
+        itemSize,
+        onChange
+    } = props;
 
-        if (this.itemRenderer !== itemRenderer ||
-            this.itemCount !== itemCount) {
-            this.items = [];
-        }
+    const [items, setItems] = useState([]);
+    const [first, setFirst] = useState(0);
+    const [last, setLast] = useState(0);
+    const [height, setHeight] = useState(0);
+    const [itemCountInViewport, setItemCountInViewport] = useState(0);
 
-        const needsRefresh =
-            this.itemCount !== itemCount ||
-            this.itemSize !== itemSize ||
-            this.itemRenderer !== itemRenderer ||
-            this.first !== index ||
-            this.items.length !== this.itemCountInViewport;
+    const max = itemCount - itemCountInViewport;
 
-        this.itemCount = itemCount;
-        this.itemSize = itemSize;
-        this.itemRenderer = itemRenderer;
-        this.onChange = onChange;
-        this.invalidate = useInvalidate();
+    const enabled = itemCount !== undefined &&
+        itemCount !== null && itemCount > 0;
 
-        const targetRef = useRef();
-        this.targetRef = targetRef;
-
-        useResizeDetector({
-            targetRef,
-            onResize: (width, height) => {
-                this.height = height;
-                this.update();
-                this.refresh();
-                this.invalidate();
-            }
-        });
-
-        if (index !== this.first) {
-            this.setValueSafe(index);
-        }
-
-        this.update();
-
-        if (needsRefresh) {
-            this.refresh();
-        }
-    }
-
-    onWheel = event => {
-        const dir = Math.sign(event.deltaY);
-        let newValue = this.first + dir;
-        this.setValueSafe(newValue);
-        this.refresh();
-        this.invalidate();
-    }
-
-    onSlide = event => {
-        const newValue = event.newValue;
-        this.setValueSafe(newValue);
-    }
-
-    setValueSafe(newValue) {
-        const items = this.itemCountInViewport;
-
-        // ajout de +1 parce que parfois on ne voit pas le dernier élément dans la liste
-        if (newValue >= this.itemCount - items + 1) {
-            newValue = this.itemCount - items + 1;
-        }
-        // dont do an else if since
-        // itemCount and items may be 0, so newValue = itemCount - items may be neg
-        if (newValue < 0) {
-            newValue = 0;
-        }
-        this.first = newValue;
-        this.update();
-    }
-
-    update() {
-        const {first, last} = this;
-        this.itemCountInViewport = Math.floor(this.height / this.itemSize) - 1;
-        this.last = Math.min(this.first + this.itemCountInViewport - 1, this.itemCount - 1);
-        if (isNaN(this.last)) {
-            this.last = this.first;
-        }
-        if (this.first !== first ||
-            this.last !== last) {
-            this.onChange?.call(null, this.first, this.last);
-        }
-    }
-
-    refresh() {
+    function refreshList() {
         const list = [];
-        if (!this.itemRenderer) {
+        if (!itemRenderer) {
             return;
         }
-        for (let i = this.first; i <= this.last; i++) {
-            const index = this.items.findIndex(x => x.index === i);
+        for (let i = first; i <= last; i++) {
+            const index = items.findIndex(x => x.index === i);
             if (index < 0) {
-                let element = this.itemRenderer(i);
+                let element = itemRenderer(i);
                 if (element !== null) {
                     list.push({
                         index: i,
@@ -137,55 +47,89 @@ class ListManager {
                     });
                 }
             } else {
-                list.push(this.items[index]);
+                list.push(items[index]);
             }
         }
-        this.items = list;
+        setItems(list);
     }
 
-    getElements() {
-        return this.items.map(x => x.element);
+    function updateRange(newIndex = first) {
+        let itemCountInViewport = Math.floor(height / itemSize) - 1;
+        let newLast = Math.min(newIndex + itemCountInViewport - 1, itemCount - 1);
+        if (isNaN(newLast)) {
+            newLast = newIndex;
+        }
+        setItemCountInViewport(itemCountInViewport);
+        setLast(newLast);
+        setFirst(newIndex);
     }
-}
 
-const useListManager = props => {
-    const [manager, _] = useState(() => new ListManager());
-    manager.hook(props);
-    return manager;
-}
+    function updateRangeSafe(newIndex = first) {
 
-const List = (props, ref) => {
+        newIndex = Number.parseInt(newIndex);
 
-    // console.debug('GargantuaList.jsx');
+        // ajout de +1 parce que parfois on ne voit pas le dernier élément dans la liste
+        if (newIndex >= itemCount - itemCountInViewport + 1) {
+            newIndex = itemCount - itemCountInViewport + 1;
+        }
+        // dont do an else if since
+        // itemCount and items may be 0, so newValue = itemCount - items may be neg
+        if (newIndex < 0) {
+            newIndex = 0;
+        }
 
-    const manager = useListManager(props);
+        updateRange(newIndex);
+    }
 
-    // the redundant div in the parent div.gargantua is mandatory since when unrolling accordion above the list in the
-    // navigator, all ancestors of gargantua list will be resized momentarily because before some gcode are removed from
-    // the dom, the list has too many elements thus it will be stretched. Conclusion, do not remove it.
+    function onSlider(event) {
+        updateRangeSafe(event.target.value);
+    }
+
+    function onWheel(event) {
+        const dir = Math.sign(event.deltaY);
+        let newValue = first + dir;
+        updateRangeSafe(newValue);
+    }
+
+    useEffect(() => {
+        if (onChange) {
+            refreshList();
+            onChange(first, last);
+        }
+    }, [first, last]);
+
+    useResizeDetector({
+        targetRef,
+        onResize: useCallback(({height}) => {
+            setHeight(height);
+            updateRangeSafe();
+            refreshList();
+        }, [items, last, first, height])
+    });
+
+    useEffect(() => {
+        updateRangeSafe();
+    }, [itemCount, itemSize]);
 
     return <div
         id={props.id}
         className="gargantua"
-        ref={manager.targetRef}
-        onWheel={manager.onWheel}>
+        ref={targetRef}
+        style={props.style}
+        onWheel={onWheel}>
 
         <div>
             <div className="content">
-                {manager.getElements()}
+                {items.map(x => x.element)}
             </div>
 
-            <div className="mock"></div>
-
-            <Slider
-                tooltip="always"
-                handle="custom"
-                change={manager.onSlide}
-                enabled={manager.enabled}
-                value={manager.first}
-                min={0}
-                max={manager.maxSlider}
-                orientation="vertical"
+            <input type="range"
+                   className="vertical-range"
+                   onChange={onSlider}
+                   disabled={!enabled}
+                   value={first}
+                   min={0}
+                   max={max}
             />
         </div>
     </div>

@@ -7,6 +7,9 @@ import './style/vanilla.scss';
 import './style/slider.scss';
 import './style/bootstrap.scss';
 import './style/widgets.scss';
+import './style/gargantua.scss';
+import './style/scrollbar.scss';
+import {GargantuaList} from "./core/index.mjs";
 
 
 const domRoot = document.getElementById("content");
@@ -21,9 +24,9 @@ const Root = props => {
     const [sliderValue1, setSliderValue1] = useState([10, 90]);
     const [sliderValue2, setSliderValue2] = useState(90);
 
+    const [index, setIndex] = useState(0);
+
     return <div className="widgets">
-
-
         <div className={"widget-group"}>
             <Slider
                 min={0}
@@ -49,7 +52,23 @@ const Root = props => {
             />
         </div>
 
-    </div>;
+        <GargantuaList itemSize={20}
+                       itemCount={10000}
+                       itemRenderer={item => <div style={{height:'20px'}}>{item}</div>}
+                       onChange={(item) => {
+                           setIndex(item);
+                       }}
+                       index={index}
+                       style={{
+                           height: '500px',
+                           width: '500px',
+                       }}
+        >
+
+        </GargantuaList>
+
+    </div>
+
 };
 
 ReactDom.render(<Root/>, domRoot);
