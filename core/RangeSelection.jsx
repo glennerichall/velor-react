@@ -1,188 +1,293 @@
 // noinspection ES6UnusedImports
-import React, {useEffect, useState} from "react";
-import classNames from "classnames";
-import {useInvalidate} from "../utils/hooks.mjs";
-
-class ItemManager {
-    constructor() {
-        this._rangeStart = -1;
-        this._rangeEnd = -1;
-        this._rangeClick = -1;
-        this._isSelecting = false;
-        this._autoScrollTimeout = null;
-        this._range = [];
-        this._onHover = null;
-        this._onClick = null;
-        this._onRange = null;
-        this._moveUp = null;
-        this._moveDown = null;
-        document.addEventListener('mouseup', this.onMouseUp);
-    }
-
-    onClick = (line, codeState, event) => {
-        const range = this._range;
-        if (range[0] !== -1 && range[1] !== -1 && event.shiftKey) {
-            if (this._rangeStart > line) {
-                this._rangeClick = this._rangeEnd;
-            } else {
-                this._rangeClick = this._rangeStart;
-            }
-            this.onMouseHover(line);
-            this.onMouseUp();
-        } else {
-            this._onClick(line, event);
-        }
-    }
-
-    onMouseUp = () => {
-        this._rangeClick = -1;
-        this._isSelecting = false;
-        this.stopAutoScroll();
-        this.invalidate();
-    };
-
-    onMouseDown = line => {
-        this._rangeClick = line;
-    };
-
-    onMouseHover = line => {
-        if (line !== null && this._rangeClick !== -1) {
-            this._isSelecting = true;
-            if (line < this._rangeClick) {
-                this._rangeStart = line;
-                this._rangeEnd = this._rangeClick;
-            } else if (line > this._rangeClick) {
-                this._rangeStart = this._rangeClick;
-                this._rangeEnd = line;
-            } else {
-                this._rangeStart = line;
-                this._rangeEnd = line;
-            }
-            this._range = [this._rangeStart, this._rangeEnd];
-            this._onRange(this._range);
-        } else {
-            this._onHover(line);
-        }
-    };
-
-    dispose() {
-        document.removeEventListener('mouseup', this.onMouseUp);
-    }
-
-    classNames() {
-        return {
-            'cellSelection': this._isSelecting
-        }
-    }
-
-    autoScrollUp() {
-        const moveUp = () => {
-            const firstLine = this._moveUp();
-            this.onMouseHover(firstLine);
-            this._autoScrollTimeout = setTimeout(moveUp, 50);
-        }
-        if (this._isSelecting) {
-            moveUp();
-        }
-    }
-
-    autoScrollDown() {
-        const moveDown = () => {
-            const lastLine = this._moveDown();
-            this.onMouseHover(lastLine);
-            this._autoScrollTimeout = setTimeout(moveDown, 50);
-        }
-        if (this._isSelecting) {
-            moveDown();
-        }
-    }
-
-    stopAutoScroll() {
-        clearTimeout(this._autoScrollTimeout);
-    }
-
-    isSelecting() {
-        return this._isSelecting;
-    }
-}
+import React, {
+    useEffect,
+    useState
+} from "react";
 
 export function useRangeSelection() {
-    const [manager, setManager] = useState({
-        classNames: () => {},
-        isSelecting: () => false
+
+    const [range, setRange] = useState({
+        start: -1,
+        end: -1,
+        click: -1
     });
+    const [isSelecting, setIsSelecting] = useState(false);
 
-    useEffect(() => {
-        const manager = new ItemManager();
-        setManager(manager);
-        return () => manager.dispose();
-    }, []);
+    console.log('useRangeSelection', range);
 
-    manager.invalidate = useInvalidate();
+    function onClick(index, event) {
+
+
+        if (range[0] !== -1 && range[1] !== -1 && event.shiftKey) {
+            // A range is already defined. Add a new item to the selection range.
+
+            let click;
+            if (range.start > index) {
+                click = range.end;
+            } else {
+                click = range.start;
+            }
+            setRange({
+                ...range,
+                click
+            })
+            onMouseHover(index);
+            _onMouseUp();
+        } else {
+            setRange({
+                ...range,
+                click: index
+            })
+        }
+    }
+
+    function onMouseUp() {
+        setIsSelecting(false);
+        setRange({
+            ...range,
+            click: -1
+        });
+    }
+
+    function onMouseDown(index) {
+        setRange({
+            ...range,
+            click: index
+        });
+    }
+
+
+    function onMouseHover(index) {
+        console.log('onMouseHover', index, range);
+
+        if (index !== null && range.click !== -1) {
+            // we are selecting a range since an item was clicked
+            // and a previous click was registered (i.e., a drag state)
+
+            setIsSelecting(true);
+            let start, end;
+            if (index < range.click) {
+                // the range is down
+                start = index;
+                end = range.click;
+            } else if (index > range.click) {
+                // the range is going up
+                start = range.click;
+                end = index;
+            } else {
+                // only one cell is selected
+                start = index;
+                end = index;
+            }
+
+            // update the range
+            setRange({
+                ...range,
+                start,
+                end
+            });
+        } else {
+            // not dragging, just hovering over a cell
+            // onHover(index);
+        }
+    }
 
     return {
-        rangeSelectionProps : {manager},
-        onClick: manager.onClick,
-        onMouseDown: manager.onMouseDown,
-        onMouseHover: manager.onMouseHover,
+        onClick,
+        onMouseDown,
+        onMouseUp,
+        onMouseHover,
+        onMouseMove,
+        isSelecting,
+        range: [range.start, range.end],
     };
 }
 
-
-export default props => {
-
+export function AutoScroll(props) {
     const {
-        manager,
-        onHover,
-        onClick,
-        onRange,
-        onMoveUp,
-        onMoveDown,
-        className,
-        id,
-        range
+        onAutoScroll,
+        isSelecting
     } = props;
 
-    if (manager) {
-        manager._range = range;
-        manager._onHover = onHover;
-        manager._onClick = onClick;
-        manager._onRange = onRange;
-        manager._moveUp = onMoveUp;
-        manager._moveDown = onMoveDown;
+    const [autoScrollTimeout, setAutoScrollTimeout] = useState(false);
+
+    function startAutoScroll() {
+        const move = () => {
+            onAutoScroll();
+            setAutoScrollTimeout(setTimeout(move, 50));
+        }
+        if (isSelecting) {
+            move();
+        }
+    }
+
+    function stopAutoScroll() {
+        clearTimeout(autoScrollTimeout);
     }
 
     return <div
-            id={id}
-            className={classNames(className, manager.classNames())}
-            style={{
-
-                position: 'relative',
-                pointerEvents: 'all',
-            }}>
-
-            <div
-                onMouseEnter={() => manager.autoScrollUp()}
-                onMouseLeave={() => manager.stopAutoScroll()}
-                style={{
-                    width: "100%",
-                    position: "absolute",
-                    top: "0",
-                    height: "15px",
-                    zIndex: manager.isSelecting() ? 1000 : -1
-                }}></div>
-
-            <div
-                onMouseEnter={() => manager.autoScrollDown()}
-                onMouseLeave={() => manager.stopAutoScroll()}
-                style={{
-                    width: "100%",
-                    position: "absolute",
-                    bottom: "0",
-                    height: "15px",
-                    zIndex: manager.isSelecting() ? 1000 : -1
-                }}></div>
-
-            {props.children}
-        </div>
+        onMouseEnter={startAutoScroll}
+        onMouseLeave={stopAutoScroll}
+        style={{
+            width: "100%",
+            position: "absolute",
+            top: "0",
+            height: "15px",
+            zIndex: isSelecting ? 1000 : -1
+        }}></div>
 }
+
+// export default props => {
+//
+//     const {
+//         onHover,
+//         onClick,
+//         onRange,
+//         onMoveUp,
+//         onMoveDown,
+//         className,
+//         id,
+//         range,
+//         selectionStart,
+//
+//     } = props;
+//
+//     const [_range, _setRange] = useState({});
+//     const [_isSelecting, _setIsSelecting] = useState(false);
+//     const [_autoScrollTimeout, _setAutoScrollTimeout] = useState(false);
+//
+//     useEffect((line, event) => {
+//         if (range[0] !== -1 && range[1] !== -1 && event.shiftKey) {
+//             let click;
+//             if (_range.start > line) {
+//                 click = _range.end;
+//             } else {
+//                 click = _range.start;
+//             }
+//             _setRange({
+//                 ..._range,
+//                 click
+//             })
+//             _onMouseHover(line);
+//             _onMouseUp();
+//         } else {
+//             onClick(line, event);
+//         }
+//     }, [selectionStart]);
+//
+//     function _onMouseUp() {
+//         _setIsSelecting(false);
+//         _setRange({
+//             ..._range,
+//             click: -1
+//         });
+//         stopAutoScroll();
+//     }
+//
+//     function _onMouseDown(line) {
+//         _setRange({
+//             ..._range,
+//             click: line
+//         });
+//     }
+//
+//     function _onMouseHover(line) {
+//         if (line !== null && _range.click !== -1) {
+//             _setIsSelecting(true);
+//             let start, end;
+//             if (line < _range.click) {
+//                 start = line;
+//                 end = _range.click;
+//             } else if (line > _range.click) {
+//                 start = _range.click;
+//                 end = line;
+//             } else {
+//                 start = line;
+//                 end = line;
+//             }
+//             onRange([start, end]);
+//             _setRange({
+//                 ..._range,
+//                 start,
+//                 end
+//             });
+//         } else {
+//             onHover(line);
+//         }
+//     }
+//
+//     // if (manager) {
+//     //     manager._range = range;
+//     //     manager._onHover = onHover;
+//     //     manager._onClick = onClick;
+//     //     manager._onRange = onRange;
+//     //     manager._moveUp = onMoveUp;
+//     //     manager._moveDown = onMoveDown;
+//     // }
+//
+//     function autoScrollUp() {
+//         const moveUp = () => {
+//             const firstLine = onMoveUp();
+//             _onMouseHover(firstLine);
+//             _setAutoScrollTimeout(setTimeout(moveUp, 50));
+//         }
+//         if (_isSelecting) {
+//             moveUp();
+//         }
+//     }
+//
+//     function autoScrollDown() {
+//         const moveDown = () => {
+//             const lastLine = onMoveDown();
+//             _onMouseHover(lastLine);
+//             _setAutoScrollTimeout(setTimeout(moveDown, 50));
+//         }
+//         if (_isSelecting) {
+//             moveDown();
+//         }
+//     }
+//
+//     function stopAutoScroll() {
+//         clearTimeout(this._autoScrollTimeout);
+//     }
+//
+//     useEffect(() => {
+//         document.addEventListener('mouseup', _onMouseUp);
+//         return () => document.removeEventListener('mouseup', _onMouseUp);
+//     }, [])
+//
+//     return <div
+//         id={id}
+//         className={classNames(className, {
+//             'cellSelection': _isSelecting
+//         })}
+//         style={{
+//             position: 'relative',
+//             pointerEvents: 'all',
+//         }}>
+//
+//         <div
+//             onMouseEnter={autoScrollUp}
+//             onMouseLeave={stopAutoScroll}
+//             style={{
+//                 width: "100%",
+//                 position: "absolute",
+//                 top: "0",
+//                 height: "15px",
+//                 zIndex: _isSelecting ? 1000 : -1
+//             }}></div>
+//
+//         <div
+//             onMouseEnter={autoScrollDown}
+//             onMouseLeave={stopAutoScroll}
+//             style={{
+//                 width: "100%",
+//                 position: "absolute",
+//                 bottom: "0",
+//                 height: "15px",
+//                 zIndex: _isSelecting ? 1000 : -1
+//             }}></div>
+//
+//         {props.children}
+//     </div>
+// }
