@@ -110,6 +110,24 @@ export function useInvalidateOnAnyEmitterEvent(emitters, event) {
     useEffect(broadcast(...emitters.map(e => e.on(event, invalidate))), [emitters]);
 }
 
+export function useKeyDown(callback, keyOrKeys = []) {
+    useEffect(() => {
+        const onKeyDown = (event) => {
+            const keys = Array.isArray(keyOrKeys) ? keyOrKeys : [keyOrKeys];
+            if (keys.includes(event.key) || keys.length === 0) {
+                callback(event);
+            }
+        };
+        document.addEventListener('keydown', onKeyDown);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    });
+}
+
+export function useInvalidateOnKeyDown(keyOrKeys = []) {
+    const invalidate = useInvalidate();
+    useKeyDown(invalidate, keyOrKeys);
+}
+
 export function useRangeSelection(configs = {}) {
     const pointerDownLocation = useRef(null);
     const [isSelecting, setIsSelecting] = useState(false);
@@ -152,7 +170,7 @@ export function useRangeSelection(configs = {}) {
     }, []);
 
     const onMouseDown = useCallback((event, index) => {
-        if(event.button !== 0) {
+        if (event.button !== 0) {
             return;
         }
         pointerDownLocation.current = index;
@@ -197,18 +215,6 @@ export function useRangeSelection(configs = {}) {
         setRange([null, null]);
         setIsSelecting(false);
     }
-
-    useEffect(() => {
-        const clearRange = (event) => {
-            if (event.key === 'Escape') {
-                pointerDownLocation.current = null;
-                setRange([null, null]);
-                setIsSelecting(false);
-            }
-        }
-        document.addEventListener('keydown', clearRange);
-        return () => document.removeEventListener('keydown', clearRange);
-    }, []);
 
     const callbacks = item => {
         return {

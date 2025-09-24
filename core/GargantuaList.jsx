@@ -8,7 +8,7 @@ import React, {
 import {useResizeDetector} from "react-resize-detector";
 import {noOp} from "velor-utils/utils/functional.mjs";
 
-const List = (props, ref) => {
+export default (props) => {
 
     // console.debug('GargantuaList.jsx');
 
@@ -96,5 +96,3 @@ const List = (props, ref) => {
         </div>
     </div>
 }
-
-export default React.forwardRef(List)

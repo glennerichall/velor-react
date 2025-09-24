@@ -3,21 +3,38 @@ import {GargantuaList} from "./index.mjs";
 // noinspection ES6UnusedImports
 import React, {
     useCallback,
+    useMemo,
     useRef,
     useState
 } from "react";
-import {useRangeSelection} from "../utils/hooks.mjs";
+import {
+    useKeyDown,
+    useRangeSelection
+} from "../utils/hooks.mjs";
 
 export default props => {
 
     const {
         itemRenderer,
         itemCount,
+        keyBindings = {},
         ...otherProps
     } = props;
 
     const [index, setIndex] = useState(0);
     const itemCountInViewport = useRef(0);
+
+    const effectKeyBindings = {
+        clear: 'Escape',
+        pageUp: 'PageUp',
+        pageDown: 'PageDown',
+        end: 'End',
+        home: 'Home',
+        down: 'ArrowDown',
+        up: 'ArrowUp',
+
+        ...keyBindings,
+    };
 
     const style = props.style || {};
 
@@ -27,7 +44,8 @@ export default props => {
         range,
         setRange,
         onMouseUp,
-        rangeValid
+        rangeValid,
+        clearRange
     } = useRangeSelection({
         min: 0,
         max: itemCount - 1,
@@ -48,6 +66,20 @@ export default props => {
         left: "-2500px",
         zIndex: 1000,
     };
+
+    const keyBindingCallbacks = {
+        pageUp: () => setIndex(index => Math.max(0, index - itemCountInViewport.current)),
+        pageDown: () => setIndex(index => Math.min(index + itemCountInViewport.current, itemCount - itemCountInViewport.current)),
+        end: () => setIndex(itemCount - itemCountInViewport.current),
+        home: () => setIndex(0),
+        up: () => setIndex(index => Math.max(index - 1, 0)),
+        down: () => setIndex(index => Math.min(index + 1, itemCount - itemCountInViewport.current)),
+        clear: clearRange,
+    };
+
+    for (let key in keyBindingCallbacks) {
+        useKeyDown(keyBindingCallbacks[key], effectKeyBindings[key]);
+    }
 
     function updateIndexRange(direction) {
         setIndex(index => {

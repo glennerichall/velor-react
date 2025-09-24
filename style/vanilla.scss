@@ -1,19 +1,3 @@
-// label input
-// or
-// input label
-//input:is([type='checkbox'],[type='number']) + label,
-//label + input:is([type='checkbox'],[type='number'],[type='text']) {
-//  margin-left: 0.4em;
-//}
-
-// when label+input or input+label combinations
-// are in a grid, every element follows precedent rules.
-// Remove the margin for odd element of this grid.
-.checkbox-grid {
-  :not(:first-child):nth-child(odd) {
-    margin-left: inherit;
-  }
-}
 
 input:not([disabled]) {
   cursor: pointer;

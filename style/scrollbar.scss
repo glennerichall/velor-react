@@ -55,6 +55,10 @@
     --track-color: var(--track-hover-color);
   }
 
+  &:focus {
+    outline: none;
+  }
+
   &:active {
     --thumb-color: var(--thumb-active-color);
   }
