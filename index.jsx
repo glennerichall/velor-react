@@ -1,5 +1,10 @@
 // noinspection ES6UnusedImports
-import React, {useState} from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import ReactDom from "react-dom";
 import Slider from "./core/Slider";
 
@@ -9,11 +14,8 @@ import './style/bootstrap.scss';
 import './style/widgets.scss';
 import './style/gargantua.scss';
 import './style/scrollbar.scss';
-import {
-    AutoScroll,
-    GargantuaList,
-    useRangeSelection
-} from "./core/index.mjs";
+import {useRangeSelection} from "./utils/hooks.mjs";
+import DynamicList from "./core/DynamicList.jsx";
 
 
 const domRoot = document.getElementById("content");
@@ -23,19 +25,22 @@ const Root = props => {
     const [sliderValue1, setSliderValue1] = useState([10, 90]);
     const [sliderValue2, setSliderValue2] = useState(90);
 
-    const [index, setIndex] = useState(0);
+    function render(item, callbacks, {
+        rangeValid, selectionRange, isSelecting
+    }) {
+        return <div
+            {...callbacks}
+            className="list-item"
+            style={{
+                padding: '0px 5px',
+                height: '20px',
+                background: rangeValid &&
+                item >= selectionRange[0] && item <= selectionRange[1] ? (isSelecting ? 'lightblue' : 'lightgray') : 'transparent',
+            }}>
+            {item}
+        </div>
+    }
 
-    const {
-        onClick,
-        onMouseDown,
-        onMouseUp,
-        onMouseHover,
-        onMouseMove,
-        range,
-        isSelecting
-    } = useRangeSelection();
-
-    console.log('range', range, isSelecting)
 
     return <div className="widgets">
         <div className={"widget-group"}>
@@ -63,38 +68,14 @@ const Root = props => {
             />
         </div>
 
-        <div style={{
-            height: '500px',
+        <DynamicList style={{
+            height: '510px',
             width: '500px',
-        }}>
-            <AutoScroll
-                onAutoScroll={() => setIndex(index => index + 1)}
-            />
+        }}
+                     itemRenderer={render}
+                     itemCount={10000}>
 
-            <GargantuaList itemSize={20}
-                           itemCount={10000}
-                           itemRenderer={item => {
-                               return <div
-                                   className="list-item"
-                                   onClick={(event) => onClick(item, event)}
-                                   onMouseDown={(event) => onMouseDown(item, event)}
-                                   onMouseUp={(event) => onMouseUp(item, event)}
-                                   onMouseEnter={() => onMouseHover(item)}
-                                   onMouseLeave={() => onMouseHover(null)}
-                                   onMouseMove={() => onMouseMove(item)}
-                                   style={{height: '20px'}}>
-                                   {item}
-                               </div>
-                           }}
-                           onChange={(item) => {
-                               setIndex(item);
-                           }}
-                           index={index}
-                           style={{
-                               height: '500px',
-                               width: '500px',
-                           }}
-            /></div>
+        </DynamicList>
 
     </div>
 
@@ -102,3 +83,4 @@ const Root = props => {
 
 ReactDom.render(<Root/>, domRoot);
 
+export {useRangeSelection} from "./utils/hooks.mjs";

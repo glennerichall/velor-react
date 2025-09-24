@@ -6,6 +6,7 @@ import React, {
 } from "react";
 
 import {useResizeDetector} from "react-resize-detector";
+import {noOp} from "velor-utils/utils/functional.mjs";
 
 const List = (props, ref) => {
 
@@ -17,99 +18,60 @@ const List = (props, ref) => {
         itemCount,
         itemRenderer,
         itemSize,
-        onChange
+        index,
+        setIndex,
+        onViewportChange = noOp,
     } = props;
 
-    const [items, setItems] = useState([]);
-    const [first, setFirst] = useState(0);
-    const [last, setLast] = useState(0);
     const [height, setHeight] = useState(0);
-    const [itemCountInViewport, setItemCountInViewport] = useState(0);
+
+    const setFirst = setIndex;
+
+    let itemCountInViewport = Math.floor(height / itemSize) - 1;
+    let first = Math.min(itemCount - itemCountInViewport, Math.max(0, index));
+    let last = Math.min(first + itemCountInViewport - 1, itemCount - 1);
+    if (isNaN(last)) {
+        last = first;
+    }
 
     const max = itemCount - itemCountInViewport;
 
     const enabled = itemCount !== undefined &&
         itemCount !== null && itemCount > 0;
 
-    function refreshList() {
-        const list = [];
-        if (!itemRenderer) {
-            return;
-        }
-        for (let i = first; i <= last; i++) {
-            const index = items.findIndex(x => x.index === i);
-            if (index < 0) {
-                let element = itemRenderer(i);
-                if (element !== null) {
-                    list.push({
-                        index: i,
-                        element
-                    });
-                }
-            } else {
-                list.push(items[index]);
-            }
-        }
-        setItems(list);
+    const getFirstSafe = first => {
+        let max = itemCount - itemCountInViewport;
+        return Math.max(0, Math.min(first, max));
     }
 
-    function updateRange(newIndex = first) {
-        let itemCountInViewport = Math.floor(height / itemSize) - 1;
-        let newLast = Math.min(newIndex + itemCountInViewport - 1, itemCount - 1);
-        if (isNaN(newLast)) {
-            newLast = newIndex;
-        }
-        setItemCountInViewport(itemCountInViewport);
-        setLast(newLast);
-        setFirst(newIndex);
-    }
+    const onSlider = useCallback(event => {
+        setFirst(getFirstSafe(event.target.value));
+    }, [itemCount, itemCountInViewport]);
 
-    function updateRangeSafe(newIndex = first) {
-
-        newIndex = Number.parseInt(newIndex);
-
-        // ajout de +1 parce que parfois on ne voit pas le dernier élément dans la liste
-        if (newIndex >= itemCount - itemCountInViewport + 1) {
-            newIndex = itemCount - itemCountInViewport + 1;
-        }
-        // dont do an else if since
-        // itemCount and items may be 0, so newValue = itemCount - items may be neg
-        if (newIndex < 0) {
-            newIndex = 0;
-        }
-
-        updateRange(newIndex);
-    }
-
-    function onSlider(event) {
-        updateRangeSafe(event.target.value);
-    }
-
-    function onWheel(event) {
+    const onWheel = useCallback(event => {
         const dir = Math.sign(event.deltaY);
         let newValue = first + dir;
-        updateRangeSafe(newValue);
-    }
-
-    useEffect(() => {
-        if (onChange) {
-            refreshList();
-            onChange(first, last);
-        }
-    }, [first, last]);
+        setFirst(first => getFirstSafe(newValue + first));
+    }, [itemCount, itemCountInViewport]);
 
     useResizeDetector({
         targetRef,
         onResize: useCallback(({height}) => {
             setHeight(height);
-            updateRangeSafe();
-            refreshList();
-        }, [items, last, first, height])
+        }, [])
     });
 
+    const items = [];
+    for (let i = first; i <= last; i++) {
+        let element = itemRenderer(i);
+        if (element !== null) {
+            items.push(element);
+        }
+    }
+
     useEffect(() => {
-        updateRangeSafe();
-    }, [itemCount, itemSize]);
+        onViewportChange(itemCountInViewport);
+    }, [itemCountInViewport]);
 
     return <div
         id={props.id}
@@ -120,7 +82,7 @@ const List = (props, ref) => {
 
         <div>
             <div className="content">
-                {items.map(x => x.element)}
+                {items}
             </div>
 
             <input type="range"

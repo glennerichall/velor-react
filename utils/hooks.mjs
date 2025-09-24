@@ -1,4 +1,5 @@
 import {
+    useCallback,
     useEffect,
     useRef,
     useState
@@ -27,7 +28,7 @@ export function useInvalidateOnce() {
     }, []);
 }
 
-export const useAutoFocus = () => {
+export function useAutoFocus() {
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -37,9 +38,9 @@ export const useAutoFocus = () => {
     }, []);
 
     return inputRef;
-};
+}
 
-export const useCaptureAll = (options = {}) => {
+export function useCaptureAll(options = {}) {
     const {
         onClick = noOp,
         onKeyDown = noOp,
@@ -85,7 +86,6 @@ export const useCaptureAll = (options = {}) => {
     }, [show]);
 }
 
-
 export function useEpoch() {
     const [epoch, setEpoch] = useState(0);
     return [epoch, () => setEpoch(epoch => epoch + 1)];
@@ -108,4 +108,142 @@ export function useInvalidateOnAny(emitter) {
 export function useInvalidateOnAnyEmitterEvent(emitters, event) {
     const [epoch, invalidate] = useEpoch();
     useEffect(broadcast(...emitters.map(e => e.on(event, invalidate))), [emitters]);
+}
+
+export function useRangeSelection(configs = {}) {
+    const pointerDownLocation = useRef(null);
+    const [isSelecting, setIsSelecting] = useState(false);
+    const [range, setRange] = useState([null, null]);
+
+    const {
+        max = Number.MAX_SAFE_INTEGER,
+        min = Number.MIN_SAFE_INTEGER,
+    } = configs;
+
+    const onClick = useCallback((event, item) => {
+        let end = range[1];
+        let start = range[0];
+
+        if (event.shiftKey) {
+            if (start !== null && end !== null) {
+                // A range is already defined. Add a new item to the selection range.
+                if (end < item) {
+                    end = item;
+                } else {
+                    start = item;
+                }
+
+                // clamp values to min/max
+                start = Math.max(start, min);
+                end = Math.min(end, max);
+
+                setRange([start, end]);
+            } else {
+                // no range was defined, select the item
+                item = Math.min(Math.max(item, min), max);
+                setRange([item, item]);
+            }
+        }
+    }, [...range]);
+
+    const onMouseUp = useCallback(() => {
+        setIsSelecting(false);
+        pointerDownLocation.current = null;
+    }, []);
+
+    const onMouseDown = useCallback((event, index) => {
+        if(event.button !== 0) {
+            return;
+        }
+        pointerDownLocation.current = index;
+    }, []);
+
+    const onMouseHover = useCallback((event, index) => {
+        const location = pointerDownLocation.current;
+        if (index !== null && location !== null) {
+            // we are selecting a range since an item was clicked
+            // and a previous click was registered (i.e., a drag state)
+
+            setIsSelecting(true);
+            let start, end;
+            if (index < location) {
+                // the range is down
+                start = index;
+                end = location;
+            } else if (index > location) {
+                // the range is going up
+                start = location;
+                end = index;
+            } else {
+                // only one cell is selected
+                start = index;
+                end = index;
+            }
+
+            // clamp values to min/max
+            start = Math.max(start, min);
+            end = Math.min(end, max);
+
+            // update the range
+            setRange([start, end]);
+        } else {
+            // not dragging, just hovering over a cell
+            // onHover(index);
+        }
+    }, [pointerDownLocation, range, setRange]);
+
+    const clearRange = () => {
+        pointerDownLocation.current = null;
+        setRange([null, null]);
+        setIsSelecting(false);
+    }
+
+    useEffect(() => {
+        const clearRange = (event) => {
+            if (event.key === 'Escape') {
+                pointerDownLocation.current = null;
+                setRange([null, null]);
+                setIsSelecting(false);
+            }
+        }
+        document.addEventListener('keydown', clearRange);
+        return () => document.removeEventListener('keydown', clearRange);
+    }, []);
+
+    const callbacks = item => {
+        return {
+            onMouseDown: (event) => onMouseDown(event, item),
+            onMouseUp: (event) => onMouseUp(event, item),
+            onMouseEnter: (event) => onMouseHover(event, item),
+            onMouseLeave: (event) => onMouseHover(event, null),
+            onClick: (event) => onClick(event, item),
+        };
+    };
+
+    return {
+        callbacks,
+        onClick,
+        onMouseDown,
+        onMouseUp,
+        onMouseHover,
+        isSelecting,
+        range,
+        setRange: (rangeOrFunction) => {
+            setRange(range => {
+                if (typeof rangeOrFunction === 'function') {
+                    range = rangeOrFunction(range);
+                } else {
+                    range = rangeOrFunction;
+                }
+
+                let [start, end] = range;
+                // clamp values to min/max
+                start = Math.max(start, min);
+                end = Math.min(end, max);
+                return [start, end];
+            });
+        },
+        clearRange,
+        rangeValid: range[0] !== null && range[1] !== null,
+    };
 }
