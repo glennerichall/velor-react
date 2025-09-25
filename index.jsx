@@ -94,7 +94,6 @@ const Root = props => {
                      range={range}
                      selectionRange={selectionRange}
                      itemRenderer={render}
-                     showSelectionInGutter={true}
                      indicators={[
                          {
                              name: 'selection',

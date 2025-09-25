@@ -1,6 +1,6 @@
 {
   "name": "velor-react",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "",
   "license": "ISC",
   "author": "",
@@ -17,7 +17,7 @@
     ".": "./dist/widgets.es.js",
     "./utils": "./dist/utils.es.js",
     "./hooks": "./dist/hooks.es.js",
-    "./style.css": "./dist/velor-react.css"
+    "./dist/velor-react.css": "./dist/velor-react.css"
   },
   "dependencies": {
     "bootstrap-slider": "^11.0.2",
