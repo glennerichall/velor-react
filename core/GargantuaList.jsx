@@ -6,6 +6,8 @@ import React, {
 } from "react";
 import {useResizeDetector} from "react-resize-detector";
 
+import '../style/scrollbar.scss'
+
 export default (props) => {
 
     // console.debug('GargantuaList.jsx');
