@@ -3,58 +3,35 @@ import {GargantuaList} from "./index.mjs";
 // noinspection ES6UnusedImports
 import React, {
     useCallback,
+    useEffect,
     useMemo,
     useRef,
     useState
 } from "react";
-import {
-    useKeyDown,
-    useRangeSelection
-} from "../utils/hooks.mjs";
+import {useRangeSelection} from "../utils/hooks.mjs";
 
 export default props => {
 
     const {
+        range,
+        selectionRange,
         itemRenderer,
-        itemCount,
         keyBindings = {},
+        indicators = [],
         ...otherProps
     } = props;
-
-    const [index, setIndex] = useState(0);
-    const itemCountInViewport = useRef(0);
-
-    const effectKeyBindings = {
-        clear: 'Escape',
-        pageUp: 'PageUp',
-        pageDown: 'PageDown',
-        end: 'End',
-        home: 'Home',
-        down: 'ArrowDown',
-        up: 'ArrowUp',
-
-        ...keyBindings,
-    };
 
     const style = props.style || {};
 
     const {
         callbacks,
         isSelecting,
-        range,
-        setRange,
         onMouseUp,
-        rangeValid,
-        clearRange
-    } = useRangeSelection({
-        min: 0,
-        max: itemCount - 1,
-    });
+    } = useRangeSelection(selectionRange);
 
     const render = useCallback(item => {
         return itemRenderer(item, callbacks(item), {
-            selectionRange: range,
-            rangeValid,
+            selectionRange,
             isSelecting,
         })
     }, [range, isSelecting]);
@@ -67,78 +44,119 @@ export default props => {
         zIndex: 1000,
     };
 
-    const keyBindingCallbacks = {
-        pageUp: () => setIndex(index => Math.max(0, index - itemCountInViewport.current)),
-        pageDown: () => setIndex(index => Math.min(index + itemCountInViewport.current, itemCount - itemCountInViewport.current)),
-        end: () => setIndex(itemCount - itemCountInViewport.current),
-        home: () => setIndex(0),
-        up: () => setIndex(index => Math.max(index - 1, 0)),
-        down: () => setIndex(index => Math.min(index + 1, itemCount - itemCountInViewport.current)),
-        clear: clearRange,
-    };
+    // function updateIndexAndRange(direction) {
+    //     setIndex(index => {
+    //         let last = Math.min(index + itemCountInViewport.current, itemCount - 1);
+    //         index = Math.min(Math.max(index + direction, 0), itemCount - itemCountInViewport.current)
+    //         setRange(range => {
+    //             let [start, end] = range;
+    //             if (direction < 0) {
+    //                 if (index < start) {
+    //                     start = index;
+    //                 } else if (index < end && index > 0) {
+    //                     end = index;
+    //                 }
+    //             } else {
+    //                 if (last > end) {
+    //                     end = last;
+    //                 } else if (last > start && last < itemCount - 1) {
+    //                     start = last;
+    //                 }
+    //             }
+    //             return [start, end];
+    //         });
+    //         return index;
+    //     });
+    // }
 
-    for (let key in keyBindingCallbacks) {
-        useKeyDown(keyBindingCallbacks[key], effectKeyBindings[key]);
+    function createIndicator(item) {
+        const {
+            range: idRange,
+            caption,
+            name
+        } = item;
+
+        let height = idRange.count;
+        let top = idRange.first;
+
+        return <div
+            onClick={() => range.first = top}
+            className={`indicator indicator-${name}`}
+            style={{
+                position: "absolute",
+                height: `calc(max(var(--indicator-min-height), ${height / range.max * 100}%))`,
+                top: `${top / range.max * 100}%`,
+            }}>
+        </div>
     }
 
-    function updateIndexRange(direction) {
-        setIndex(index => {
-            let last = Math.min(index + itemCountInViewport.current, itemCount - 1);
-            index = Math.min(Math.max(index + direction, 0), itemCount - itemCountInViewport.current)
-            setRange(range => {
-                let [start, end] = range;
-                if (direction < 0) {
-                    if (index < start) {
-                        start = index;
-                    } else if (index < end && index > 0) {
-                        end = index;
-                    }
-                } else {
-                    if (last > end) {
-                        end = last;
-                    } else if (last > start && last < itemCount - 1) {
-                        start = last;
-                    }
-                }
-                return [start, end];
-            });
-            return index;
-        });
-    }
-
-    return <div style={{
-        position: "relative",
-    }}>
+    return <div
+        className={"dynamic-list"}
+        style={{
+            position: "relative",
+            width: "fit-content",
+        }}>
         <IntervalOnHover
             style={{
                 ...autoScrollStyle,
                 top: "-5000px",
             }}
+            className={"auto-scroll auto-scroll-up"}
             onMouseUp={onMouseUp}
             enabled={isSelecting}
-            onEvent={() => updateIndexRange(-1)}
+            onEvent={() => {
+                range.moveUp();
+                if (range.first < selectionRange.first) {
+                    selectionRange.first = range.first;
+                } else if (range.first < selectionRange.last) {
+                    selectionRange.last = range.first;
+                }
+            }}
         />
 
         <GargantuaList itemSize={20}
-                       itemCount={itemCount}
                        itemRenderer={render}
-                       index={index}
-                       onViewportChange={count => itemCountInViewport.current = count}
-                       setIndex={setIndex}
+                       range={range}
                        {...otherProps}
                        style={{
                            ...style,
                        }}
         />
 
+        <div className="gutter gutter-right"
+             style={{
+                 position: "absolute",
+                 right: "calc( var(--gutter-width) * -1 - var(--gutter-margin) )",
+                 width: "var(--gutter-width)",
+                 height: "100%",
+                 top: 0,
+             }}>
+
+            {
+                indicators
+                    .filter(item => item.enabled)
+                    .map(createIndicator)
+            }
+
+        </div>
+
         <IntervalOnHover
             style={{
                 ...autoScrollStyle,
                 bottom: "-5000px",
             }}
+            className={"auto-scroll auto-scroll-down"}
             onMouseUp={onMouseUp}
             enabled={isSelecting}
-            onEvent={() => updateIndexRange(1)}
+            onEvent={() => {
+                range.moveDown();
+                if (range.last > selectionRange.last) {
+                    selectionRange.last = range.last;
+                } else if (range.last > selectionRange.first) {
+                    selectionRange.first = range.last;
+                }
+
+            }}
         />
 
 

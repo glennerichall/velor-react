@@ -3,7 +3,7 @@
   flex-grow: 1;
   position: relative;
 
-  >div {
+  > div {
     display: flex;
     justify-content: stretch;
     position: absolute;
@@ -54,4 +54,27 @@
       content: initial;
     }
   }
+}
+
+//
+//.auto-scroll {
+//  background: red;
+//}
+//
+.dynamic-list {
+  --gutter-width: 10px;
+  --gutter-margin: 5px;
+  --indicator-min-height: 10px;
+
+  .indicator {
+    border-radius: 2px;
+    width: 10px;
+    cursor: pointer;
+
+    &.indicator-selection {
+      background: var(--bs-primary);
+    }
+  }
+
+
 }

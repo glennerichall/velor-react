@@ -14,7 +14,12 @@ import './style/bootstrap.scss';
 import './style/widgets.scss';
 import './style/gargantua.scss';
 import './style/scrollbar.scss';
-import {useRangeSelection} from "./utils/hooks.mjs";
+import {
+    useKeyDown,
+    useRange,
+    useRangeKeyBindings,
+    useRangeSelection
+} from "./utils/hooks.mjs";
 import DynamicList from "./core/DynamicList.jsx";
 
 
@@ -25,17 +30,31 @@ const Root = props => {
     const [sliderValue1, setSliderValue1] = useState([10, 90]);
     const [sliderValue2, setSliderValue2] = useState(90);
 
-    function render(item, callbacks, {
-        rangeValid, selectionRange, isSelecting
-    }) {
+    const range = useRange({
+        max: 9999
+    });
+
+    const selectionRange = useRange({
+        max: range.max,
+        first: null,
+        last: null,
+    });
+
+    useRangeKeyBindings(range);
+
+    useKeyDown(() => selectionRange.invalidate(), 'Escape');
+
+    useKeyDown(() => range.max++, '+');
+
+    function render(item, callbacks, {selectionRange, isSelecting}) {
         return <div
             {...callbacks}
             className="list-item"
             style={{
                 padding: '0px 5px',
                 height: '20px',
-                background: rangeValid &&
-                item >= selectionRange[0] && item <= selectionRange[1] ? (isSelecting ? 'lightblue' : 'lightgray') : 'transparent',
+                background: selectionRange.valid &&
+                selectionRange.inRange(item) ? (isSelecting ? 'lightblue' : 'lightgray') : 'transparent',
             }}>
             {item}
         </div>
@@ -72,8 +91,20 @@ const Root = props => {
             height: '510px',
             width: '500px',
         }}
+                     range={range}
+                     selectionRange={selectionRange}
                      itemRenderer={render}
-                     itemCount={10000}>
+                     showSelectionInGutter={true}
+                     indicators={[
+                         {
+                             name: 'selection',
+                             range: selectionRange,
+                             caption: 'Selection',
+                             enabled: selectionRange.valid,
+                         }
+                     ]}
+
+        >
 
         </DynamicList>
 

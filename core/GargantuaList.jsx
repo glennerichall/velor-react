@@ -1,12 +1,10 @@
+// noinspection ES6UnusedImports
 import React, {
     useCallback,
-    useEffect,
     useRef,
     useState
 } from "react";
-
 import {useResizeDetector} from "react-resize-detector";
-import {noOp} from "velor-utils/utils/functional.mjs";
 
 export default (props) => {
 
@@ -15,44 +13,25 @@ export default (props) => {
     const targetRef = useRef();
 
     const {
-        itemCount,
         itemRenderer,
         itemSize,
-        index,
-        setIndex,
-        onViewportChange = noOp,
+        range,
     } = props;
+
+    if (!range || !range.valid) {
+        return;
+    }
 
     const [height, setHeight] = useState(0);
 
-    const setFirst = setIndex;
+    range.count = Math.floor(height / itemSize) - 1;
 
-    let itemCountInViewport = Math.floor(height / itemSize) - 1;
-    let first = Math.min(itemCount - itemCountInViewport, Math.max(0, index));
-    let last = Math.min(first + itemCountInViewport - 1, itemCount - 1);
-    if (isNaN(last)) {
-        last = first;
-    }
-
-    const max = itemCount - itemCountInViewport;
-
-    const enabled = itemCount !== undefined &&
-        itemCount !== null && itemCount > 0;
-
-    const getFirstSafe = first => {
-        let max = itemCount - itemCountInViewport;
-        return Math.max(0, Math.min(first, max));
-    }
-
-    const onSlider = useCallback(event => {
-        setFirst(getFirstSafe(event.target.value));
-    }, [itemCount, itemCountInViewport]);
+    const enabled = range.valid && range.max > 0;
 
     const onWheel = useCallback(event => {
         const dir = Math.sign(event.deltaY);
-        let newValue = first + dir;
-        setFirst(first => getFirstSafe(newValue + first));
-    }, [itemCount, itemCountInViewport]);
+        range.moveDown(dir);
+    }, [range]);
 
     useResizeDetector({
         targetRef,
@@ -62,16 +41,12 @@ export default (props) => {
     });
 
     const items = [];
-    for (let i = first; i <= last; i++) {
+    for (let i of range) {
         let element = itemRenderer(i);
         if (element !== null) {
             items.push(element);
         }
     }
-
-    useEffect(() => {
-        onViewportChange(itemCountInViewport);
-    }, [itemCountInViewport]);
 
     return <div
         id={props.id}
@@ -87,11 +62,11 @@ export default (props) => {
 
             <input type="range"
                    className="vertical-range"
-                   onChange={onSlider}
+                   onChange={event => range.jumpToFirst(event.target.value)}
                    disabled={!enabled}
-                   value={first}
+                   value={range.first}
                    min={0}
-                   max={max}
+                   max={range.max}
             />
         </div>
     </div>

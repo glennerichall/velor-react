@@ -5,6 +5,7 @@ import {
     useState
 } from "react";
 
+import {Range} from 'velor-utils/utils/Range.mjs';
 
 import {
     broadcast,
@@ -110,7 +111,7 @@ export function useInvalidateOnAnyEmitterEvent(emitters, event) {
     useEffect(broadcast(...emitters.map(e => e.on(event, invalidate))), [emitters]);
 }
 
-export function useKeyDown(callback, keyOrKeys = []) {
+export function useKeyDown(callback, keyOrKeys = [], target = document) {
     useEffect(() => {
         const onKeyDown = (event) => {
             const keys = Array.isArray(keyOrKeys) ? keyOrKeys : [keyOrKeys];
@@ -118,8 +119,8 @@ export function useKeyDown(callback, keyOrKeys = []) {
                 callback(event);
             }
         };
-        document.addEventListener('keydown', onKeyDown);
-        return () => document.removeEventListener('keydown', onKeyDown);
+        target.addEventListener('keydown', onKeyDown);
+        return () => target.removeEventListener('keydown', onKeyDown);
     });
 }
 
@@ -128,43 +129,26 @@ export function useInvalidateOnKeyDown(keyOrKeys = []) {
     useKeyDown(invalidate, keyOrKeys);
 }
 
-export function useRangeSelection(configs = {}) {
+export function useRangeSelection(range) {
     const pointerDownLocation = useRef(null);
     const [isSelecting, setIsSelecting] = useState(false);
-    const [range, setRange] = useState([null, null]);
-
-    const {
-        max = Number.MAX_SAFE_INTEGER,
-        min = Number.MIN_SAFE_INTEGER,
-    } = configs;
 
     const onClick = useCallback((event, item) => {
-        let end = range[1];
-        let start = range[0];
-
         if (event.shiftKey) {
-            if (start !== null && end !== null) {
+            if (range.valid) {
                 // A range is already defined. Add a new item to the selection range.
-                if (end < item) {
-                    end = item;
-                } else {
-                    start = item;
-                }
-
-                // clamp values to min/max
-                start = Math.max(start, min);
-                end = Math.min(end, max);
-
-                setRange([start, end]);
+                range.growTo(item);
             } else {
-                // no range was defined, select the item
-                item = Math.min(Math.max(item, min), max);
-                setRange([item, item]);
+                // Only one item is selected.
+                range.setValue({
+                    first: item,
+                    last: item,
+                });
             }
         }
-    }, [...range]);
+    }, range.toArray());
 
-    const onMouseUp = useCallback(() => {
+    const onMouseUp = useCallback((event, index) => {
         setIsSelecting(false);
         pointerDownLocation.current = null;
     }, []);
@@ -173,48 +157,31 @@ export function useRangeSelection(configs = {}) {
         if (event.button !== 0) {
             return;
         }
+        if (!event.shiftKey) {
+            range.invalidate();
+        }
         pointerDownLocation.current = index;
     }, []);
 
     const onMouseHover = useCallback((event, index) => {
         const location = pointerDownLocation.current;
+
         if (index !== null && location !== null) {
             // we are selecting a range since an item was clicked
             // and a previous click was registered (i.e., a drag state)
 
-            setIsSelecting(true);
-            let start, end;
-            if (index < location) {
-                // the range is down
-                start = index;
-                end = location;
-            } else if (index > location) {
-                // the range is going up
-                start = location;
-                end = index;
+            if (!range.valid) {
+                // it will be reordered correctly internally
+                range.setValue({
+                    first: index,
+                    last: location,
+                });
             } else {
-                // only one cell is selected
-                start = index;
-                end = index;
+                range.adjustTo(index, location);
             }
-
-            // clamp values to min/max
-            start = Math.max(start, min);
-            end = Math.min(end, max);
-
-            // update the range
-            setRange([start, end]);
-        } else {
-            // not dragging, just hovering over a cell
-            // onHover(index);
+            setIsSelecting(true);
         }
-    }, [pointerDownLocation, range, setRange]);
-
-    const clearRange = () => {
-        pointerDownLocation.current = null;
-        setRange([null, null]);
-        setIsSelecting(false);
-    }
+    }, [pointerDownLocation, range]);
 
     const callbacks = item => {
         return {
@@ -233,23 +200,52 @@ export function useRangeSelection(configs = {}) {
         onMouseUp,
         onMouseHover,
         isSelecting,
-        range,
-        setRange: (rangeOrFunction) => {
-            setRange(range => {
-                if (typeof rangeOrFunction === 'function') {
-                    range = rangeOrFunction(range);
-                } else {
-                    range = rangeOrFunction;
-                }
-
-                let [start, end] = range;
-                // clamp values to min/max
-                start = Math.max(start, min);
-                end = Math.min(end, max);
-                return [start, end];
-            });
-        },
-        clearRange,
-        rangeValid: range[0] !== null && range[1] !== null,
     };
+}
+
+
+export function useRange({
+                             first = 0,
+                             last = 0,
+                             max = Number.MAX_SAFE_INTEGER,
+                         } = {}) {
+    const invalidate = useInvalidate();
+    const range = useRef(null);
+    if (range.current === null) {
+        const r = new Range({
+            first,
+            last,
+            max
+        });
+        r.valueChanged = invalidate;
+        range.current = r;
+    }
+
+    return range.current;
+}
+
+export function useRangeKeyBindings(range, keyBindings = {}, target) {
+    const effectKeyBindings = {
+        pageUp: 'PageUp',
+        pageDown: 'PageDown',
+        end: 'End',
+        home: 'Home',
+        down: 'ArrowDown',
+        up: 'ArrowUp',
+
+        ...keyBindings,
+    };
+
+    const keyBindingCallbacks = {
+        pageUp: () => range.pageUp(),
+        pageDown: () => range.pageDown(),
+        end: () => range.jumpToLast(),
+        home: () => range.jumpToFirst(),
+        up: () => range.moveUp(),
+        down: () => range.moveDown(),
+    };
+
+    for (let key in keyBindingCallbacks) {
+        useKeyDown(keyBindingCallbacks[key], effectKeyBindings[key], target);
+    }
 }
