@@ -6,7 +6,8 @@ import React, {
 } from "react";
 import {useResizeDetector} from "react-resize-detector";
 
-import '../style/scrollbar.scss'
+import '../style/scrollbar.scss';
+import '../style/gargantua.scss';
 
 export default (props) => {
 
@@ -57,7 +58,7 @@ export default (props) => {
         style={props.style}
         onWheel={onWheel}>
 
-        <div>
+        <div className="viewport">
             <div className="content">
                 {items}
             </div>

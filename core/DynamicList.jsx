@@ -9,10 +9,12 @@ import React, {
     useState
 } from "react";
 import {useRangeSelection} from "../utils/hooks.mjs";
+import classNames from "classnames";
 
 export default props => {
 
     const {
+        className,
         range,
         selectionRange,
         itemRenderer,
@@ -44,31 +46,6 @@ export default props => {
         zIndex: 1000,
     };
 
-    // function updateIndexAndRange(direction) {
-    //     setIndex(index => {
-    //         let last = Math.min(index + itemCountInViewport.current, itemCount - 1);
-    //         index = Math.min(Math.max(index + direction, 0), itemCount - itemCountInViewport.current)
-    //         setRange(range => {
-    //             let [start, end] = range;
-    //             if (direction < 0) {
-    //                 if (index < start) {
-    //                     start = index;
-    //                 } else if (index < end && index > 0) {
-    //                     end = index;
-    //                 }
-    //             } else {
-    //                 if (last > end) {
-    //                     end = last;
-    //                 } else if (last > start && last < itemCount - 1) {
-    //                     start = last;
-    //                 }
-    //             }
-    //             return [start, end];
-    //         });
-    //         return index;
-    //     });
-    // }
-
     function createIndicator(item) {
         const {
             range: idRange,
@@ -91,10 +68,9 @@ export default props => {
     }
 
     return <div
-        className={"dynamic-list"}
+        className={classNames("dynamic-list", className)}
         style={{
             position: "relative",
-            width: "fit-content",
         }}>
         <IntervalOnHover
             style={{
