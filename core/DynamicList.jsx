@@ -36,7 +36,7 @@ export default props => {
             selectionRange,
             isSelecting,
         })
-    }, [range, isSelecting]);
+    }, [range, isSelecting, itemRenderer]);
 
     const autoScrollStyle = {
         width: "5000px",

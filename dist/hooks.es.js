@@ -4,9 +4,9 @@ import { noOp as y, broadcast as h } from "velor-utils/utils/functional.mjs";
 function m() {
   const [n, o] = f(() => () => {
   });
-  return n(), () => new Promise((s) => {
+  return n(), () => new Promise(((s) => {
     o(() => s);
-  });
+  }));
 }
 function I() {
   const n = m();

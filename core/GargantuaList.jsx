@@ -1,6 +1,7 @@
 // noinspection ES6UnusedImports
 import React, {
     useCallback,
+    useEffect,
     useRef,
     useState
 } from "react";
@@ -26,10 +27,12 @@ export default (props) => {
     }
 
     const [height, setHeight] = useState(0);
+    
+    useEffect(() => {
+        range.count = Math.floor(height / itemSize) - 1;
+    }, [range, range.max, height, itemSize]);    
 
-    range.count = Math.floor(height / itemSize) - 1;
-
-    const enabled = range.valid && range.max > 0;
+    const enabled = range.max > 0;
 
     const onWheel = useCallback(event => {
         const dir = Math.sign(event.deltaY);

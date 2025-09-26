@@ -2,12 +2,10 @@ import {defineConfig} from 'vite';
 
 export default defineConfig({
     define:
-        Object.fromEntries(
-            Object.entries(process.env).map(([key, value]) => [
-                `process.env.${key}`,
-                JSON.stringify(value)
-            ])
-        ),
+        {
+            "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+            "process.env.LOG_LEVEL": JSON.stringify(process.env.LOG_LEVEL),
+        },
     resolve: {
         alias: {
             'react': 'preact/compat',
