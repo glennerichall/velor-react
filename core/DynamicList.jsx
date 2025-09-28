@@ -13,9 +13,12 @@ import classNames from "classnames";
 
 export default props => {
 
+    // console.log('DynamicList.jsx');
+
     const {
         className,
         range,
+        itemSize,
         selectionRange,
         itemRenderer,
         keyBindings = {},
@@ -48,16 +51,19 @@ export default props => {
 
     function createIndicator(item) {
         const {
-            range: idRange,
+            range: indicatorRange,
             caption,
             name
         } = item;
 
-        let height = idRange.count;
-        let top = idRange.first;
+        let height = indicatorRange.count;
+        let top = indicatorRange.first;
 
         return <div
-            onClick={() => range.first = top}
+            onClick={(event) => {
+                event.stopPropagation();
+                range.jumpToFirst(top)
+            }}
             className={`indicator indicator-${name}`}
             style={{
                 position: "absolute",
@@ -90,7 +96,7 @@ export default props => {
             }}
         />
 
-        <GargantuaList itemSize={20}
+        <GargantuaList itemSize={itemSize}
                        itemRenderer={render}
                        range={range}
                        {...otherProps}

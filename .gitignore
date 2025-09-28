@@ -2,3 +2,5 @@
 node_modules
 bin
 test_results
+yalc.lock
+.yalc/

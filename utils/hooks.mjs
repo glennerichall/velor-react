@@ -134,6 +134,7 @@ export function useRangeSelection(range) {
     const [isSelecting, setIsSelecting] = useState(false);
 
     const onClick = useCallback((event, item) => {
+        console.log(event)
         if (event.shiftKey) {
             if (range.valid) {
                 // A range is already defined. Add a new item to the selection range.

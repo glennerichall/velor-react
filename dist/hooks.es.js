@@ -1,4 +1,4 @@
-import { useState as f, useEffect as l, useRef as v, useCallback as a } from "react";
+import { useState as f, useEffect as r, useRef as v, useCallback as a } from "react";
 import { Range as k } from "velor-utils/utils/Range.mjs";
 import { noOp as y, broadcast as h } from "velor-utils/utils/functional.mjs";
 function m() {
@@ -10,13 +10,13 @@ function m() {
 }
 function I() {
   const n = m();
-  l(() => {
+  r(() => {
     n();
   }, []);
 }
 function M() {
   const n = v(null);
-  return l(() => {
+  return r(() => {
     n.current && n.current.focus();
   }, []), n;
 }
@@ -26,13 +26,13 @@ function R(n = {}) {
     onKeyDown: s = y,
     show: u = !0
   } = n;
-  l(() => {
+  r(() => {
     if (u) {
-      let c = function(r) {
-        return r.stopPropagation(), r.stopImmediatePropagation(), r.preventDefault(), o(), !0;
+      let c = function(l) {
+        return l.stopPropagation(), l.stopImmediatePropagation(), l.preventDefault(), o(), !0;
       };
       const e = document.createElement("div");
-      return document.body.append(e), e.style.left = "0", e.style.right = "0", e.style.top = "0", e.style.bottom = "0", e.style.position = "absolute", e.style.zIndex = "1000", document.addEventListener("keydown", s), e.onmousedown = (r) => (r.stopPropagation(), r.stopImmediatePropagation(), !0), e.onclick = c, e.oncontextmenu = c, e.onauxclick = c, () => {
+      return document.body.append(e), e.style.left = "0", e.style.right = "0", e.style.top = "0", e.style.bottom = "0", e.style.position = "absolute", e.style.zIndex = "1000", document.addEventListener("keydown", s), e.onmousedown = (l) => (l.stopPropagation(), l.stopImmediatePropagation(), !0), e.onclick = c, e.oncontextmenu = c, e.onauxclick = c, () => {
         e.remove(), document.removeEventListener("keydown", s);
       };
     }
@@ -44,18 +44,18 @@ function w() {
 }
 function U(n, o) {
   const [s, u] = w();
-  l(() => n.on(o, u), [n]);
+  r(() => n.on(o, u), [n]);
 }
 function C(n) {
   const [o, s] = w();
-  l(() => n.onAny(s), [n]);
+  r(() => n.onAny(s), [n]);
 }
 function L(n, o) {
   const [s, u] = w();
-  l(h(...n.map((e) => e.on(o, u))), [n]);
+  r(h(...n.map((e) => e.on(o, u))), [n]);
 }
 function E(n, o = [], s = document) {
-  l(() => {
+  r(() => {
     const u = (e) => {
       const c = Array.isArray(o) ? o : [o];
       (c.includes(e.key) || c.length === 0) && n(e);
@@ -69,13 +69,13 @@ function P(n = []) {
 }
 function K(n) {
   const o = v(null), [s, u] = f(!1), e = a((i, t) => {
-    i.shiftKey && (n.valid ? n.growTo(t) : n.setValue({
+    console.log(i), i.shiftKey && (n.valid ? n.growTo(t) : n.setValue({
       first: t,
       last: t
     }));
   }, n.toArray()), c = a((i, t) => {
     u(!1), o.current = null;
-  }, []), r = a((i, t) => {
+  }, []), l = a((i, t) => {
     i.button === 0 && (i.shiftKey || n.invalidate(), o.current = t);
   }, []), d = a((i, t) => {
     const p = o.current;
@@ -86,14 +86,14 @@ function K(n) {
   }, [o, n]);
   return {
     callbacks: (i) => ({
-      onMouseDown: (t) => r(t, i),
+      onMouseDown: (t) => l(t, i),
       onMouseUp: (t) => c(t, i),
       onMouseEnter: (t) => d(t, i),
       onMouseLeave: (t) => d(t, null),
       onClick: (t) => e(t, i)
     }),
     onClick: e,
-    onMouseDown: r,
+    onMouseDown: l,
     onMouseUp: c,
     onMouseHover: d,
     isSelecting: s

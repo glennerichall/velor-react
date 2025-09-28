@@ -91,7 +91,9 @@ const Root = props => {
         <DynamicList style={{
             height: '510px',
             width: '500px',
+            position: 'relative'
         }}
+                     itemSize={20}
                      range={range}
                      selectionRange={selectionRange}
                      itemRenderer={render}
