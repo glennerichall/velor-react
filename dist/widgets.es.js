@@ -3397,7 +3397,7 @@ function li({
     }),
     [b, o]
   ), { min: y, max: w, total: L } = f();
-  return /* @__PURE__ */ g.createElement("div", { ref: p, className: "splitpane", style: { ..._, ...h || {} } }, /* @__PURE__ */ g.createElement("div", { className: "pane", style: { minWidth: 0 } }, n), /* @__PURE__ */ g.createElement(
+  return /* @__PURE__ */ g.createElement("div", { ref: p, className: "splitpane", style: { ..._, ...h || {} } }, /* @__PURE__ */ g.createElement("div", { className: "pane", style: { minWidth: 0, minHeight: 0 } }, n), /* @__PURE__ */ g.createElement(
     "div",
     {
       role: "separator",
@@ -3408,11 +3408,11 @@ function li({
       tabIndex: 0,
       onPointerDown: v,
       className: "separator",
-      style: { width: o }
+      style: { width: o, minHeight: 0 }
     },
     /* @__PURE__ */ g.createElement("div", { className: "separator-grip" }),
     /* @__PURE__ */ g.createElement("div", { className: "separator-hit" })
-  ), /* @__PURE__ */ g.createElement("div", { className: "pane", style: { minWidth: 0 } }, a));
+  ), /* @__PURE__ */ g.createElement("div", { className: "pane", style: { minWidth: 0, minHeight: 0 } }, a));
 }
 li.propTypes = {
   initialPx: W.number,

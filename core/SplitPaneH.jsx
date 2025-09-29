@@ -152,7 +152,7 @@ export default function SplitPaneH({
 
     return (
         <div ref={containerRef} className="splitpane" style={{ ...gridTemplate, ...(style || {}) }}>
-            <div className="pane" style={{ minWidth: 0 }}>{childA}</div>
+            <div className="pane" style={{ minWidth: 0, minHeight: 0 }}>{childA}</div>
 
             <div
                 role="separator"
@@ -163,13 +163,13 @@ export default function SplitPaneH({
                 tabIndex={0}
                 onPointerDown={startDrag}
                 className="separator"
-                style={{ width: gutter }}
+                style={{ width: gutter, minHeight: 0 }}
             >
                 <div className="separator-grip" />
                 <div className="separator-hit" />
             </div>
 
-            <div className="pane" style={{ minWidth: 0 }}>{childB}</div>
+            <div className="pane" style={{ minWidth: 0, minHeight: 0 }}>{childB}</div>
         </div>
     );
 }
