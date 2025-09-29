@@ -158,19 +158,28 @@ export function createBubblePath(opts) {
             "Z",
         ].join(" ");
     } else if (side === "bottom") {
-        outlineD = [
+        const segs = [
             `M ${x + rr} ${y}`,
             `H ${x2 - rr}`,
             `A ${rr} ${rr} 0 0 1 ${x2} ${y + rr}`,
             `V ${y2 - rr}`,
             `A ${rr} ${rr} 0 0 1 ${x2 - rr} ${y2}`,
-            ...(length > 0 && base > 0 ? [`H ${cx + base / 2}`, `L ${cx} ${y2 + length}`, `L ${cx - base / 2} ${y2}`] : [`H ${x + rr}`]),
+        ];
+        if (length > 0 && base > 0) {
+            segs.push(
+                `H ${cx + base / 2}`,
+                `L ${cx} ${y2 + length}`,
+                `L ${cx - base / 2} ${y2}`,
+            );
+        }
+        segs.push(
             `H ${x + rr}`,
-            `A ${rr} ${rr} 0 0 1 ${x} ${y + rr}`,
+            `A ${rr} ${rr} 0 0 1 ${x} ${y2 - rr}`, // ✅ bas-gauche correct
             `V ${y + rr}`,
             `A ${rr} ${rr} 0 0 1 ${x + rr} ${y}`,
             "Z",
-        ].join(" ");
+        );
+        outlineD = segs.join(" ");
     }
 
     const offset = { top: side === "top" ? -length : 0, left: side === "left" ? -length : 0 };
@@ -203,8 +212,6 @@ export function createBubblePath(opts) {
 //   arrowBase: 18,
 //   arrowLength: 10,
 //   borderRadius: 10,
-//   bubbleFill: "#FFFFFF",
-//   arrowFill: "#F3F4F6", // gris léger
 //   stroke: "#111827",
 //   strokeWidth: 2,
 // });

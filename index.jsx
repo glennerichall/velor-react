@@ -97,7 +97,7 @@ const Root = props => {
         </div>
 
         <BubbleBg
-            side="right"
+            side="bottom"
             arrowBase={5}
             arrowLength={12}
             borderRadius={4}
@@ -106,7 +106,10 @@ const Root = props => {
             strokeWidth={0.5}
             style={{
                 boxSizing: "border-box",
-                width: '200px'
+                width: '200px',
+                marginRight: "300px",
+                position:"absolute",
+                left: "50%",
             }}
             className={"test"}
         >
