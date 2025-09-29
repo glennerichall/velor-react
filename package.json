@@ -35,6 +35,7 @@
     "velor-utils": "github:glennerichall/velor-utils"
   },
   "devDependencies": {
+    "@floating-ui/react": "^0.27.16",
     "playwright": "^1.47.2",
     "preact": "^10.26.4",
     "sass-embedded": "^1.85.1",
