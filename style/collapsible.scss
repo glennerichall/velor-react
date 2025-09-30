@@ -1,0 +1,93 @@
+
+.collapsible {
+  position: relative;
+  transition-duration: var(--animation-duration);
+  transition-property: width, height, border-radius, background-color;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+
+  &.expanded {
+    overflow: visible;
+  }
+
+  > .caption {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    display: flex;
+  }
+
+  .animating {
+    > :not(.caption) {
+      pointer-events: none;
+
+      * {
+        pointer-events: none;
+      }
+    }
+  }
+
+  > .content {
+    position: absolute;
+    transition: opacity var(--animation-duration);
+    flex: 1;
+  }
+
+  &.animating-collapse {
+    background-color: var(--widget-bg-color);
+
+    .caption {
+      opacity: 100%;
+    }
+
+    > :not(.caption) {
+      opacity: 0%;
+    }
+  }
+
+  &.animating-expand {
+    .caption {
+      opacity: 0%;
+    }
+
+    > :not(.caption) {
+      opacity: 100%;
+    }
+  }
+
+  &.reduced {
+    background-color: var(--widget-bg-color);
+    cursor: pointer;
+    pointer-events: all;
+
+    &:hover {
+      filter: brightness(75%);
+    }
+
+    .caption {
+      opacity: 100%;
+    }
+
+    > :not(.caption) {
+      opacity: 0%;
+      pointer-events: none;
+
+      * {
+        pointer-events: none;
+      }
+    }
+  }
+
+}

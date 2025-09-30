@@ -34,10 +34,10 @@ export const Widget = props => {
         canClose = false,
         eventKey,
         onExpand = noOp,
-        onPin = noOp,
+        pinned = false,
+        setPinned = noOp,
     } = props;
 
-    const [pinned, setPinned] = usePersistedState(eventKey + ".pinned");
 
     const {
         collapsible,

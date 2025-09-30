@@ -1,4 +1,8 @@
+// noinspection ES6UnusedImports
+import React from "react"
 import classNames from "classnames";
+
+import "../style/pin-buttons.scss";
 
 export default props => {
     const {

@@ -12,6 +12,21 @@ import {
     noOp
 } from "velor-utils/utils/functional.mjs";
 
+export function useLocalStorage(name, value) {
+
+}
+
+export function usePersistedState(name, value) {
+    const [state, setState] = useState(getPersistedValue(name, value));
+
+    return [
+        state,
+        value => {
+            setState(value);
+            setPersistedValue(name, value)
+        }
+    ];
+}
 
 export function useInvalidate() {
     const [resolve, setResolver] = useState(() => () => {
