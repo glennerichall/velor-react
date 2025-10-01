@@ -13,6 +13,7 @@ import "../style/collapsible.scss";
 
 import {useResizeDetector} from "react-resize-detector";
 import {waitForStableBoundingRect} from "../utils/utils.mjs";
+import {noOp} from "velor-utils/utils/functional.mjs";
 
 
 function getStyleValue(elem, name) {
@@ -23,19 +24,18 @@ function getStyleValue(elem, name) {
 const ANIMATION_EXPAND = 'animating-expand';
 const ANIMATION_COLLAPSE = 'animating-collapse';
 const ANIMATION = 'animating';
-const COLLAPSED = 'reduced';
+const COLLAPSED = 'collapsed';
 const EXPANDED = 'expanded';
 
 export default forwardRef((props, ref) => {
     const {
         children,
         expanded,
-        onExpand = () => {
-        },
-        onStateChanged = () => {
-        },
+        onExpand = noOp,
+        onStateChanged = noOp,
         caption,
-        className
+        className,
+        style = {}
     } = props;
 
     if (Children.count(children) === 0) return null;
@@ -136,6 +136,7 @@ export default forwardRef((props, ref) => {
                     evt.stopPropagation();
                     onExpand(true);
                 }}
+                style={style}
                 className={classNames(
                     className,
                     "collapsible",

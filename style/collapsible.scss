@@ -2,10 +2,9 @@
 .collapsible {
   position: relative;
   transition-duration: var(--animation-duration);
-  transition-property: width, height, border-radius, background-color;
+  transition-property: width, height, border-radius, background-color, border-style, border-width, border-color;
   overflow: hidden;
   pointer-events: none;
-  border-radius: var(--border-radius);
   display: flex;
   justify-content: center;
 
@@ -23,6 +22,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition-duration: var(--animation-duration);
+    transition-property: opacity;
   }
 
   .content {
@@ -46,7 +47,6 @@
   }
 
   &.animating-collapse {
-    background-color: var(--widget-bg-color);
 
     .caption {
       opacity: 100%;
@@ -67,8 +67,7 @@
     }
   }
 
-  &.reduced {
-    background-color: var(--widget-bg-color);
+  &.collapsed {
     cursor: pointer;
     pointer-events: all;
 
