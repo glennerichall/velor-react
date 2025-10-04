@@ -13,6 +13,7 @@ export {default as Drawer} from './Drawer.jsx';
 export {default as DrawerContainer} from './DrawerContainer.jsx';
 export {default as GargantuaList} from './GargantuaList.jsx';
 export {default as MessageModal} from './MessageModal.jsx';
+export {default as Messages} from './Messages.jsx';
 export {default as ModalOkCancel} from './ModalOkCancel.jsx';
 export {default as PinButtons} from './PinButtons.jsx';
 export {default as Pinnable} from './Pinnable.jsx';
