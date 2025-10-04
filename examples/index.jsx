@@ -19,6 +19,7 @@ import List from "./dynamicList";
 import Bubble from "./bubble";
 import Pinnable from "./pinnable";
 import RadioCollapse from "./radio";
+import Modal from "./modal";
 
 const domRoot = document.getElementById("content");
 
@@ -44,6 +45,9 @@ const Root = props => {
         case "radio":
             example = <RadioCollapse/>;
             break;
+        case "modal":
+            example = <Modal/>;
+            break;
     }
 
     return <div style={{
@@ -59,6 +63,7 @@ const Root = props => {
                 bubble: "Bubble background",
                 pinnable: "Collapsible component",
                 radio: "Radio collapsible",
+                modal: "Message modal",
             }}/>
 
         <div style={{
