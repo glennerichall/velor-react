@@ -11,20 +11,17 @@ import Messages from "./Messages.jsx";
 export default props => {
 
     const {
-        show,
-        onShow,
         title,
         icon,
         children,
     } = props;
 
 
-    return <Modal show={show} onHide={() => onShow(false)}
-                  size={"lg"}>
+    return <Modal {...props}>
         <Modal.Header>
             <Modal.Title><span>{icon}</span><span>{title}</span></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body >
             <Messages {...props}/>
         </Modal.Body>
         <Modal.Footer>

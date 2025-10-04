@@ -3,22 +3,23 @@ import Button from "react-bootstrap/Button";
 import React, {useState} from "react";
 import {MessageModal} from "../core/index.mjs";
 import {Bell} from "react-bootstrap-icons";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 
 export default props => {
-    const [show, setShow] = useState(false);
+    const [visible, setVisible] = useState(false);
     const [messages, setMessages] = useState([]);
 
     return <>
         <Button onClick={() => {
-            setShow(true)
+            setVisible(true)
         }}>
             Open modal
         </Button>
-        <MessageModal show={show}
+        <MessageModal show={visible}
                       messages={messages}
-                      onShow={() => setShow(false)}
+                      onHide={() => setVisible(false)}
+                      scrollable={true}
+                      size={"lg"}
                       icon={<Bell/>} title="Announcements">
 
 

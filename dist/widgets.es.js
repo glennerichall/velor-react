@@ -30,7 +30,7 @@ function rs() {
       function s() {
         for (var o = "", h = 0; h < arguments.length; h++) {
           var l = arguments[h];
-          l && (o = i(o, r(l)));
+          l && (o = n(o, r(l)));
         }
         return o;
       }
@@ -45,10 +45,10 @@ function rs() {
           return o.toString();
         var h = "";
         for (var l in o)
-          e.call(o, l) && o[l] && (h = i(h, l));
+          e.call(o, l) && o[l] && (h = n(h, l));
         return h;
       }
-      function i(o, h) {
+      function n(o, h) {
         return h ? o ? o + " " + h : o + h : o;
       }
       t.exports ? (s.default = s, t.exports = s) : window.classNames = s;
@@ -60,14 +60,14 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
   const {
     children: s,
     expanded: r,
-    onExpand: i = oe,
+    onExpand: n = oe,
     onStateChanged: o = oe,
     caption: h,
     className: l,
     style: m = {}
   } = t;
   if (Mt.count(s) === 0) return null;
-  const u = V(), k = V(), [b, c] = B(!0), n = () => {
+  const u = V(), k = V(), [b, c] = B(!0), i = () => {
     const _ = k.current.getBoundingClientRect();
     u.current.style.width = _.width + "px", u.current.style.height = _.height + "px";
   }, a = () => {
@@ -75,12 +75,12 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
   }, p = () => {
     u.current.classList.remove(Ae), u.current.classList.add($e, Le), a();
   }, d = () => {
-    u.current.classList.remove(Se), u.current.classList.add(Te, Le), n();
+    u.current.classList.remove(Se), u.current.classList.add(Te, Le), i();
   }, v = () => u.current.classList.contains(Te), y = () => u.current.classList.contains($e);
   return D(() => {
-    r ? (u.current.classList.add(Ae), n(), i(!0), o(!0)) : (u.current.classList.add(Se), a(), i(!1), o(!1));
+    r ? (u.current.classList.add(Ae), i(), n(!0), o(!0)) : (u.current.classList.add(Se), a(), n(!1), o(!1));
     const _ = () => {
-      i(!1);
+      n(!1);
     };
     return c(!1), document.addEventListener("mousedown", _), () => {
       document.removeEventListener("mousedown", _);
@@ -90,7 +90,7 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
   }, [r]), He({
     targetRef: k,
     onResize: (_, w) => {
-      u.current.classList.contains("expanded") && Vt(k.current, n);
+      u.current.classList.contains("expanded") && Vt(k.current, i);
     }
   }), /* @__PURE__ */ g.createElement(
     "div",
@@ -105,7 +105,7 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
       },
       onMouseDown: (_) => _.stopPropagation(),
       onClick: (_) => {
-        _.stopPropagation(), i(!0);
+        _.stopPropagation(), n(!0);
       },
       style: m,
       className: O(
@@ -130,7 +130,7 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
     notifications: e,
     variant: s,
     visible: r = !1,
-    targetRef: i,
+    targetRef: n,
     bordered: o = !1,
     size: h
   } = t, l = V(), m = V(), [u, k] = B(!1);
@@ -138,16 +138,16 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
     c.preventDefault(), c.stopPropagation(), u ? (k(!1), l.current.style.width = null, l.current.style.height = null) : (k(!0), l.current.style.width = m.current.scrollWidth + "px", l.current.style.height = m.current.scrollHeight + "px");
   }
   return D(() => {
-    const c = (n) => {
-      n.stopPropagation(), k(!1), l.current && (l.current.style.width = null, l.current.style.height = null);
+    const c = (i) => {
+      i.stopPropagation(), k(!1), l.current && (l.current.style.width = null, l.current.style.height = null);
     };
     return document.addEventListener("mousedown", c), () => document.removeEventListener("mousedown", c);
-  }, []), i ? /* @__PURE__ */ g.createElement(
+  }, []), n ? /* @__PURE__ */ g.createElement(
     Anchor,
     {
       anchor: "TOP-RIGHT",
       align: "TOP-LEFT",
-      targetRef: i
+      targetRef: n
     },
     /* @__PURE__ */ g.createElement(
       "div",
@@ -229,13 +229,13 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
     visible: e,
     onClose: s,
     title: r,
-    loading: i,
+    loading: n,
     className: o = "",
     id: h,
     name: l,
     location: m = "right",
     clearChilds: u = !0
-  } = t, [k, b] = B(!0), [c, n] = B(e), [a, p] = B(!1);
+  } = t, [k, b] = B(!0), [c, i] = B(e), [a, p] = B(!1);
   D(() => {
     e !== c && (p(!0), b(!1));
     const w = () => {
@@ -262,7 +262,7 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
   ), y = /* @__PURE__ */ g.createElement(
     qt,
     {
-      className: O({ hidden: !i }),
+      className: O({ hidden: !n }),
       animation: "border",
       role: "status",
       variant: "secondary"
@@ -307,7 +307,7 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
       return s;
     const {
       title: r,
-      name: i,
+      name: n,
       loading: o,
       className: h,
       id: l,
@@ -318,9 +318,9 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
       {
         id: l,
         className: h,
-        visible: e === i,
+        visible: e === n,
         title: r,
-        name: i,
+        name: n,
         loading: o,
         onClose: m
       },
@@ -331,18 +331,18 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
   const e = V(), {
     itemRenderer: s,
     itemSize: r,
-    range: i
+    range: n
   } = t;
-  if (!i || !i.valid)
+  if (!n || !n.valid)
     return;
   const [o, h] = B(0);
   D(() => {
-    i.count = Math.floor(o / r) - 1;
-  }, [i, i.max, o, r]);
-  const l = i.max > 0, m = ee((k) => {
+    n.count = Math.floor(o / r) - 1;
+  }, [n, n.max, o, r]);
+  const l = n.max > 0, m = ee((k) => {
     const b = Math.sign(k.deltaY);
-    i.moveDown(b);
-  }, [i]);
+    n.moveDown(b);
+  }, [n]);
   He({
     targetRef: e,
     onResize: ee(({ height: k }) => {
@@ -350,7 +350,7 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
     }, [])
   });
   const u = [];
-  for (let k of i) {
+  for (let k of n) {
     let b = s(k);
     b !== null && u.push(b);
   }
@@ -368,11 +368,11 @@ const O = /* @__PURE__ */ Be(os), Te = "animating-expand", $e = "animating-colla
       {
         type: "range",
         className: "vertical-range",
-        onChange: (k) => i.jumpToFirst(k.target.value),
+        onChange: (k) => n.jumpToFirst(k.target.value),
         disabled: !l,
-        value: i.first,
+        value: n.first,
         min: 0,
-        max: i.max
+        max: n.max
       }
     ))
   );
@@ -399,9 +399,9 @@ var re = { exec: () => null };
 function P(t, e = "") {
   let s = typeof t == "string" ? t : t.source;
   const r = {
-    replace: (i, o) => {
+    replace: (n, o) => {
       let h = typeof o == "string" ? o : o.source;
-      return h = h.replace(I.caret, "$1"), s = s.replace(i, h), r;
+      return h = h.replace(I.caret, "$1"), s = s.replace(n, h), r;
     },
     getRegex: () => new RegExp(s, e)
   };
@@ -580,24 +580,24 @@ function at(t, e) {
     for (; --u >= 0 && l[u] === "\\"; ) m = !m;
     return m ? "|" : " |";
   }), r = s.split(I.splitPipe);
-  let i = 0;
+  let n = 0;
   if (r[0].trim() || r.shift(), r.length > 0 && !r.at(-1)?.trim() && r.pop(), e)
     if (r.length > e)
       r.splice(e);
     else
       for (; r.length < e; ) r.push("");
-  for (; i < r.length; i++)
-    r[i] = r[i].trim().replace(I.slashPipe, "|");
+  for (; n < r.length; n++)
+    r[n] = r[n].trim().replace(I.slashPipe, "|");
   return r;
 }
 function ne(t, e, s) {
   const r = t.length;
   if (r === 0)
     return "";
-  let i = 0;
-  for (; i < r && t.charAt(r - i - 1) === e; )
-    i++;
-  return t.slice(0, r - i);
+  let n = 0;
+  for (; n < r && t.charAt(r - n - 1) === e; )
+    n++;
+  return t.slice(0, r - n);
 }
 function qs(t, e) {
   if (t.indexOf(e[1]) === -1)
@@ -612,8 +612,8 @@ function qs(t, e) {
       return r;
   return s > 0 ? -2 : -1;
 }
-function lt(t, e, s, r, i) {
-  const o = e.href, h = e.title || null, l = t[1].replace(i.other.outputLinkReplace, "$1");
+function lt(t, e, s, r, n) {
+  const o = e.href, h = e.title || null, l = t[1].replace(n.other.outputLinkReplace, "$1");
   r.state.inLink = !0;
   const m = {
     type: t[0].charAt(0) === "!" ? "image" : "link",
@@ -629,14 +629,14 @@ function Gs(t, e, s) {
   const r = t.match(s.other.indentCodeCompensation);
   if (r === null)
     return e;
-  const i = r[1];
+  const n = r[1];
   return e.split(`
 `).map((o) => {
     const h = o.match(s.other.beginningSpace);
     if (h === null)
       return o;
     const [l] = h;
-    return l.length >= i.length ? o.slice(i.length) : o;
+    return l.length >= n.length ? o.slice(n.length) : o;
   }).join(`
 `);
 }
@@ -713,7 +713,7 @@ var ke = class {
     if (e) {
       let s = ne(e[0], `
 `).split(`
-`), r = "", i = "";
+`), r = "", n = "";
       const o = [];
       for (; s.length > 0; ) {
         let h = !1;
@@ -731,7 +731,7 @@ var ke = class {
 `), k = u.replace(this.rules.other.blockquoteSetextReplace, `
     $1`).replace(this.rules.other.blockquoteSetextReplace2, "");
         r = r ? `${r}
-${u}` : u, i = i ? `${i}
+${u}` : u, n = n ? `${n}
 ${k}` : k;
         const b = this.lexer.state.top;
         if (this.lexer.state.top = !0, this.lexer.blockTokens(k, o, !0), this.lexer.state.top = b, s.length === 0)
@@ -740,16 +740,16 @@ ${k}` : k;
         if (c?.type === "code")
           break;
         if (c?.type === "blockquote") {
-          const n = c, a = n.raw + `
+          const i = c, a = i.raw + `
 ` + s.join(`
 `), p = this.blockquote(a);
-          o[o.length - 1] = p, r = r.substring(0, r.length - n.raw.length) + p.raw, i = i.substring(0, i.length - n.text.length) + p.text;
+          o[o.length - 1] = p, r = r.substring(0, r.length - i.raw.length) + p.raw, n = n.substring(0, n.length - i.text.length) + p.text;
           break;
         } else if (c?.type === "list") {
-          const n = c, a = n.raw + `
+          const i = c, a = i.raw + `
 ` + s.join(`
 `), p = this.list(a);
-          o[o.length - 1] = p, r = r.substring(0, r.length - c.raw.length) + p.raw, i = i.substring(0, i.length - n.raw.length) + p.raw, s = a.substring(o.at(-1).raw.length).split(`
+          o[o.length - 1] = p, r = r.substring(0, r.length - c.raw.length) + p.raw, n = n.substring(0, n.length - i.raw.length) + p.raw, s = a.substring(o.at(-1).raw.length).split(`
 `);
           continue;
         }
@@ -758,7 +758,7 @@ ${k}` : k;
         type: "blockquote",
         raw: r,
         tokens: o,
-        text: i
+        text: n
       };
     }
   }
@@ -766,7 +766,7 @@ ${k}` : k;
     let e = this.rules.block.list.exec(t);
     if (e) {
       let s = e[1].trim();
-      const r = s.length > 1, i = {
+      const r = s.length > 1, n = {
         type: "list",
         raw: "",
         ordered: r,
@@ -784,8 +784,8 @@ ${k}` : k;
         u = e[0], t = t.substring(u.length);
         let b = e[2].split(`
 `, 1)[0].replace(this.rules.other.listReplaceTabs, (v) => " ".repeat(3 * v.length)), c = t.split(`
-`, 1)[0], n = !b.trim(), a = 0;
-        if (this.options.pedantic ? (a = 2, k = b.trimStart()) : n ? a = e[1].length + 1 : (a = e[2].search(this.rules.other.nonSpaceChar), a = a > 4 ? 1 : a, k = b.slice(a), a += e[1].length), n && this.rules.other.blankLine.test(c) && (u += c + `
+`, 1)[0], i = !b.trim(), a = 0;
+        if (this.options.pedantic ? (a = 2, k = b.trimStart()) : i ? a = e[1].length + 1 : (a = e[2].search(this.rules.other.nonSpaceChar), a = a > 4 ? 1 : a, k = b.slice(a), a += e[1].length), i && this.rules.other.blankLine.test(c) && (u += c + `
 `, t = t.substring(c.length + 1), m = !0), !m) {
           const v = this.rules.other.nextBulletRegex(a), y = this.rules.other.hrRegex(a), _ = this.rules.other.fencesBeginRegex(a), w = this.rules.other.headingBeginRegex(a), L = this.rules.other.htmlBeginRegex(a);
           for (; t; ) {
@@ -798,18 +798,18 @@ ${k}` : k;
               k += `
 ` + E.slice(a);
             else {
-              if (n || b.replace(this.rules.other.tabCharGlobal, "    ").search(this.rules.other.nonSpaceChar) >= 4 || _.test(b) || w.test(b) || y.test(b))
+              if (i || b.replace(this.rules.other.tabCharGlobal, "    ").search(this.rules.other.nonSpaceChar) >= 4 || _.test(b) || w.test(b) || y.test(b))
                 break;
               k += `
 ` + c;
             }
-            !n && !c.trim() && (n = !0), u += $ + `
+            !i && !c.trim() && (i = !0), u += $ + `
 `, t = t.substring($.length + 1), b = E.slice(a);
           }
         }
-        i.loose || (h ? i.loose = !0 : this.rules.other.doubleBlankLine.test(u) && (h = !0));
+        n.loose || (h ? n.loose = !0 : this.rules.other.doubleBlankLine.test(u) && (h = !0));
         let p = null, d;
-        this.options.gfm && (p = this.rules.other.listIsTask.exec(k), p && (d = p[0] !== "[ ] ", k = k.replace(this.rules.other.listReplaceTask, ""))), i.items.push({
+        this.options.gfm && (p = this.rules.other.listIsTask.exec(k), p && (d = p[0] !== "[ ] ", k = k.replace(this.rules.other.listReplaceTask, ""))), n.items.push({
           type: "list_item",
           raw: u,
           task: !!p,
@@ -817,23 +817,23 @@ ${k}` : k;
           loose: !1,
           text: k,
           tokens: []
-        }), i.raw += u;
+        }), n.raw += u;
       }
-      const l = i.items.at(-1);
+      const l = n.items.at(-1);
       if (l)
         l.raw = l.raw.trimEnd(), l.text = l.text.trimEnd();
       else
         return;
-      i.raw = i.raw.trimEnd();
-      for (let m = 0; m < i.items.length; m++)
-        if (this.lexer.state.top = !1, i.items[m].tokens = this.lexer.blockTokens(i.items[m].text, []), !i.loose) {
-          const u = i.items[m].tokens.filter((b) => b.type === "space"), k = u.length > 0 && u.some((b) => this.rules.other.anyLine.test(b.raw));
-          i.loose = k;
+      n.raw = n.raw.trimEnd();
+      for (let m = 0; m < n.items.length; m++)
+        if (this.lexer.state.top = !1, n.items[m].tokens = this.lexer.blockTokens(n.items[m].text, []), !n.loose) {
+          const u = n.items[m].tokens.filter((b) => b.type === "space"), k = u.length > 0 && u.some((b) => this.rules.other.anyLine.test(b.raw));
+          n.loose = k;
         }
-      if (i.loose)
-        for (let m = 0; m < i.items.length; m++)
-          i.items[m].loose = !0;
-      return i;
+      if (n.loose)
+        for (let m = 0; m < n.items.length; m++)
+          n.items[m].loose = !0;
+      return n;
     }
   }
   html(t) {
@@ -850,13 +850,13 @@ ${k}` : k;
   def(t) {
     const e = this.rules.block.def.exec(t);
     if (e) {
-      const s = e[1].toLowerCase().replace(this.rules.other.multipleSpaceGlobal, " "), r = e[2] ? e[2].replace(this.rules.other.hrefBrackets, "$1").replace(this.rules.inline.anyPunctuation, "$1") : "", i = e[3] ? e[3].substring(1, e[3].length - 1).replace(this.rules.inline.anyPunctuation, "$1") : e[3];
+      const s = e[1].toLowerCase().replace(this.rules.other.multipleSpaceGlobal, " "), r = e[2] ? e[2].replace(this.rules.other.hrefBrackets, "$1").replace(this.rules.inline.anyPunctuation, "$1") : "", n = e[3] ? e[3].substring(1, e[3].length - 1).replace(this.rules.inline.anyPunctuation, "$1") : e[3];
       return {
         type: "def",
         tag: s,
         raw: e[0],
         href: r,
-        title: i
+        title: n
       };
     }
   }
@@ -864,7 +864,7 @@ ${k}` : k;
     const e = this.rules.block.table.exec(t);
     if (!e || !this.rules.other.tableDelimiter.test(e[2]))
       return;
-    const s = at(e[1]), r = e[2].replace(this.rules.other.tableAlignChars, "").split("|"), i = e[3]?.trim() ? e[3].replace(this.rules.other.tableRowBlankLine, "").split(`
+    const s = at(e[1]), r = e[2].replace(this.rules.other.tableAlignChars, "").split("|"), n = e[3]?.trim() ? e[3].replace(this.rules.other.tableRowBlankLine, "").split(`
 `) : [], o = {
       type: "table",
       raw: e[0],
@@ -882,7 +882,7 @@ ${k}` : k;
           header: !0,
           align: o.align[h]
         });
-      for (const h of i)
+      for (const h of n)
         o.rows.push(at(h, o.header.length).map((l, m) => ({
           text: l,
           tokens: this.lexer.inline(l),
@@ -966,23 +966,23 @@ ${k}` : k;
           e[2] = e[2].substring(0, o), e[0] = e[0].substring(0, l).trim(), e[3] = "";
         }
       }
-      let r = e[2], i = "";
+      let r = e[2], n = "";
       if (this.options.pedantic) {
         const o = this.rules.other.pedanticHrefTitle.exec(r);
-        o && (r = o[1], i = o[3]);
+        o && (r = o[1], n = o[3]);
       } else
-        i = e[3] ? e[3].slice(1, -1) : "";
+        n = e[3] ? e[3].slice(1, -1) : "";
       return r = r.trim(), this.rules.other.startAngleBracket.test(r) && (this.options.pedantic && !this.rules.other.endAngleBracket.test(s) ? r = r.slice(1) : r = r.slice(1, -1)), lt(e, {
         href: r && r.replace(this.rules.inline.anyPunctuation, "$1"),
-        title: i && i.replace(this.rules.inline.anyPunctuation, "$1")
+        title: n && n.replace(this.rules.inline.anyPunctuation, "$1")
       }, e[0], this.lexer, this.rules);
     }
   }
   reflink(t, e) {
     let s;
     if ((s = this.rules.inline.reflink.exec(t)) || (s = this.rules.inline.nolink.exec(t))) {
-      const r = (s[2] || s[1]).replace(this.rules.other.multipleSpaceGlobal, " "), i = e[r.toLowerCase()];
-      if (!i) {
+      const r = (s[2] || s[1]).replace(this.rules.other.multipleSpaceGlobal, " "), n = e[r.toLowerCase()];
+      if (!n) {
         const o = s[0].charAt(0);
         return {
           type: "text",
@@ -990,7 +990,7 @@ ${k}` : k;
           text: o
         };
       }
-      return lt(s, i, s[0], this.lexer, this.rules);
+      return lt(s, n, s[0], this.lexer, this.rules);
     }
   }
   emStrong(t, e, s = "") {
@@ -1021,12 +1021,12 @@ ${k}` : k;
             tokens: this.lexer.inlineTokens(a)
           };
         }
-        const n = c.slice(2, -2);
+        const i = c.slice(2, -2);
         return {
           type: "strong",
           raw: c,
-          text: n,
-          tokens: this.lexer.inlineTokens(n)
+          text: i,
+          tokens: this.lexer.inlineTokens(i)
         };
       }
     }
@@ -1035,8 +1035,8 @@ ${k}` : k;
     const e = this.rules.inline.code.exec(t);
     if (e) {
       let s = e[2].replace(this.rules.other.newLineCharGlobal, " ");
-      const r = this.rules.other.nonSpaceChar.test(s), i = this.rules.other.startingSpaceChar.test(s) && this.rules.other.endingSpaceChar.test(s);
-      return r && i && (s = s.substring(1, s.length - 1)), {
+      const r = this.rules.other.nonSpaceChar.test(s), n = this.rules.other.startingSpaceChar.test(s) && this.rules.other.endingSpaceChar.test(s);
+      return r && n && (s = s.substring(1, s.length - 1)), {
         type: "codespan",
         raw: e[0],
         text: s
@@ -1087,10 +1087,10 @@ ${k}` : k;
       if (e[2] === "@")
         s = e[0], r = "mailto:" + s;
       else {
-        let i;
+        let n;
         do
-          i = e[0], e[0] = this.rules.inline._backpedal.exec(e[0])?.[0] ?? "";
-        while (i !== e[0]);
+          n = e[0], e[0] = this.rules.inline._backpedal.exec(e[0])?.[0] ?? "";
+        while (n !== e[0]);
         s = e[0], e[1] === "www." ? r = "http://" + e[0] : r = e[0];
       }
       return {
@@ -1174,65 +1174,65 @@ ${k}` : k;
   }
   blockTokens(e, s = [], r = !1) {
     for (this.options.pedantic && (e = e.replace(I.tabCharGlobal, "    ").replace(I.spaceLine, "")); e; ) {
-      let i;
-      if (this.options.extensions?.block?.some((h) => (i = h.call({ lexer: this }, e, s)) ? (e = e.substring(i.raw.length), s.push(i), !0) : !1))
+      let n;
+      if (this.options.extensions?.block?.some((h) => (n = h.call({ lexer: this }, e, s)) ? (e = e.substring(n.raw.length), s.push(n), !0) : !1))
         continue;
-      if (i = this.tokenizer.space(e)) {
-        e = e.substring(i.raw.length);
+      if (n = this.tokenizer.space(e)) {
+        e = e.substring(n.raw.length);
         const h = s.at(-1);
-        i.raw.length === 1 && h !== void 0 ? h.raw += `
-` : s.push(i);
+        n.raw.length === 1 && h !== void 0 ? h.raw += `
+` : s.push(n);
         continue;
       }
-      if (i = this.tokenizer.code(e)) {
-        e = e.substring(i.raw.length);
-        const h = s.at(-1);
-        h?.type === "paragraph" || h?.type === "text" ? (h.raw += `
-` + i.raw, h.text += `
-` + i.text, this.inlineQueue.at(-1).src = h.text) : s.push(i);
-        continue;
-      }
-      if (i = this.tokenizer.fences(e)) {
-        e = e.substring(i.raw.length), s.push(i);
-        continue;
-      }
-      if (i = this.tokenizer.heading(e)) {
-        e = e.substring(i.raw.length), s.push(i);
-        continue;
-      }
-      if (i = this.tokenizer.hr(e)) {
-        e = e.substring(i.raw.length), s.push(i);
-        continue;
-      }
-      if (i = this.tokenizer.blockquote(e)) {
-        e = e.substring(i.raw.length), s.push(i);
-        continue;
-      }
-      if (i = this.tokenizer.list(e)) {
-        e = e.substring(i.raw.length), s.push(i);
-        continue;
-      }
-      if (i = this.tokenizer.html(e)) {
-        e = e.substring(i.raw.length), s.push(i);
-        continue;
-      }
-      if (i = this.tokenizer.def(e)) {
-        e = e.substring(i.raw.length);
+      if (n = this.tokenizer.code(e)) {
+        e = e.substring(n.raw.length);
         const h = s.at(-1);
         h?.type === "paragraph" || h?.type === "text" ? (h.raw += `
-` + i.raw, h.text += `
-` + i.raw, this.inlineQueue.at(-1).src = h.text) : this.tokens.links[i.tag] || (this.tokens.links[i.tag] = {
-          href: i.href,
-          title: i.title
+` + n.raw, h.text += `
+` + n.text, this.inlineQueue.at(-1).src = h.text) : s.push(n);
+        continue;
+      }
+      if (n = this.tokenizer.fences(e)) {
+        e = e.substring(n.raw.length), s.push(n);
+        continue;
+      }
+      if (n = this.tokenizer.heading(e)) {
+        e = e.substring(n.raw.length), s.push(n);
+        continue;
+      }
+      if (n = this.tokenizer.hr(e)) {
+        e = e.substring(n.raw.length), s.push(n);
+        continue;
+      }
+      if (n = this.tokenizer.blockquote(e)) {
+        e = e.substring(n.raw.length), s.push(n);
+        continue;
+      }
+      if (n = this.tokenizer.list(e)) {
+        e = e.substring(n.raw.length), s.push(n);
+        continue;
+      }
+      if (n = this.tokenizer.html(e)) {
+        e = e.substring(n.raw.length), s.push(n);
+        continue;
+      }
+      if (n = this.tokenizer.def(e)) {
+        e = e.substring(n.raw.length);
+        const h = s.at(-1);
+        h?.type === "paragraph" || h?.type === "text" ? (h.raw += `
+` + n.raw, h.text += `
+` + n.raw, this.inlineQueue.at(-1).src = h.text) : this.tokens.links[n.tag] || (this.tokens.links[n.tag] = {
+          href: n.href,
+          title: n.title
         });
         continue;
       }
-      if (i = this.tokenizer.table(e)) {
-        e = e.substring(i.raw.length), s.push(i);
+      if (n = this.tokenizer.table(e)) {
+        e = e.substring(n.raw.length), s.push(n);
         continue;
       }
-      if (i = this.tokenizer.lheading(e)) {
-        e = e.substring(i.raw.length), s.push(i);
+      if (n = this.tokenizer.lheading(e)) {
+        e = e.substring(n.raw.length), s.push(n);
         continue;
       }
       let o = e;
@@ -1244,19 +1244,19 @@ ${k}` : k;
           m = u.call({ lexer: this }, l), typeof m == "number" && m >= 0 && (h = Math.min(h, m));
         }), h < 1 / 0 && h >= 0 && (o = e.substring(0, h + 1));
       }
-      if (this.state.top && (i = this.tokenizer.paragraph(o))) {
+      if (this.state.top && (n = this.tokenizer.paragraph(o))) {
         const h = s.at(-1);
         r && h?.type === "paragraph" ? (h.raw += `
-` + i.raw, h.text += `
-` + i.text, this.inlineQueue.pop(), this.inlineQueue.at(-1).src = h.text) : s.push(i), r = o.length !== e.length, e = e.substring(i.raw.length);
+` + n.raw, h.text += `
+` + n.text, this.inlineQueue.pop(), this.inlineQueue.at(-1).src = h.text) : s.push(n), r = o.length !== e.length, e = e.substring(n.raw.length);
         continue;
       }
-      if (i = this.tokenizer.text(e)) {
-        e = e.substring(i.raw.length);
+      if (n = this.tokenizer.text(e)) {
+        e = e.substring(n.raw.length);
         const h = s.at(-1);
         h?.type === "text" ? (h.raw += `
-` + i.raw, h.text += `
-` + i.text, this.inlineQueue.pop(), this.inlineQueue.at(-1).src = h.text) : s.push(i);
+` + n.raw, h.text += `
+` + n.text, this.inlineQueue.pop(), this.inlineQueue.at(-1).src = h.text) : s.push(n);
         continue;
       }
       if (e) {
@@ -1277,17 +1277,17 @@ ${k}` : k;
    * Lexing/Compiling
    */
   inlineTokens(e, s = []) {
-    let r = e, i = null;
+    let r = e, n = null;
     if (this.tokens.links) {
       const l = Object.keys(this.tokens.links);
       if (l.length > 0)
-        for (; (i = this.tokenizer.rules.inline.reflinkSearch.exec(r)) != null; )
-          l.includes(i[0].slice(i[0].lastIndexOf("[") + 1, -1)) && (r = r.slice(0, i.index) + "[" + "a".repeat(i[0].length - 2) + "]" + r.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex));
+        for (; (n = this.tokenizer.rules.inline.reflinkSearch.exec(r)) != null; )
+          l.includes(n[0].slice(n[0].lastIndexOf("[") + 1, -1)) && (r = r.slice(0, n.index) + "[" + "a".repeat(n[0].length - 2) + "]" + r.slice(this.tokenizer.rules.inline.reflinkSearch.lastIndex));
     }
-    for (; (i = this.tokenizer.rules.inline.anyPunctuation.exec(r)) != null; )
-      r = r.slice(0, i.index) + "++" + r.slice(this.tokenizer.rules.inline.anyPunctuation.lastIndex);
-    for (; (i = this.tokenizer.rules.inline.blockSkip.exec(r)) != null; )
-      r = r.slice(0, i.index) + "[" + "a".repeat(i[0].length - 2) + "]" + r.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
+    for (; (n = this.tokenizer.rules.inline.anyPunctuation.exec(r)) != null; )
+      r = r.slice(0, n.index) + "++" + r.slice(this.tokenizer.rules.inline.anyPunctuation.lastIndex);
+    for (; (n = this.tokenizer.rules.inline.blockSkip.exec(r)) != null; )
+      r = r.slice(0, n.index) + "[" + "a".repeat(n[0].length - 2) + "]" + r.slice(this.tokenizer.rules.inline.blockSkip.lastIndex);
     let o = !1, h = "";
     for (; e; ) {
       o || (h = ""), o = !1;
@@ -1373,10 +1373,10 @@ ${k}` : k;
     return "";
   }
   code({ text: t, lang: e, escaped: s }) {
-    const r = (e || "").match(I.notSpaceStart)?.[0], i = t.replace(I.endingNewline, "") + `
+    const r = (e || "").match(I.notSpaceStart)?.[0], n = t.replace(I.endingNewline, "") + `
 `;
-    return r ? '<pre><code class="language-' + F(r) + '">' + (s ? i : F(i, !0)) + `</code></pre>
-` : "<pre><code>" + (s ? i : F(i, !0)) + `</code></pre>
+    return r ? '<pre><code class="language-' + F(r) + '">' + (s ? n : F(n, !0)) + `</code></pre>
+` : "<pre><code>" + (s ? n : F(n, !0)) + `</code></pre>
 `;
   }
   blockquote({ tokens: t }) {
@@ -1402,9 +1402,9 @@ ${this.parser.parse(t)}</blockquote>
       const l = t.items[h];
       r += this.listitem(l);
     }
-    const i = e ? "ol" : "ul", o = e && s !== 1 ? ' start="' + s + '"' : "";
-    return "<" + i + o + `>
-` + r + "</" + i + `>
+    const n = e ? "ol" : "ul", o = e && s !== 1 ? ' start="' + s + '"' : "";
+    return "<" + n + o + `>
+` + r + "</" + n + `>
 `;
   }
   listitem(t) {
@@ -1430,12 +1430,12 @@ ${this.parser.parse(t)}</blockquote>
   }
   table(t) {
     let e = "", s = "";
-    for (let i = 0; i < t.header.length; i++)
-      s += this.tablecell(t.header[i]);
+    for (let n = 0; n < t.header.length; n++)
+      s += this.tablecell(t.header[n]);
     e += this.tablerow({ text: s });
     let r = "";
-    for (let i = 0; i < t.rows.length; i++) {
-      const o = t.rows[i];
+    for (let n = 0; n < t.rows.length; n++) {
+      const o = t.rows[n];
       s = "";
       for (let h = 0; h < o.length; h++)
         s += this.tablecell(o[h]);
@@ -1476,19 +1476,19 @@ ${t}</tr>
     return `<del>${this.parser.parseInline(t)}</del>`;
   }
   link({ href: t, title: e, tokens: s }) {
-    const r = this.parser.parseInline(s), i = ot(t);
-    if (i === null)
+    const r = this.parser.parseInline(s), n = ot(t);
+    if (n === null)
       return r;
-    t = i;
+    t = n;
     let o = '<a href="' + t + '"';
     return e && (o += ' title="' + F(e) + '"'), o += ">" + r + "</a>", o;
   }
   image({ href: t, title: e, text: s, tokens: r }) {
     r && (s = this.parser.parseInline(r, this.parser.textRenderer));
-    const i = ot(t);
-    if (i === null)
+    const n = ot(t);
+    if (n === null)
       return F(s);
-    t = i;
+    t = n;
     let o = `<img src="${t}" alt="${s}"`;
     return e && (o += ` title="${F(e)}"`), o += ">", o;
   }
@@ -1548,8 +1548,8 @@ ${t}</tr>
    */
   parse(e, s = !0) {
     let r = "";
-    for (let i = 0; i < e.length; i++) {
-      const o = e[i];
+    for (let n = 0; n < e.length; n++) {
+      const o = e[n];
       if (this.options.extensions?.renderers?.[o.type]) {
         const l = o, m = this.options.extensions.renderers[l.type].call({ parser: this }, l);
         if (m !== !1 || !["space", "hr", "heading", "code", "table", "blockquote", "list", "html", "paragraph", "text"].includes(l.type)) {
@@ -1597,8 +1597,8 @@ ${t}</tr>
         }
         case "text": {
           let l = h, m = this.renderer.text(l);
-          for (; i + 1 < e.length && e[i + 1].type === "text"; )
-            l = e[++i], m += `
+          for (; n + 1 < e.length && e[n + 1].type === "text"; )
+            l = e[++n], m += `
 ` + this.renderer.text(l);
           s ? r += this.renderer.paragraph({
             type: "paragraph",
@@ -1623,8 +1623,8 @@ ${t}</tr>
    */
   parseInline(e, s = this.renderer) {
     let r = "";
-    for (let i = 0; i < e.length; i++) {
-      const o = e[i];
+    for (let n = 0; n < e.length; n++) {
+      const o = e[n];
       if (this.options.extensions?.renderers?.[o.type]) {
         const l = this.options.extensions.renderers[o.type].call({ parser: this }, o);
         if (l !== !1 || !["escape", "html", "link", "image", "strong", "em", "codespan", "br", "del", "text"].includes(o.type)) {
@@ -1747,25 +1747,25 @@ ${t}</tr>
     for (const r of t)
       switch (s = s.concat(e.call(this, r)), r.type) {
         case "table": {
-          const i = r;
-          for (const o of i.header)
+          const n = r;
+          for (const o of n.header)
             s = s.concat(this.walkTokens(o.tokens, e));
-          for (const o of i.rows)
+          for (const o of n.rows)
             for (const h of o)
               s = s.concat(this.walkTokens(h.tokens, e));
           break;
         }
         case "list": {
-          const i = r;
-          s = s.concat(this.walkTokens(i.items, e));
+          const n = r;
+          s = s.concat(this.walkTokens(n.items, e));
           break;
         }
         default: {
-          const i = r;
-          this.defaults.extensions?.childTokens?.[i.type] ? this.defaults.extensions.childTokens[i.type].forEach((o) => {
-            const h = i[o].flat(1 / 0);
+          const n = r;
+          this.defaults.extensions?.childTokens?.[n.type] ? this.defaults.extensions.childTokens[n.type].forEach((o) => {
+            const h = n[o].flat(1 / 0);
             s = s.concat(this.walkTokens(h, e));
-          }) : i.tokens && (s = s.concat(this.walkTokens(i.tokens, e)));
+          }) : n.tokens && (s = s.concat(this.walkTokens(n.tokens, e)));
         }
       }
     return s;
@@ -1774,78 +1774,78 @@ ${t}</tr>
     const e = this.defaults.extensions || { renderers: {}, childTokens: {} };
     return t.forEach((s) => {
       const r = { ...s };
-      if (r.async = this.defaults.async || r.async || !1, s.extensions && (s.extensions.forEach((i) => {
-        if (!i.name)
+      if (r.async = this.defaults.async || r.async || !1, s.extensions && (s.extensions.forEach((n) => {
+        if (!n.name)
           throw new Error("extension name required");
-        if ("renderer" in i) {
-          const o = e.renderers[i.name];
-          o ? e.renderers[i.name] = function(...h) {
-            let l = i.renderer.apply(this, h);
+        if ("renderer" in n) {
+          const o = e.renderers[n.name];
+          o ? e.renderers[n.name] = function(...h) {
+            let l = n.renderer.apply(this, h);
             return l === !1 && (l = o.apply(this, h)), l;
-          } : e.renderers[i.name] = i.renderer;
+          } : e.renderers[n.name] = n.renderer;
         }
-        if ("tokenizer" in i) {
-          if (!i.level || i.level !== "block" && i.level !== "inline")
+        if ("tokenizer" in n) {
+          if (!n.level || n.level !== "block" && n.level !== "inline")
             throw new Error("extension level must be 'block' or 'inline'");
-          const o = e[i.level];
-          o ? o.unshift(i.tokenizer) : e[i.level] = [i.tokenizer], i.start && (i.level === "block" ? e.startBlock ? e.startBlock.push(i.start) : e.startBlock = [i.start] : i.level === "inline" && (e.startInline ? e.startInline.push(i.start) : e.startInline = [i.start]));
+          const o = e[n.level];
+          o ? o.unshift(n.tokenizer) : e[n.level] = [n.tokenizer], n.start && (n.level === "block" ? e.startBlock ? e.startBlock.push(n.start) : e.startBlock = [n.start] : n.level === "inline" && (e.startInline ? e.startInline.push(n.start) : e.startInline = [n.start]));
         }
-        "childTokens" in i && i.childTokens && (e.childTokens[i.name] = i.childTokens);
+        "childTokens" in n && n.childTokens && (e.childTokens[n.name] = n.childTokens);
       }), r.extensions = e), s.renderer) {
-        const i = this.defaults.renderer || new be(this.defaults);
+        const n = this.defaults.renderer || new be(this.defaults);
         for (const o in s.renderer) {
-          if (!(o in i))
+          if (!(o in n))
             throw new Error(`renderer '${o}' does not exist`);
           if (["options", "parser"].includes(o))
             continue;
-          const h = o, l = s.renderer[h], m = i[h];
-          i[h] = (...u) => {
-            let k = l.apply(i, u);
-            return k === !1 && (k = m.apply(i, u)), k || "";
+          const h = o, l = s.renderer[h], m = n[h];
+          n[h] = (...u) => {
+            let k = l.apply(n, u);
+            return k === !1 && (k = m.apply(n, u)), k || "";
           };
         }
-        r.renderer = i;
+        r.renderer = n;
       }
       if (s.tokenizer) {
-        const i = this.defaults.tokenizer || new ke(this.defaults);
+        const n = this.defaults.tokenizer || new ke(this.defaults);
         for (const o in s.tokenizer) {
-          if (!(o in i))
+          if (!(o in n))
             throw new Error(`tokenizer '${o}' does not exist`);
           if (["options", "rules", "lexer"].includes(o))
             continue;
-          const h = o, l = s.tokenizer[h], m = i[h];
-          i[h] = (...u) => {
-            let k = l.apply(i, u);
-            return k === !1 && (k = m.apply(i, u)), k;
+          const h = o, l = s.tokenizer[h], m = n[h];
+          n[h] = (...u) => {
+            let k = l.apply(n, u);
+            return k === !1 && (k = m.apply(n, u)), k;
           };
         }
-        r.tokenizer = i;
+        r.tokenizer = n;
       }
       if (s.hooks) {
-        const i = this.defaults.hooks || new ge();
+        const n = this.defaults.hooks || new ge();
         for (const o in s.hooks) {
-          if (!(o in i))
+          if (!(o in n))
             throw new Error(`hook '${o}' does not exist`);
           if (["options", "block"].includes(o))
             continue;
-          const h = o, l = s.hooks[h], m = i[h];
-          ge.passThroughHooks.has(o) ? i[h] = (u) => {
+          const h = o, l = s.hooks[h], m = n[h];
+          ge.passThroughHooks.has(o) ? n[h] = (u) => {
             if (this.defaults.async)
-              return Promise.resolve(l.call(i, u)).then((b) => m.call(i, b));
-            const k = l.call(i, u);
-            return m.call(i, k);
-          } : i[h] = (...u) => {
-            let k = l.apply(i, u);
-            return k === !1 && (k = m.apply(i, u)), k;
+              return Promise.resolve(l.call(n, u)).then((b) => m.call(n, b));
+            const k = l.call(n, u);
+            return m.call(n, k);
+          } : n[h] = (...u) => {
+            let k = l.apply(n, u);
+            return k === !1 && (k = m.apply(n, u)), k;
           };
         }
-        r.hooks = i;
+        r.hooks = n;
       }
       if (s.walkTokens) {
-        const i = this.defaults.walkTokens, o = s.walkTokens;
+        const n = this.defaults.walkTokens, o = s.walkTokens;
         r.walkTokens = function(h) {
           let l = [];
-          return l.push(o.call(this, h)), i && (l = l.concat(i.call(this, h))), l;
+          return l.push(o.call(this, h)), n && (l = l.concat(n.call(this, h))), l;
         };
       }
       this.defaults = { ...this.defaults, ...r };
@@ -1862,8 +1862,8 @@ ${t}</tr>
   }
   parseMarkdown(t) {
     return (s, r) => {
-      const i = { ...r }, o = { ...this.defaults, ...i }, h = this.onError(!!o.silent, !!o.async);
-      if (this.defaults.async === !0 && i.async === !1)
+      const n = { ...r }, o = { ...this.defaults, ...n }, h = this.onError(!!o.silent, !!o.async);
+      if (this.defaults.async === !0 && n.async === !1)
         return h(new Error("marked(): The async option was set to true by an extension. Remove async: false from the parse options object to return a Promise."));
       if (typeof s > "u" || s === null)
         return h(new Error("marked(): input parameter is undefined or null"));
@@ -1963,11 +1963,11 @@ const Us = (t) => {
       s = /* @__PURE__ */ g.createElement(Je, null);
   }
   let r = e.message;
-  return Array.isArray(r) || (r = [r]), /* @__PURE__ */ g.createElement("div", { className: O("entry", e.severity, e.category) }, /* @__PURE__ */ g.createElement("div", null, /* @__PURE__ */ g.createElement("span", { className: "icon" }, s), /* @__PURE__ */ g.createElement("span", { className: "date" }, e.date?.toLocaleDateString?.call(e.date))), r.map((i) => /* @__PURE__ */ g.createElement(
+  return Array.isArray(r) || (r = [r]), /* @__PURE__ */ g.createElement("div", { className: O("entry", e.severity, e.category) }, /* @__PURE__ */ g.createElement("div", null, /* @__PURE__ */ g.createElement("span", { className: "icon" }, s), /* @__PURE__ */ g.createElement("span", { className: "date" }, e.date?.toLocaleDateString?.call(e.date))), r.map((n) => /* @__PURE__ */ g.createElement(
     "div",
     {
       className: "message",
-      dangerouslySetInnerHTML: { __html: Qs(i) }
+      dangerouslySetInnerHTML: { __html: Qs(n) }
     }
   )));
 }, Xs = (t) => {
@@ -1978,29 +1978,17 @@ const Us = (t) => {
   return !Array.isArray(s) || s.length > 0 && typeof s[0] != "object" ? e = /* @__PURE__ */ g.createElement(Ue, { variant: "danger" }, "Sorry unable to retrieve messages. Try again later.") : s.length === 0 ? e = /* @__PURE__ */ g.createElement(Ue, { variant: "secondary" }, "There are currently no message") : e = /* @__PURE__ */ g.createElement("div", { className: "messages" }, s.map((r) => /* @__PURE__ */ g.createElement(Us, { entry: r }))), e;
 }, Li = (t) => {
   const {
-    show: e,
-    onShow: s,
-    title: r,
-    icon: i,
-    children: o
+    title: e,
+    icon: s,
+    children: r
   } = t;
-  return /* @__PURE__ */ g.createElement(
-    q,
-    {
-      show: e,
-      onHide: () => s(!1),
-      size: "lg"
-    },
-    /* @__PURE__ */ g.createElement(q.Header, null, /* @__PURE__ */ g.createElement(q.Title, null, /* @__PURE__ */ g.createElement("span", null, i), /* @__PURE__ */ g.createElement("span", null, r))),
-    /* @__PURE__ */ g.createElement(q.Body, null, /* @__PURE__ */ g.createElement(Xs, { ...t })),
-    /* @__PURE__ */ g.createElement(q.Footer, null, o)
-  );
+  return /* @__PURE__ */ g.createElement(q, { ...t }, /* @__PURE__ */ g.createElement(q.Header, null, /* @__PURE__ */ g.createElement(q.Title, null, /* @__PURE__ */ g.createElement("span", null, s), /* @__PURE__ */ g.createElement("span", null, e))), /* @__PURE__ */ g.createElement(q.Body, null, /* @__PURE__ */ g.createElement(Xs, { ...t })), /* @__PURE__ */ g.createElement(q.Footer, null, r));
 }, Si = (t) => {
   const {
     show: e,
     onHide: s,
     onConfirm: r,
-    title: i,
+    title: n,
     message: o
   } = t;
   return /* @__PURE__ */ g.createElement(
@@ -2010,7 +1998,7 @@ const Us = (t) => {
       size: "sm",
       onHide: s
     },
-    /* @__PURE__ */ g.createElement(q.Header, { closeButton: !0 }, /* @__PURE__ */ g.createElement(q.Title, null, /* @__PURE__ */ g.createElement(Jt, null), /* @__PURE__ */ g.createElement("span", { className: "" }, i))),
+    /* @__PURE__ */ g.createElement(q.Header, { closeButton: !0 }, /* @__PURE__ */ g.createElement(q.Title, null, /* @__PURE__ */ g.createElement(Jt, null), /* @__PURE__ */ g.createElement("span", { className: "" }, n))),
     /* @__PURE__ */ g.createElement(q.Body, null, /* @__PURE__ */ g.createElement("p", { className: "ellipsis" }, o)),
     /* @__PURE__ */ g.createElement(q.Footer, null, /* @__PURE__ */ g.createElement(
       U,
@@ -2043,7 +2031,7 @@ const Us = (t) => {
   let {
     expanded: s,
     setExpanded: r,
-    canPin: i = !0,
+    canPin: n = !0,
     canClose: o = !0,
     onClose: h = oe,
     pinned: l,
@@ -2053,7 +2041,7 @@ const Us = (t) => {
   } = t;
   B(!1);
   const b = [];
-  return i && b.push(
+  return n && b.push(
     /* @__PURE__ */ g.createElement(
       "div",
       {
@@ -2080,7 +2068,7 @@ const Us = (t) => {
     {
       ...t,
       className: O(u, {
-        pinnable: i,
+        pinnable: n,
         closable: o
       }),
       expanded: s || l,
@@ -2115,7 +2103,7 @@ function ct(t) {
     onEvent: e,
     enabled: s = !0,
     style: r = {},
-    ...i
+    ...n
   } = t, o = V();
   function h() {
     const m = () => {
@@ -2131,7 +2119,7 @@ function ct(t) {
     {
       onMouseEnter: h,
       onMouseLeave: l,
-      ...i,
+      ...n,
       style: {
         ...r,
         display: s ? "block" : "none"
@@ -2141,7 +2129,7 @@ function ct(t) {
 }
 let Js = 0;
 const Pi = (t) => {
-  const [e, s] = B(null), r = V(window), [i, o] = B(() => Js++), {
+  const [e, s] = B(null), r = V(window), [n, o] = B(() => Js++), {
     name: h = "",
     options: l = "",
     notifications: m
@@ -2171,9 +2159,9 @@ const Pi = (t) => {
         ), t.onBlocked();
         return;
       }
-      r.current.document.close(), r.current.addEventListener("beforeunload", u), r.current.document.body.appendChild(e), Array.from(document.head.querySelectorAll('style,link[rel="stylesheet"]')).forEach((n) => {
+      r.current.document.close(), r.current.addEventListener("beforeunload", u), r.current.document.body.appendChild(e), Array.from(document.head.querySelectorAll('style,link[rel="stylesheet"]')).forEach((i) => {
         r.current.document.head.appendChild(
-          n.cloneNode(!0)
+          i.cloneNode(!0)
         );
       });
       const b = () => {
@@ -2193,7 +2181,7 @@ const Pi = (t) => {
   max: e,
   ticks: s,
   value: r,
-  onChange: i,
+  onChange: n,
   formatter: o = (k) => k,
   className: h = "",
   tooltip_position: l,
@@ -2201,7 +2189,7 @@ const Pi = (t) => {
   disabled: u = !1
 }) => {
   const k = V(), b = Array.isArray(r), c = Dt();
-  function n(d, v) {
+  function i(d, v) {
     return () => {
       const {
         min: y,
@@ -2211,7 +2199,7 @@ const Pi = (t) => {
         _ - k.current.value.max,
         _ - k.current.value.min
       ];
-      return w[v] += d, w[v] = Math.min(_, w[v]), w[v] = Math.max(y, w[v]), i(b ? w : w[v]), !1;
+      return w[v] += d, w[v] = Math.min(_, w[v]), w[v] = Math.max(y, w[v]), n(b ? w : w[v]), !1;
     };
   }
   function a(d) {
@@ -2223,7 +2211,7 @@ const Pi = (t) => {
       _ - k.current.value.max,
       _ - k.current.value.min
     ];
-    w[1] += v, w[1] = Math.max(y, w[1]), w[1] = Math.min(_, w[1]), i(b ? [
+    w[1] += v, w[1] = Math.max(y, w[1]), w[1] = Math.min(_, w[1]), n(b ? [
       w[0],
       w[1]
     ] : w[1]), d.stopPropagation();
@@ -2240,7 +2228,7 @@ const Pi = (t) => {
     ss,
     {
       ref: k,
-      onInput: (d) => i(b ? [e - d[1], e - d[0]] : e - d[0]),
+      onInput: (d) => n(b ? [e - d[1], e - d[0]] : e - d[0]),
       value: b ? [e - r[1], e - r[0]] : [e - r, e],
       step: 1,
       max: e,
@@ -2271,7 +2259,7 @@ const Pi = (t) => {
         className: "plus",
         disabled: u,
         onPointerDown: (d) => d.stopPropagation(),
-        onClick: n(1, 1)
+        onClick: i(1, 1)
       },
       /* @__PURE__ */ g.createElement(Ye, null)
     ), /* @__PURE__ */ g.createElement(
@@ -2281,7 +2269,7 @@ const Pi = (t) => {
         className: "minus",
         disabled: u,
         onPointerDown: (d) => d.stopPropagation(),
-        onClick: n(-1, 1)
+        onClick: i(-1, 1)
       },
       /* @__PURE__ */ g.createElement(et, null)
     )),
@@ -2300,7 +2288,7 @@ const Pi = (t) => {
         className: "plus",
         disabled: u,
         onPointerDown: (d) => d.stopPropagation(),
-        onClick: n(1, 0)
+        onClick: i(1, 0)
       },
       /* @__PURE__ */ g.createElement(Ye, null)
     ), /* @__PURE__ */ g.createElement(
@@ -2310,7 +2298,7 @@ const Pi = (t) => {
         className: "minus",
         disabled: u,
         onPointerDown: (d) => d.stopPropagation(),
-        onClick: n(-1, 0)
+        onClick: i(-1, 0)
       },
       /* @__PURE__ */ g.createElement(et, null)
     )) : null
@@ -2320,7 +2308,7 @@ const Pi = (t) => {
     id: e
   } = t, { hideAll: s } = is({
     id: "file-ctx-menu"
-  }), [r, i] = B(!1);
+  }), [r, n] = B(!1);
   function o(l) {
     l.key === "Escape" && s();
   }
@@ -2341,7 +2329,7 @@ const Pi = (t) => {
     {
       id: "file-ctx-menu",
       animation: "slide",
-      onVisibilityChange: i
+      onVisibilityChange: n
     },
     /* @__PURE__ */ g.createElement(
       st,
@@ -2364,7 +2352,7 @@ const Pi = (t) => {
     },
     onAccept: r = () => {
     },
-    onAbort: i = () => {
+    onAbort: n = () => {
     },
     disabled: o,
     name: h,
@@ -2372,14 +2360,14 @@ const Pi = (t) => {
     type: m = "text",
     required: u = !1
   } = t;
-  function k(n) {
-    e[h] = n.target.value, r(e[h], { target: e, name: h });
+  function k(i) {
+    e[h] = i.target.value, r(e[h], { target: e, name: h });
   }
-  function b(n) {
-    e[h] = n.target.value, s(e[h], { target: e, name: h });
+  function b(i) {
+    e[h] = i.target.value, s(e[h], { target: e, name: h });
   }
-  function c(n) {
-    e[h] = n.target.value, i(e[h], { target: e, name: h });
+  function c(i) {
+    e[h] = i.target.value, n(e[h], { target: e, name: h });
   }
   return /* @__PURE__ */ React.createElement(Xe.Group, { className: "text-field" }, /* @__PURE__ */ React.createElement(Xe.Label, { className: "text-secondary small", htmlFor: h }, l), /* @__PURE__ */ React.createElement(
     Zt,
@@ -2391,8 +2379,8 @@ const Pi = (t) => {
       name: h,
       onChange: b,
       required: u,
-      onKeyDown: (n) => {
-        n.key === "Enter" ? k(n) : n.key === "Escape" && c(n);
+      onKeyDown: (i) => {
+        i.key === "Enter" ? k(i) : i.key === "Escape" && c(i);
       }
     }
   ));
@@ -2401,7 +2389,7 @@ const Pi = (t) => {
     canPin: e = !1,
     canClose: s = !1,
     value: r,
-    onExpand: i = oe,
+    onExpand: n = oe,
     pinned: o = !1,
     setPinned: h = oe,
     group: l = "global",
@@ -2415,7 +2403,7 @@ const Pi = (t) => {
       setPinned: h,
       expanded: u || !m,
       setExpanded: (b) => {
-        i(b), k(b ? r : null);
+        n(b), k(b ? r : null);
       },
       canPin: e,
       canClose: s
@@ -2431,11 +2419,11 @@ function Ii(t) {
     value: e,
     options: s,
     onChange: r,
-    disabled: i,
+    disabled: n,
     placeholder: o = "Select…",
     className: h
   } = t, l = gt(() => Ys(s), [s]), m = l.find((u) => u.value === e);
-  return /* @__PURE__ */ g.createElement(Ke, null, /* @__PURE__ */ g.createElement(Ke.Toggle, { disabled: i }, m ? m.label : o), /* @__PURE__ */ g.createElement(jt, null, l.map((u) => /* @__PURE__ */ g.createElement(
+  return /* @__PURE__ */ g.createElement(Ke, null, /* @__PURE__ */ g.createElement(Ke.Toggle, { disabled: n }, m ? m.label : o), /* @__PURE__ */ g.createElement(jt, null, l.map((u) => /* @__PURE__ */ g.createElement(
     Wt,
     {
       key: String(u.value),
@@ -2498,16 +2486,16 @@ function ei() {
     var s = (typeof window > "u" ? "undefined" : e(window)) === "object";
     (function(r) {
       if (e(t) === "object" && t.exports) {
-        var i;
+        var n;
         try {
-          i = require("jquery");
+          n = require("jquery");
         } catch {
-          i = null;
+          n = null;
         }
-        t.exports = r(i);
+        t.exports = r(n);
       } else window && (window.Slider = r(window.jQuery));
     })(function(r) {
-      var i = "slider", o = "bootstrapSlider";
+      var n = "slider", o = "bootstrapSlider";
       s && !window.console && (window.console = {}), s && !window.console.log && (window.console.log = function() {
       }), s && !window.console.warn && (window.console.warn = function() {
       });
@@ -2524,7 +2512,7 @@ function ei() {
               b.isPlainObject(d) && (this.options = b.extend(!0, this.options, d));
             });
           }
-          var n = typeof console > "u" ? u : function(p) {
+          var i = typeof console > "u" ? u : function(p) {
             console.error(p);
           };
           function a(p, d) {
@@ -2533,11 +2521,11 @@ function ei() {
                 for (var y = m.call(arguments, 1), _ = 0, w = this.length; _ < w; _++) {
                   var L = this[_], $ = b.data(L, p);
                   if (!$) {
-                    n("cannot call methods on " + p + " prior to initialization; attempted to call '" + v + "'");
+                    i("cannot call methods on " + p + " prior to initialization; attempted to call '" + v + "'");
                     continue;
                   }
                   if (!b.isFunction($[v]) || v.charAt(0) === "_") {
-                    n("no such method '" + v + "' for " + p + " instance");
+                    i("no such method '" + v + "' for " + p + " instance");
                     continue;
                   }
                   var E = $[v].apply($, y);
@@ -2561,64 +2549,64 @@ function ei() {
         k(l);
       })(r), (function(l) {
         var m = void 0, u = {
-          formatInvalidInputErrorMsg: function(n) {
-            return "Invalid input value '" + n + "' passed in";
+          formatInvalidInputErrorMsg: function(i) {
+            return "Invalid input value '" + i + "' passed in";
           },
           callingContextNotSliderInstance: "Calling context element does not have instance of Slider bound to it. Check your code to make sure the JQuery object returned from the call to the slider() initializer is calling the method"
         }, k = {
           linear: {
-            getValue: function(n, a) {
-              return n < a.min ? a.min : n > a.max ? a.max : n;
+            getValue: function(i, a) {
+              return i < a.min ? a.min : i > a.max ? a.max : i;
             },
-            toValue: function(n) {
-              var a = n / 100 * (this.options.max - this.options.min), p = !0;
+            toValue: function(i) {
+              var a = i / 100 * (this.options.max - this.options.min), p = !0;
               if (this.options.ticks_positions.length > 0) {
                 for (var d, v, y, _ = 0, w = 1; w < this.options.ticks_positions.length; w++)
-                  if (n <= this.options.ticks_positions[w]) {
+                  if (i <= this.options.ticks_positions[w]) {
                     d = this.options.ticks[w - 1], y = this.options.ticks_positions[w - 1], v = this.options.ticks[w], _ = this.options.ticks_positions[w];
                     break;
                   }
-                var L = (n - y) / (_ - y);
+                var L = (i - y) / (_ - y);
                 a = d + L * (v - d), p = !1;
               }
               var $ = p ? this.options.min : 0, E = $ + Math.round(a / this.options.step) * this.options.step;
               return k.linear.getValue(E, this.options);
             },
-            toPercentage: function(n) {
+            toPercentage: function(i) {
               if (this.options.max === this.options.min)
                 return 0;
               if (this.options.ticks_positions.length > 0) {
                 for (var a, p, d, v = 0, y = 0; y < this.options.ticks.length; y++)
-                  if (n <= this.options.ticks[y]) {
+                  if (i <= this.options.ticks[y]) {
                     a = y > 0 ? this.options.ticks[y - 1] : 0, d = y > 0 ? this.options.ticks_positions[y - 1] : 0, p = this.options.ticks[y], v = this.options.ticks_positions[y];
                     break;
                   }
                 if (y > 0) {
-                  var _ = (n - a) / (p - a);
+                  var _ = (i - a) / (p - a);
                   return d + _ * (v - d);
                 }
               }
-              return 100 * (n - this.options.min) / (this.options.max - this.options.min);
+              return 100 * (i - this.options.min) / (this.options.max - this.options.min);
             }
           },
           logarithmic: {
             /* Based on http://stackoverflow.com/questions/846221/logarithmic-slider */
-            toValue: function(n) {
-              var a = 1 - this.options.min, p = Math.log(this.options.min + a), d = Math.log(this.options.max + a), v = Math.exp(p + (d - p) * n / 100) - a;
+            toValue: function(i) {
+              var a = 1 - this.options.min, p = Math.log(this.options.min + a), d = Math.log(this.options.max + a), v = Math.exp(p + (d - p) * i / 100) - a;
               return Math.round(v) === d ? d : (v = this.options.min + Math.round((v - this.options.min) / this.options.step) * this.options.step, k.linear.getValue(v, this.options));
             },
-            toPercentage: function(n) {
+            toPercentage: function(i) {
               if (this.options.max === this.options.min)
                 return 0;
-              var a = 1 - this.options.min, p = Math.log(this.options.max + a), d = Math.log(this.options.min + a), v = Math.log(n + a);
+              var a = 1 - this.options.min, p = Math.log(this.options.max + a), d = Math.log(this.options.min + a), v = Math.log(i + a);
               return 100 * (v - d) / (p - d);
             }
           }
         };
-        h = function(n, a) {
-          return b.call(this, n, a), this;
+        h = function(i, a) {
+          return b.call(this, i, a), this;
         };
-        function b(c, n) {
+        function b(c, i) {
           this._state = {
             value: null,
             enabled: null,
@@ -2628,9 +2616,9 @@ function ei() {
             inDrag: !1,
             over: !1,
             tickIndex: null
-          }, this.ticksCallbackMap = {}, this.handleCallbackMap = {}, typeof c == "string" ? this.element = document.querySelector(c) : c instanceof HTMLElement && (this.element = c), n = n || {};
-          for (var a = Object.keys(this.defaultOptions), p = n.hasOwnProperty("min"), d = n.hasOwnProperty("max"), v = 0; v < a.length; v++) {
-            var y = a[v], _ = n[y];
+          }, this.ticksCallbackMap = {}, this.handleCallbackMap = {}, typeof c == "string" ? this.element = document.querySelector(c) : c instanceof HTMLElement && (this.element = c), i = i || {};
+          for (var a = Object.keys(this.defaultOptions), p = i.hasOwnProperty("min"), d = i.hasOwnProperty("max"), v = 0; v < a.length; v++) {
+            var y = a[v], _ = i[y];
             _ = typeof _ < "u" ? _ : L(this.element, y), _ = _ !== null ? _ : this.defaultOptions[y], this.options || (this.options = {}), this.options[y] = _;
           }
           if (this.ticksAreValid = Array.isArray(this.options.ticks) && this.options.ticks.length > 0, this.ticksAreValid || (this.options.lock_to_ticks = !1), this.options.rtl === "auto") {
@@ -2746,8 +2734,8 @@ function ei() {
             reversed: !1,
             rtl: "auto",
             enabled: !0,
-            formatter: function(n) {
-              return Array.isArray(n) ? n[0] + " : " + n[1] : n;
+            formatter: function(i) {
+              return Array.isArray(i) ? i[0] + " : " + i[1] : i;
             },
             natural_arrow_keys: !1,
             ticks: [],
@@ -2767,10 +2755,10 @@ function ei() {
           getValue: function() {
             return this.options.range ? this._state.value : this._state.value[0];
           },
-          setValue: function(n, a, p) {
-            n || (n = 0);
+          setValue: function(i, a, p) {
+            i || (i = 0);
             var d = this.getValue();
-            this._state.value = this._validateInputValue(n);
+            this._state.value = this._validateInputValue(i);
             var v = this._applyPrecision.bind(this);
             this.options.range ? (this._state.value[0] = v(this._state.value[0]), this._state.value[1] = v(this._state.value[1]), this.ticksAreValid && this.options.lock_to_ticks && (this._state.value[0] = this.options.ticks[this._getClosestTickIndex(this._state.value[0])], this._state.value[1] = this.options.ticks[this._getClosestTickIndex(this._state.value[1])]), this._state.value[0] = Math.max(this.options.min, Math.min(this.options.max, this._state.value[0])), this._state.value[1] = Math.max(this.options.min, Math.min(this.options.max, this._state.value[1]))) : (this._state.value = v(this._state.value), this.ticksAreValid && this.options.lock_to_ticks && (this._state.value = this.options.ticks[this._getClosestTickIndex(this._state.value)]), this._state.value = [Math.max(this.options.min, Math.min(this.options.max, this._state.value))], this._addClass(this.handle2, "hide"), this.options.selection === "after" ? this._state.value[1] = this.options.max : this._state.value[1] = this.options.min), this._setTickIndex(), this.options.max > this.options.min ? this._state.percentage = [this._toPercentage(this._state.value[0]), this._toPercentage(this._state.value[1]), this.options.step * 100 / (this.options.max - this.options.min)] : this._state.percentage = [0, 0, 100], this._layout();
             var y = this.options.range ? this._state.value : this._state.value[0];
@@ -2782,7 +2770,7 @@ function ei() {
             }), this;
           },
           destroy: function() {
-            this._removeSliderEventHandlers(), this.sliderElem.parentNode.removeChild(this.sliderElem), this.element.style.display = "", this._cleanUpEventCallbacksMap(), this.element.removeAttribute("data"), l && (this._unbindJQueryEventHandlers(), m === i && this.$element.removeData(m), this.$element.removeData(o));
+            this._removeSliderEventHandlers(), this.sliderElem.parentNode.removeChild(this.sliderElem), this.element.style.display = "", this._cleanUpEventCallbacksMap(), this.element.removeAttribute("data"), l && (this._unbindJQueryEventHandlers(), m === n && this.$element.removeData(m), this.$element.removeData(o));
           },
           disable: function() {
             return this._state.enabled = !1, this.handle1.removeAttribute("tabindex"), this.handle2.removeAttribute("tabindex"), this._addClass(this.sliderElem, "slider-disabled"), this._trigger("slideDisabled"), this;
@@ -2796,21 +2784,21 @@ function ei() {
           isEnabled: function() {
             return this._state.enabled;
           },
-          on: function(n, a) {
-            return this._bindNonQueryEventHandler(n, a), this;
+          on: function(i, a) {
+            return this._bindNonQueryEventHandler(i, a), this;
           },
-          off: function(n, a) {
-            l ? (this.$element.off(n, a), this.$sliderElem.off(n, a)) : this._unbindNonQueryEventHandler(n, a);
+          off: function(i, a) {
+            l ? (this.$element.off(i, a), this.$sliderElem.off(i, a)) : this._unbindNonQueryEventHandler(i, a);
           },
-          getAttribute: function(n) {
-            return n ? this.options[n] : this.options;
+          getAttribute: function(i) {
+            return i ? this.options[i] : this.options;
           },
-          setAttribute: function(n, a) {
-            return this.options[n] = a, this;
+          setAttribute: function(i, a) {
+            return this.options[i] = a, this;
           },
-          refresh: function(n) {
+          refresh: function(i) {
             var a = this.getValue();
-            return this._removeSliderEventHandlers(), b.call(this, this.element, this.options), n && n.useCurrentValue === !0 && this.setValue(a), l && (m === i ? (l.data(this.element, i, this), l.data(this.element, o, this)) : l.data(this.element, o, this)), this;
+            return this._removeSliderEventHandlers(), b.call(this, this.element, this.options), i && i.useCurrentValue === !0 && this.setValue(a), l && (m === n ? (l.data(this.element, n, this), l.data(this.element, o, this)) : l.data(this.element, o, this)), this;
           },
           relayout: function() {
             return this._resize(), this;
@@ -2821,22 +2809,22 @@ function ei() {
           - Place it underneath this comment block and write its signature like so:
           		_fnName : function() {...}
           	********************************/
-          _removeTooltipListener: function(n, a) {
-            this.handle1.removeEventListener(n, a, !1), this.handle2.removeEventListener(n, a, !1);
+          _removeTooltipListener: function(i, a) {
+            this.handle1.removeEventListener(i, a, !1), this.handle2.removeEventListener(i, a, !1);
           },
           _removeSliderEventHandlers: function() {
             if (this.handle1.removeEventListener("keydown", this.handle1Keydown, !1), this.handle2.removeEventListener("keydown", this.handle2Keydown, !1), this.options.ticks_tooltip) {
-              for (var n = this.ticksContainer.getElementsByClassName("slider-tick"), a = 0; a < n.length; a++)
-                n[a].removeEventListener("mouseenter", this.ticksCallbackMap[a].mouseEnter, !1), n[a].removeEventListener("mouseleave", this.ticksCallbackMap[a].mouseLeave, !1);
+              for (var i = this.ticksContainer.getElementsByClassName("slider-tick"), a = 0; a < i.length; a++)
+                i[a].removeEventListener("mouseenter", this.ticksCallbackMap[a].mouseEnter, !1), i[a].removeEventListener("mouseleave", this.ticksCallbackMap[a].mouseLeave, !1);
               this.handleCallbackMap.handle1 && this.handleCallbackMap.handle2 && (this.handle1.removeEventListener("mouseenter", this.handleCallbackMap.handle1.mouseEnter, !1), this.handle2.removeEventListener("mouseenter", this.handleCallbackMap.handle2.mouseEnter, !1), this.handle1.removeEventListener("mouseleave", this.handleCallbackMap.handle1.mouseLeave, !1), this.handle2.removeEventListener("mouseleave", this.handleCallbackMap.handle2.mouseLeave, !1));
             }
             this.handleCallbackMap = null, this.ticksCallbackMap = null, this.showTooltip && this._removeTooltipListener("focus", this.showTooltip), this.hideTooltip && this._removeTooltipListener("blur", this.hideTooltip), this.showTooltip && this.sliderElem.removeEventListener("mouseenter", this.showTooltip, !1), this.hideTooltip && this.sliderElem.removeEventListener("mouseleave", this.hideTooltip, !1), this.sliderElem.removeEventListener("mousedown", this.mousedown, !1), this.touchCapable && (this.showTooltip && (this.handle1.removeEventListener("touchstart", this.showTooltip, !1), this.handle1.removeEventListener("touchmove", this.showTooltip, !1), this.handle2.removeEventListener("touchstart", this.showTooltip, !1), this.handle2.removeEventListener("touchmove", this.showTooltip, !1)), this.hideTooltip && (this.handle1.removeEventListener("touchend", this.hideTooltip, !1), this.handle2.removeEventListener("touchend", this.hideTooltip, !1)), this.showTooltip && (this.sliderElem.removeEventListener("touchstart", this.showTooltip, !1), this.sliderElem.removeEventListener("touchmove", this.showTooltip, !1)), this.hideTooltip && this.sliderElem.removeEventListener("touchend", this.hideTooltip, !1), this.sliderElem.removeEventListener("touchstart", this.touchstart, !1), this.sliderElem.removeEventListener("touchmove", this.touchmove, !1)), window.removeEventListener("resize", this.resize, !1);
           },
-          _bindNonQueryEventHandler: function(n, a) {
-            this.eventToCallbackMap[n] === void 0 && (this.eventToCallbackMap[n] = []), this.eventToCallbackMap[n].push(a);
+          _bindNonQueryEventHandler: function(i, a) {
+            this.eventToCallbackMap[i] === void 0 && (this.eventToCallbackMap[i] = []), this.eventToCallbackMap[i].push(a);
           },
-          _unbindNonQueryEventHandler: function(n, a) {
-            var p = this.eventToCallbackMap[n];
+          _unbindNonQueryEventHandler: function(i, a) {
+            var p = this.eventToCallbackMap[i];
             if (p !== void 0) {
               for (var d = 0; d < p.length; d++)
                 if (p[d] === a) {
@@ -2846,8 +2834,8 @@ function ei() {
             }
           },
           _cleanUpEventCallbacksMap: function() {
-            for (var n = Object.keys(this.eventToCallbackMap), a = 0; a < n.length; a++) {
-              var p = n[a];
+            for (var i = Object.keys(this.eventToCallbackMap), a = 0; a < i.length; a++) {
+              var p = i[a];
               delete this.eventToCallbackMap[p];
             }
           },
@@ -2857,8 +2845,8 @@ function ei() {
           _hideTooltip: function() {
             this._state.inDrag === !1 && this._alwaysShowTooltip !== !0 && (this._removeClass(this.tooltip, "show"), this._removeClass(this.tooltip_min, "show"), this._removeClass(this.tooltip_max, "show")), this._state.over = !1;
           },
-          _setToolTipOnMouseOver: function(n) {
-            var a = this, p = this.options.formatter(n ? n.value[0] : this._state.value[0]), d = n ? v(n, this.options.reversed) : v(this._state, this.options.reversed);
+          _setToolTipOnMouseOver: function(i) {
+            var a = this, p = this.options.formatter(i ? i.value[0] : this._state.value[0]), d = i ? v(i, this.options.reversed) : v(this._state, this.options.reversed);
             this._setText(this.tooltipInner, p), this.tooltip.style[this.stylePos] = d[0] + "%";
             function v(y, _) {
               return _ ? [100 - y.percentage[0], a.options.range ? 100 - y.percentage[1] : y.percentage[1]] : [y.percentage[0], y.percentage[1]];
@@ -2896,8 +2884,8 @@ function ei() {
             };
           },
           _layout: function() {
-            var n, a;
-            if (this.options.reversed ? n = [100 - this._state.percentage[0], this.options.range ? 100 - this._state.percentage[1] : this._state.percentage[1]] : n = [this._state.percentage[0], this._state.percentage[1]], this.handle1.style[this.stylePos] = n[0] + "%", this.handle1.setAttribute("aria-valuenow", this._state.value[0]), a = this.options.formatter(this._state.value[0]), isNaN(a) ? this.handle1.setAttribute("aria-valuetext", a) : this.handle1.removeAttribute("aria-valuetext"), this.handle2.style[this.stylePos] = n[1] + "%", this.handle2.setAttribute("aria-valuenow", this._state.value[1]), a = this.options.formatter(this._state.value[1]), isNaN(a) ? this.handle2.setAttribute("aria-valuetext", a) : this.handle2.removeAttribute("aria-valuetext"), this.rangeHighlightElements.length > 0 && Array.isArray(this.options.rangeHighlights) && this.options.rangeHighlights.length > 0)
+            var i, a;
+            if (this.options.reversed ? i = [100 - this._state.percentage[0], this.options.range ? 100 - this._state.percentage[1] : this._state.percentage[1]] : i = [this._state.percentage[0], this._state.percentage[1]], this.handle1.style[this.stylePos] = i[0] + "%", this.handle1.setAttribute("aria-valuenow", this._state.value[0]), a = this.options.formatter(this._state.value[0]), isNaN(a) ? this.handle1.setAttribute("aria-valuetext", a) : this.handle1.removeAttribute("aria-valuetext"), this.handle2.style[this.stylePos] = i[1] + "%", this.handle2.setAttribute("aria-valuenow", this._state.value[1]), a = this.options.formatter(this._state.value[1]), isNaN(a) ? this.handle2.setAttribute("aria-valuetext", a) : this.handle2.removeAttribute("aria-valuetext"), this.rangeHighlightElements.length > 0 && Array.isArray(this.options.rangeHighlights) && this.options.rangeHighlights.length > 0)
               for (var p = 0; p < this.options.rangeHighlights.length; p++) {
                 var d = this._toPercentage(this.options.rangeHighlights[p].start), v = this._toPercentage(this.options.rangeHighlights[p].end);
                 if (this.options.reversed) {
@@ -2922,43 +2910,43 @@ function ei() {
               }
               for (var x = 0; x < this.options.ticks.length; x++) {
                 var f = this.options.ticks_positions[x] || this._toPercentage(this.options.ticks[x]);
-                this.options.reversed && (f = 100 - f), this.ticks[x].style[this.stylePos] = f + "%", this._removeClass(this.ticks[x], "in-selection"), this.options.range ? f >= n[0] && f <= n[1] && this._addClass(this.ticks[x], "in-selection") : this.options.selection === "after" && f >= n[0] ? this._addClass(this.ticks[x], "in-selection") : this.options.selection === "before" && f <= n[0] && this._addClass(this.ticks[x], "in-selection"), this.tickLabels[x] && (this.tickLabels[x].style[w] = $ + "px", this.options.orientation !== "vertical" && this.options.ticks_positions[x] !== void 0 ? (this.tickLabels[x].style.position = "absolute", this.tickLabels[x].style[this.stylePos] = f + "%", this.tickLabels[x].style[L] = -$ / 2 + "px") : this.options.orientation === "vertical" && (this.options.rtl ? this.tickLabels[x].style.marginRight = this.sliderElem.offsetWidth + "px" : this.tickLabels[x].style.marginLeft = this.sliderElem.offsetWidth + "px", this.tickLabelContainer.style[L] = this.sliderElem.offsetWidth / 2 * -1 + "px"), this._removeClass(this.tickLabels[x], "label-in-selection label-is-selection"), this.options.range ? f >= n[0] && f <= n[1] && (this._addClass(this.tickLabels[x], "label-in-selection"), (f === n[0] || n[1]) && this._addClass(this.tickLabels[x], "label-is-selection")) : (this.options.selection === "after" && f >= n[0] ? this._addClass(this.tickLabels[x], "label-in-selection") : this.options.selection === "before" && f <= n[0] && this._addClass(this.tickLabels[x], "label-in-selection"), f === n[0] && this._addClass(this.tickLabels[x], "label-is-selection")));
+                this.options.reversed && (f = 100 - f), this.ticks[x].style[this.stylePos] = f + "%", this._removeClass(this.ticks[x], "in-selection"), this.options.range ? f >= i[0] && f <= i[1] && this._addClass(this.ticks[x], "in-selection") : this.options.selection === "after" && f >= i[0] ? this._addClass(this.ticks[x], "in-selection") : this.options.selection === "before" && f <= i[0] && this._addClass(this.ticks[x], "in-selection"), this.tickLabels[x] && (this.tickLabels[x].style[w] = $ + "px", this.options.orientation !== "vertical" && this.options.ticks_positions[x] !== void 0 ? (this.tickLabels[x].style.position = "absolute", this.tickLabels[x].style[this.stylePos] = f + "%", this.tickLabels[x].style[L] = -$ / 2 + "px") : this.options.orientation === "vertical" && (this.options.rtl ? this.tickLabels[x].style.marginRight = this.sliderElem.offsetWidth + "px" : this.tickLabels[x].style.marginLeft = this.sliderElem.offsetWidth + "px", this.tickLabelContainer.style[L] = this.sliderElem.offsetWidth / 2 * -1 + "px"), this._removeClass(this.tickLabels[x], "label-in-selection label-is-selection"), this.options.range ? f >= i[0] && f <= i[1] && (this._addClass(this.tickLabels[x], "label-in-selection"), (f === i[0] || i[1]) && this._addClass(this.tickLabels[x], "label-is-selection")) : (this.options.selection === "after" && f >= i[0] ? this._addClass(this.tickLabels[x], "label-in-selection") : this.options.selection === "before" && f <= i[0] && this._addClass(this.tickLabels[x], "label-in-selection"), f === i[0] && this._addClass(this.tickLabels[x], "label-is-selection")));
               }
             }
             var S;
             if (this.options.range) {
-              S = this.options.formatter(this._state.value), this._setText(this.tooltipInner, S), this.tooltip.style[this.stylePos] = (n[1] + n[0]) / 2 + "%";
+              S = this.options.formatter(this._state.value), this._setText(this.tooltipInner, S), this.tooltip.style[this.stylePos] = (i[1] + i[0]) / 2 + "%";
               var M = this.options.formatter(this._state.value[0]);
               this._setText(this.tooltipInner_min, M);
               var C = this.options.formatter(this._state.value[1]);
-              this._setText(this.tooltipInner_max, C), this.tooltip_min.style[this.stylePos] = n[0] + "%", this.tooltip_max.style[this.stylePos] = n[1] + "%";
+              this._setText(this.tooltipInner_max, C), this.tooltip_min.style[this.stylePos] = i[0] + "%", this.tooltip_max.style[this.stylePos] = i[1] + "%";
             } else
-              S = this.options.formatter(this._state.value[0]), this._setText(this.tooltipInner, S), this.tooltip.style[this.stylePos] = n[0] + "%";
+              S = this.options.formatter(this._state.value[0]), this._setText(this.tooltipInner, S), this.tooltip.style[this.stylePos] = i[0] + "%";
             if (this.options.orientation === "vertical")
-              this.trackLow.style.top = "0", this.trackLow.style.height = Math.min(n[0], n[1]) + "%", this.trackSelection.style.top = Math.min(n[0], n[1]) + "%", this.trackSelection.style.height = Math.abs(n[0] - n[1]) + "%", this.trackHigh.style.bottom = "0", this.trackHigh.style.height = 100 - Math.min(n[0], n[1]) - Math.abs(n[0] - n[1]) + "%";
+              this.trackLow.style.top = "0", this.trackLow.style.height = Math.min(i[0], i[1]) + "%", this.trackSelection.style.top = Math.min(i[0], i[1]) + "%", this.trackSelection.style.height = Math.abs(i[0] - i[1]) + "%", this.trackHigh.style.bottom = "0", this.trackHigh.style.height = 100 - Math.min(i[0], i[1]) - Math.abs(i[0] - i[1]) + "%";
             else {
-              this.stylePos === "right" ? this.trackLow.style.right = "0" : this.trackLow.style.left = "0", this.trackLow.style.width = Math.min(n[0], n[1]) + "%", this.stylePos === "right" ? this.trackSelection.style.right = Math.min(n[0], n[1]) + "%" : this.trackSelection.style.left = Math.min(n[0], n[1]) + "%", this.trackSelection.style.width = Math.abs(n[0] - n[1]) + "%", this.stylePos === "right" ? this.trackHigh.style.left = "0" : this.trackHigh.style.right = "0", this.trackHigh.style.width = 100 - Math.min(n[0], n[1]) - Math.abs(n[0] - n[1]) + "%";
+              this.stylePos === "right" ? this.trackLow.style.right = "0" : this.trackLow.style.left = "0", this.trackLow.style.width = Math.min(i[0], i[1]) + "%", this.stylePos === "right" ? this.trackSelection.style.right = Math.min(i[0], i[1]) + "%" : this.trackSelection.style.left = Math.min(i[0], i[1]) + "%", this.trackSelection.style.width = Math.abs(i[0] - i[1]) + "%", this.stylePos === "right" ? this.trackHigh.style.left = "0" : this.trackHigh.style.right = "0", this.trackHigh.style.width = 100 - Math.min(i[0], i[1]) - Math.abs(i[0] - i[1]) + "%";
               var T = this.tooltip_min.getBoundingClientRect(), A = this.tooltip_max.getBoundingClientRect();
               this.options.tooltip_position === "bottom" ? T.right > A.left ? (this._removeClass(this.tooltip_max, "bs-tooltip-bottom"), this._addClass(this.tooltip_max, "bs-tooltip-top"), this.tooltip_max.style.top = "", this.tooltip_max.style.bottom = "22px") : (this._removeClass(this.tooltip_max, "bs-tooltip-top"), this._addClass(this.tooltip_max, "bs-tooltip-bottom"), this.tooltip_max.style.top = this.tooltip_min.style.top, this.tooltip_max.style.bottom = "") : T.right > A.left ? (this._removeClass(this.tooltip_max, "bs-tooltip-top"), this._addClass(this.tooltip_max, "bs-tooltip-bottom"), this.tooltip_max.style.top = "18px") : (this._removeClass(this.tooltip_max, "bs-tooltip-bottom"), this._addClass(this.tooltip_max, "bs-tooltip-top"), this.tooltip_max.style.top = this.tooltip_min.style.top);
             }
           },
-          _createHighlightRange: function(n, a) {
-            return this._isHighlightRange(n, a) ? n > a ? { start: a, size: n - a } : { start: n, size: a - n } : null;
+          _createHighlightRange: function(i, a) {
+            return this._isHighlightRange(i, a) ? i > a ? { start: a, size: i - a } : { start: i, size: a - i } : null;
           },
-          _isHighlightRange: function(n, a) {
-            return 0 <= n && n <= 100 && 0 <= a && a <= 100;
+          _isHighlightRange: function(i, a) {
+            return 0 <= i && i <= 100 && 0 <= a && a <= 100;
           },
-          _resize: function(n) {
+          _resize: function(i) {
             this._state.offset = this._offset(this.sliderElem), this._state.size = this.sliderElem[this.sizePos], this._layout();
           },
-          _removeProperty: function(n, a) {
-            n.style.removeProperty ? n.style.removeProperty(a) : n.style.removeAttribute(a);
+          _removeProperty: function(i, a) {
+            i.style.removeProperty ? i.style.removeProperty(a) : i.style.removeAttribute(a);
           },
-          _mousedown: function(n) {
+          _mousedown: function(i) {
             if (!this._state.enabled)
               return !1;
-            n.preventDefault && n.preventDefault(), this._state.offset = this._offset(this.sliderElem), this._state.size = this.sliderElem[this.sizePos];
-            var a = this._getPercentage(n);
+            i.preventDefault && i.preventDefault(), this._state.offset = this._offset(this.sliderElem), this._state.size = this.sliderElem[this.sizePos];
+            var a = this._getPercentage(i);
             if (this.options.range) {
               var p = Math.abs(this._state.percentage[0] - a), d = Math.abs(this._state.percentage[1] - a);
               this._state.dragged = p < d ? 0 : 1, this._adjustPercentageForRangeSliders(a);
@@ -2966,15 +2954,15 @@ function ei() {
               this._state.dragged = 0;
             this._state.percentage[this._state.dragged] = a, this.touchCapable && (document.removeEventListener("touchmove", this.mousemove, !1), document.removeEventListener("touchend", this.mouseup, !1)), this.mousemove && document.removeEventListener("mousemove", this.mousemove, !1), this.mouseup && document.removeEventListener("mouseup", this.mouseup, !1), this.mousemove = this._mousemove.bind(this), this.mouseup = this._mouseup.bind(this), this.touchCapable && (document.addEventListener("touchmove", this.mousemove, !1), document.addEventListener("touchend", this.mouseup, !1)), document.addEventListener("mousemove", this.mousemove, !1), document.addEventListener("mouseup", this.mouseup, !1), this._state.inDrag = !0;
             var v = this._calculateValue();
-            return this._trigger("slideStart", v), this.setValue(v, !1, !0), n.returnValue = !1, this.options.focus && this._triggerFocusOnHandle(this._state.dragged), !0;
+            return this._trigger("slideStart", v), this.setValue(v, !1, !0), i.returnValue = !1, this.options.focus && this._triggerFocusOnHandle(this._state.dragged), !0;
           },
-          _touchstart: function(n) {
-            this._mousedown(n);
+          _touchstart: function(i) {
+            this._mousedown(i);
           },
-          _triggerFocusOnHandle: function(n) {
-            n === 0 && this.handle1.focus(), n === 1 && this.handle2.focus();
+          _triggerFocusOnHandle: function(i) {
+            i === 0 && this.handle1.focus(), i === 1 && this.handle2.focus();
           },
-          _keydown: function(n, a) {
+          _keydown: function(i, a) {
             if (!this._state.enabled)
               return !1;
             var p;
@@ -2998,11 +2986,11 @@ function ei() {
               var w;
               if (this.ticksAreValid && this.options.lock_to_ticks) {
                 var L = void 0;
-                L = this.options.ticks.indexOf(this._state.value[n]), L === -1 && (L = 0, window.console.warn("(lock_to_ticks) _keydown: index should not be -1")), L += p, L = Math.max(0, Math.min(this.options.ticks.length - 1, L)), w = this.options.ticks[L];
+                L = this.options.ticks.indexOf(this._state.value[i]), L === -1 && (L = 0, window.console.warn("(lock_to_ticks) _keydown: index should not be -1")), L += p, L = Math.max(0, Math.min(this.options.ticks.length - 1, L)), w = this.options.ticks[L];
               } else
-                w = this._state.value[n] + p * this.options.step;
+                w = this._state.value[i] + p * this.options.step;
               var $ = this._toPercentage(w);
-              if (this._state.keyCtrl = n, this.options.range) {
+              if (this._state.keyCtrl = i, this.options.range) {
                 this._adjustPercentageForRangeSliders($);
                 var E = this._state.keyCtrl ? this._state.value[0] : w, x = this._state.keyCtrl ? w : this._state.value[1];
                 w = [Math.max(this.options.min, Math.min(this.options.max, E)), Math.max(this.options.min, Math.min(this.options.max, x))];
@@ -3011,104 +2999,104 @@ function ei() {
               return this._trigger("slideStart", w), this.setValue(w, !0, !0), this._trigger("slideStop", w), this._pauseEvent(a), delete this._state.keyCtrl, !1;
             }
           },
-          _pauseEvent: function(n) {
-            n.stopPropagation && n.stopPropagation(), n.preventDefault && n.preventDefault(), n.cancelBubble = !0, n.returnValue = !1;
+          _pauseEvent: function(i) {
+            i.stopPropagation && i.stopPropagation(), i.preventDefault && i.preventDefault(), i.cancelBubble = !0, i.returnValue = !1;
           },
-          _mousemove: function(n) {
+          _mousemove: function(i) {
             if (!this._state.enabled)
               return !1;
-            var a = this._getPercentage(n);
+            var a = this._getPercentage(i);
             this._adjustPercentageForRangeSliders(a), this._state.percentage[this._state.dragged] = a;
             var p = this._calculateValue(!0);
             return this.setValue(p, !0, !0), !1;
           },
-          _touchmove: function(n) {
-            n.changedTouches !== void 0 && n.preventDefault && n.preventDefault();
+          _touchmove: function(i) {
+            i.changedTouches !== void 0 && i.preventDefault && i.preventDefault();
           },
-          _adjustPercentageForRangeSliders: function(n) {
+          _adjustPercentageForRangeSliders: function(i) {
             if (this.options.range) {
-              var a = this._getNumDigitsAfterDecimalPlace(n);
+              var a = this._getNumDigitsAfterDecimalPlace(i);
               a = a ? a - 1 : 0;
-              var p = this._applyToFixedAndParseFloat(n, a);
-              this._state.dragged === 0 && this._applyToFixedAndParseFloat(this._state.percentage[1], a) < p ? (this._state.percentage[0] = this._state.percentage[1], this._state.dragged = 1) : this._state.dragged === 1 && this._applyToFixedAndParseFloat(this._state.percentage[0], a) > p ? (this._state.percentage[1] = this._state.percentage[0], this._state.dragged = 0) : this._state.keyCtrl === 0 && this._toPercentage(this._state.value[1]) < n ? (this._state.percentage[0] = this._state.percentage[1], this._state.keyCtrl = 1, this.handle2.focus()) : this._state.keyCtrl === 1 && this._toPercentage(this._state.value[0]) > n && (this._state.percentage[1] = this._state.percentage[0], this._state.keyCtrl = 0, this.handle1.focus());
+              var p = this._applyToFixedAndParseFloat(i, a);
+              this._state.dragged === 0 && this._applyToFixedAndParseFloat(this._state.percentage[1], a) < p ? (this._state.percentage[0] = this._state.percentage[1], this._state.dragged = 1) : this._state.dragged === 1 && this._applyToFixedAndParseFloat(this._state.percentage[0], a) > p ? (this._state.percentage[1] = this._state.percentage[0], this._state.dragged = 0) : this._state.keyCtrl === 0 && this._toPercentage(this._state.value[1]) < i ? (this._state.percentage[0] = this._state.percentage[1], this._state.keyCtrl = 1, this.handle2.focus()) : this._state.keyCtrl === 1 && this._toPercentage(this._state.value[0]) > i && (this._state.percentage[1] = this._state.percentage[0], this._state.keyCtrl = 0, this.handle1.focus());
             }
           },
-          _mouseup: function(n) {
+          _mouseup: function(i) {
             if (!this._state.enabled)
               return !1;
-            var a = this._getPercentage(n);
+            var a = this._getPercentage(i);
             this._adjustPercentageForRangeSliders(a), this._state.percentage[this._state.dragged] = a, this.touchCapable && (document.removeEventListener("touchmove", this.mousemove, !1), document.removeEventListener("touchend", this.mouseup, !1)), document.removeEventListener("mousemove", this.mousemove, !1), document.removeEventListener("mouseup", this.mouseup, !1), this._state.inDrag = !1, this._state.over === !1 && this._hideTooltip();
             var p = this._calculateValue(!0);
             return this.setValue(p, !1, !0), this._trigger("slideStop", p), this._state.dragged = null, !1;
           },
-          _setValues: function(n, a) {
-            var p = n === 0 ? 0 : 100;
-            this._state.percentage[n] !== p && (a.data[n] = this._toValue(this._state.percentage[n]), a.data[n] = this._applyPrecision(a.data[n]));
+          _setValues: function(i, a) {
+            var p = i === 0 ? 0 : 100;
+            this._state.percentage[i] !== p && (a.data[i] = this._toValue(this._state.percentage[i]), a.data[i] = this._applyPrecision(a.data[i]));
           },
-          _calculateValue: function(n) {
+          _calculateValue: function(i) {
             var a = {};
-            return this.options.range ? (a.data = [this.options.min, this.options.max], this._setValues(0, a), this._setValues(1, a), n && (a.data[0] = this._snapToClosestTick(a.data[0]), a.data[1] = this._snapToClosestTick(a.data[1]))) : (a.data = this._toValue(this._state.percentage[0]), a.data = parseFloat(a.data), a.data = this._applyPrecision(a.data), n && (a.data = this._snapToClosestTick(a.data))), a.data;
+            return this.options.range ? (a.data = [this.options.min, this.options.max], this._setValues(0, a), this._setValues(1, a), i && (a.data[0] = this._snapToClosestTick(a.data[0]), a.data[1] = this._snapToClosestTick(a.data[1]))) : (a.data = this._toValue(this._state.percentage[0]), a.data = parseFloat(a.data), a.data = this._applyPrecision(a.data), i && (a.data = this._snapToClosestTick(a.data))), a.data;
           },
-          _snapToClosestTick: function(n) {
-            for (var a = [n, 1 / 0], p = 0; p < this.options.ticks.length; p++) {
-              var d = Math.abs(this.options.ticks[p] - n);
+          _snapToClosestTick: function(i) {
+            for (var a = [i, 1 / 0], p = 0; p < this.options.ticks.length; p++) {
+              var d = Math.abs(this.options.ticks[p] - i);
               d <= a[1] && (a = [this.options.ticks[p], d]);
             }
-            return a[1] <= this.options.ticks_snap_bounds ? a[0] : n;
+            return a[1] <= this.options.ticks_snap_bounds ? a[0] : i;
           },
-          _applyPrecision: function(n) {
+          _applyPrecision: function(i) {
             var a = this.options.precision || this._getNumDigitsAfterDecimalPlace(this.options.step);
-            return this._applyToFixedAndParseFloat(n, a);
+            return this._applyToFixedAndParseFloat(i, a);
           },
-          _getNumDigitsAfterDecimalPlace: function(n) {
-            var a = ("" + n).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+          _getNumDigitsAfterDecimalPlace: function(i) {
+            var a = ("" + i).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
             return a ? Math.max(0, (a[1] ? a[1].length : 0) - (a[2] ? +a[2] : 0)) : 0;
           },
-          _applyToFixedAndParseFloat: function(n, a) {
-            var p = n.toFixed(a);
+          _applyToFixedAndParseFloat: function(i, a) {
+            var p = i.toFixed(a);
             return parseFloat(p);
           },
           /*
           	Credits to Mike Samuel for the following method!
           	Source: http://stackoverflow.com/questions/10454518/javascript-how-to-retrieve-the-number-of-decimals-of-a-string-number
           */
-          _getPercentage: function(n) {
-            this.touchCapable && (n.type === "touchstart" || n.type === "touchmove" || n.type === "touchend") && (n = n.changedTouches[0]);
-            var a = n[this.mousePos], p = this._state.offset[this.stylePos], d = a - p;
+          _getPercentage: function(i) {
+            this.touchCapable && (i.type === "touchstart" || i.type === "touchmove" || i.type === "touchend") && (i = i.changedTouches[0]);
+            var a = i[this.mousePos], p = this._state.offset[this.stylePos], d = a - p;
             this.stylePos === "right" && (d = -d);
             var v = d / this._state.size * 100;
             return v = Math.round(v / this._state.percentage[2]) * this._state.percentage[2], this.options.reversed && (v = 100 - v), Math.max(0, Math.min(100, v));
           },
-          _validateInputValue: function(n) {
-            if (isNaN(+n)) {
-              if (Array.isArray(n))
-                return this._validateArray(n), n;
-              throw new Error(u.formatInvalidInputErrorMsg(n));
-            } else return +n;
+          _validateInputValue: function(i) {
+            if (isNaN(+i)) {
+              if (Array.isArray(i))
+                return this._validateArray(i), i;
+              throw new Error(u.formatInvalidInputErrorMsg(i));
+            } else return +i;
           },
-          _validateArray: function(n) {
-            for (var a = 0; a < n.length; a++) {
-              var p = n[a];
+          _validateArray: function(i) {
+            for (var a = 0; a < i.length; a++) {
+              var p = i[a];
               if (typeof p != "number")
                 throw new Error(u.formatInvalidInputErrorMsg(p));
             }
           },
-          _setDataVal: function(n) {
-            this.element.setAttribute("data-value", n), this.element.setAttribute("value", n), this.element.value = n;
+          _setDataVal: function(i) {
+            this.element.setAttribute("data-value", i), this.element.setAttribute("value", i), this.element.value = i;
           },
-          _trigger: function(n, a) {
+          _trigger: function(i, a) {
             a = a || a === 0 ? a : void 0;
-            var p = this.eventToCallbackMap[n];
+            var p = this.eventToCallbackMap[i];
             if (p && p.length)
               for (var d = 0; d < p.length; d++) {
                 var v = p[d];
                 v(a);
               }
-            l && this._triggerJQueryEvent(n, a);
+            l && this._triggerJQueryEvent(i, a);
           },
-          _triggerJQueryEvent: function(n, a) {
+          _triggerJQueryEvent: function(i, a) {
             var p = {
-              type: n,
+              type: i,
               value: a
             };
             this.$element.trigger(p), this.$sliderElem.trigger(p);
@@ -3116,75 +3104,75 @@ function ei() {
           _unbindJQueryEventHandlers: function() {
             this.$element.off(), this.$sliderElem.off();
           },
-          _setText: function(n, a) {
-            typeof n.textContent < "u" ? n.textContent = a : typeof n.innerText < "u" && (n.innerText = a);
+          _setText: function(i, a) {
+            typeof i.textContent < "u" ? i.textContent = a : typeof i.innerText < "u" && (i.innerText = a);
           },
-          _removeClass: function(n, a) {
-            for (var p = a.split(" "), d = n.className, v = 0; v < p.length; v++) {
+          _removeClass: function(i, a) {
+            for (var p = a.split(" "), d = i.className, v = 0; v < p.length; v++) {
               var y = p[v], _ = new RegExp("(?:\\s|^)" + y + "(?:\\s|$)");
               d = d.replace(_, " ");
             }
-            n.className = d.trim();
+            i.className = d.trim();
           },
-          _addClass: function(n, a) {
-            for (var p = a.split(" "), d = n.className, v = 0; v < p.length; v++) {
+          _addClass: function(i, a) {
+            for (var p = a.split(" "), d = i.className, v = 0; v < p.length; v++) {
               var y = p[v], _ = new RegExp("(?:\\s|^)" + y + "(?:\\s|$)"), w = _.test(d);
               w || (d += " " + y);
             }
-            n.className = d.trim();
+            i.className = d.trim();
           },
-          _offsetLeft: function(n) {
-            return n.getBoundingClientRect().left;
+          _offsetLeft: function(i) {
+            return i.getBoundingClientRect().left;
           },
-          _offsetRight: function(n) {
-            return n.getBoundingClientRect().right;
+          _offsetRight: function(i) {
+            return i.getBoundingClientRect().right;
           },
-          _offsetTop: function(n) {
-            for (var a = n.offsetTop; (n = n.offsetParent) && !isNaN(n.offsetTop); )
-              a += n.offsetTop, n.tagName !== "BODY" && (a -= n.scrollTop);
+          _offsetTop: function(i) {
+            for (var a = i.offsetTop; (i = i.offsetParent) && !isNaN(i.offsetTop); )
+              a += i.offsetTop, i.tagName !== "BODY" && (a -= i.scrollTop);
             return a;
           },
-          _offset: function(n) {
+          _offset: function(i) {
             return {
-              left: this._offsetLeft(n),
-              right: this._offsetRight(n),
-              top: this._offsetTop(n)
+              left: this._offsetLeft(i),
+              right: this._offsetRight(i),
+              top: this._offsetTop(i)
             };
           },
-          _css: function(n, a, p) {
+          _css: function(i, a, p) {
             if (l)
-              l.style(n, a, p);
+              l.style(i, a, p);
             else {
               var d = a.replace(/^-ms-/, "ms-").replace(/-([\da-z])/gi, function(v, y) {
                 return y.toUpperCase();
               });
-              n.style[d] = p;
+              i.style[d] = p;
             }
           },
-          _toValue: function(n) {
-            return this.options.scale.toValue.apply(this, [n]);
+          _toValue: function(i) {
+            return this.options.scale.toValue.apply(this, [i]);
           },
-          _toPercentage: function(n) {
-            return this.options.scale.toPercentage.apply(this, [n]);
+          _toPercentage: function(i) {
+            return this.options.scale.toPercentage.apply(this, [i]);
           },
           _setTooltipPosition: function() {
-            var n = [this.tooltip, this.tooltip_min, this.tooltip_max];
+            var i = [this.tooltip, this.tooltip_min, this.tooltip_max];
             if (this.options.orientation === "vertical") {
               var a;
               this.options.tooltip_position ? a = this.options.tooltip_position : this.options.rtl ? a = "left" : a = "right";
               var p = a === "left" ? "right" : "left";
-              n.forEach((function(d) {
+              i.forEach((function(d) {
                 this._addClass(d, "bs-tooltip-" + a), d.style[p] = "100%";
               }).bind(this));
-            } else this.options.tooltip_position === "bottom" ? n.forEach((function(d) {
+            } else this.options.tooltip_position === "bottom" ? i.forEach((function(d) {
               this._addClass(d, "bs-tooltip-bottom"), d.style.top = "22px";
-            }).bind(this)) : n.forEach((function(d) {
+            }).bind(this)) : i.forEach((function(d) {
               this._addClass(d, "bs-tooltip-top"), d.style.top = -this.tooltip.outerHeight - 14 + "px";
             }).bind(this));
           },
-          _getClosestTickIndex: function(n) {
-            for (var a = Math.abs(n - this.options.ticks[0]), p = 0, d = 0; d < this.options.ticks.length; ++d) {
-              var v = Math.abs(n - this.options.ticks[d]);
+          _getClosestTickIndex: function(i) {
+            for (var a = Math.abs(i - this.options.ticks[0]), p = 0, d = 0; d < this.options.ticks.length; ++d) {
+              var v = Math.abs(i - this.options.ticks[d]);
               v < a && (a = v, p = d);
             }
             return p;
@@ -3196,7 +3184,7 @@ function ei() {
           _setTickIndex: function() {
             this.ticksAreValid && (this._state.tickIndex = [this.options.ticks.indexOf(this._state.value[0]), this.options.ticks.indexOf(this._state.value[1])]);
           }
-        }, l && l.fn && (l.fn.slider ? (s && window.console.warn("bootstrap-slider.js - WARNING: $.fn.slider namespace is already bound. Use the $.fn.bootstrapSlider namespace instead."), m = o) : (l.bridget(i, h), m = i), l.bridget(o, h), l(function() {
+        }, l && l.fn && (l.fn.slider ? (s && window.console.warn("bootstrap-slider.js - WARNING: $.fn.slider namespace is already bound. Use the $.fn.bootstrapSlider namespace instead."), m = o) : (l.bridget(n, h), m = n), l.bridget(o, h), l(function() {
           l("input[data-provide=slider]")[m]();
         }));
       })(r), h;
@@ -3211,11 +3199,11 @@ const si = /* @__PURE__ */ Be(ti), ii = (t, e) => {
   };
   let {
     change: r,
-    onChange: i,
+    onChange: n,
     value: o
   } = t;
   const h = V(), [l, m] = B();
-  return r = r ?? i, D(() => {
+  return r = r ?? n, D(() => {
     if (h.current) {
       const u = new si(h.current, s);
       return m(u), () => u.destroy();
@@ -3265,7 +3253,7 @@ function ri() {
       }
     }
     r.isRequired = r;
-    function i() {
+    function n() {
       return r;
     }
     var o = {
@@ -3278,16 +3266,16 @@ function ri() {
       string: r,
       symbol: r,
       any: r,
-      arrayOf: i,
+      arrayOf: n,
       element: r,
       elementType: r,
-      instanceOf: i,
+      instanceOf: n,
       node: r,
-      objectOf: i,
-      oneOf: i,
-      oneOfType: i,
-      shape: i,
-      exact: i,
+      objectOf: n,
+      oneOf: n,
+      oneOfType: n,
+      shape: n,
+      exact: n,
       checkPropTypes: s,
       resetWarningCache: e
     };
@@ -3307,7 +3295,7 @@ function li({
   // fallback if initialPx not provided
   minA: s = 120,
   minB: r = 120,
-  maxA: i,
+  maxA: n,
   // optional px limit for left pane; otherwise auto from container - minB - gutter
   gutter: o = 10,
   style: h,
@@ -3315,12 +3303,12 @@ function li({
   onChange: m
   // called with { px, percent }
 }) {
-  const u = V(null), k = V(!1), [b, c] = B(0), [n, a] = g.Children.toArray(l), p = ($, E, x) => Math.max(E, Math.min(x, $)), d = ee(() => {
+  const u = V(null), k = V(!1), [b, c] = B(0), [i, a] = g.Children.toArray(l), p = ($, E, x) => Math.max(E, Math.min(x, $)), d = ee(() => {
     const $ = u.current;
     if (!$) return { total: 0, min: 0, max: 0 };
-    const E = $.clientWidth, x = Math.max(0, E - o - r), f = typeof i == "number" ? Math.min(i, x) : x, S = Math.min(s, f);
+    const E = $.clientWidth, x = Math.max(0, E - o - r), f = typeof n == "number" ? Math.min(n, x) : x, S = Math.min(s, f);
     return { total: E, min: S, max: f };
-  }, [o, s, r, i]);
+  }, [o, s, r, n]);
   It(() => {
     if (!u.current) return;
     const { total: E, min: x, max: f } = d();
@@ -3377,7 +3365,7 @@ function li({
     }),
     [b, o]
   ), { min: _, max: w, total: L } = d();
-  return /* @__PURE__ */ g.createElement("div", { ref: u, className: "splitpane", style: { ...y, ...h || {} } }, /* @__PURE__ */ g.createElement("div", { className: "pane", style: { minWidth: 0, minHeight: 0 } }, n), /* @__PURE__ */ g.createElement(
+  return /* @__PURE__ */ g.createElement("div", { ref: u, className: "splitpane", style: { ...y, ...h || {} } }, /* @__PURE__ */ g.createElement("div", { className: "pane", style: { minWidth: 0, minHeight: 0 } }, i), /* @__PURE__ */ g.createElement(
     "div",
     {
       role: "separator",
@@ -3411,7 +3399,7 @@ const Hi = (t) => {
     className: e,
     range: s,
     itemSize: r,
-    selectionRange: i,
+    selectionRange: n,
     itemRenderer: o,
     keyBindings: h = {},
     indicators: l = [],
@@ -3420,8 +3408,8 @@ const Hi = (t) => {
     callbacks: k,
     isSelecting: b,
     onMouseUp: c
-  } = Ot(i), n = ee((d) => o(d, k(d), {
-    selectionRange: i,
+  } = Ot(n), i = ee((d) => o(d, k(d), {
+    selectionRange: n,
     isSelecting: b
   }), [s, b, o]), a = {
     width: "5000px",
@@ -3471,7 +3459,7 @@ const Hi = (t) => {
         onMouseUp: c,
         enabled: b,
         onEvent: () => {
-          s.moveUp(), s.first < i.first ? i.first = s.first : s.first < i.last && (i.last = s.first);
+          s.moveUp(), s.first < n.first ? n.first = s.first : s.first < n.last && (n.last = s.first);
         }
       }
     ),
@@ -3479,7 +3467,7 @@ const Hi = (t) => {
       hs,
       {
         itemSize: r,
-        itemRenderer: n,
+        itemRenderer: i,
         range: s,
         ...m,
         style: {
@@ -3512,7 +3500,7 @@ const Hi = (t) => {
         onMouseUp: c,
         enabled: b,
         onEvent: () => {
-          s.moveDown(), s.last > i.last ? i.last = s.last : s.last > i.first && (i.first = s.last);
+          s.moveDown(), s.last > n.last ? n.last = s.last : s.last > n.first && (n.first = s.last);
         }
       }
     )
@@ -3523,13 +3511,13 @@ function hi(t) {
     width: e,
     height: s,
     side: r = "top",
-    arrowBase: i = 20,
+    arrowBase: n = 20,
     arrowLength: o = 10,
     borderRadius: h = 10,
     padding: l = 8,
     strokeWidth: m = 2,
     seamOverlap: u = 0.5
-  } = t || {}, k = Math.max(0, Number(e) || 0), b = Math.max(0, Number(s) || 0), c = Math.max(0, Number(i) || 0), n = Math.max(0, Number(o) || 0), a = Math.max(0, Number(h) || 0), p = Math.max(0, Number(l) || 0), d = Math.max(0, Number(m) || 0), v = k + p * 2, y = b + p * 2, _ = r === "left" || r === "right" ? n : 0, w = r === "top" || r === "bottom" ? n : 0, L = v + _ + d, $ = y + w + d, E = r === "left" ? n : 0, x = r === "top" ? n : 0, f = Math.min(a, Math.min(v, y) / 2), S = E + v / 2, M = x + y / 2, C = E, T = x, A = C + v, N = T + y, J = [
+  } = t || {}, k = Math.max(0, Number(e) || 0), b = Math.max(0, Number(s) || 0), c = Math.max(0, Number(n) || 0), i = Math.max(0, Number(o) || 0), a = Math.max(0, Number(h) || 0), p = Math.max(0, Number(l) || 0), d = Math.max(0, Number(m) || 0), v = k + p * 2, y = b + p * 2, _ = r === "left" || r === "right" ? i : 0, w = r === "top" || r === "bottom" ? i : 0, L = v + _ + d, $ = y + w + d, E = r === "left" ? i : 0, x = r === "top" ? i : 0, f = Math.min(a, Math.min(v, y) / 2), S = E + v / 2, M = x + y / 2, C = E, T = x, A = C + v, N = T + y, J = [
     `M ${C + f} ${T}`,
     `H ${A - f}`,
     `A ${f} ${f} 0 0 1 ${A} ${T + f}`,
@@ -3542,24 +3530,24 @@ function hi(t) {
     "Z"
   ].join(" ");
   let H = "";
-  n > 0 && c > 0 && (r === "right" ? H = [
+  i > 0 && c > 0 && (r === "right" ? H = [
     `M ${A - u} ${M - c / 2}`,
-    `L ${A + n} ${M}`,
+    `L ${A + i} ${M}`,
     `L ${A - u} ${M + c / 2}`,
     "Z"
   ].join(" ") : r === "left" ? H = [
     `M ${C + u} ${M + c / 2}`,
-    `L ${C - n} ${M}`,
+    `L ${C - i} ${M}`,
     `L ${C + u} ${M - c / 2}`,
     "Z"
   ].join(" ") : r === "top" ? H = [
     `M ${S - c / 2} ${T + u}`,
-    `L ${S} ${T - n}`,
+    `L ${S} ${T - i}`,
     `L ${S + c / 2} ${T + u}`,
     "Z"
   ].join(" ") : r === "bottom" && (H = [
     `M ${S + c / 2} ${N - u}`,
-    `L ${S} ${N + n}`,
+    `L ${S} ${N + i}`,
     `L ${S - c / 2} ${N - u}`,
     "Z"
   ].join(" ")));
@@ -3570,7 +3558,7 @@ function hi(t) {
       `H ${A - f}`,
       `A ${f} ${f} 0 0 1 ${A} ${T + f}`,
       `V ${M - c / 2}`,
-      ...n > 0 && c > 0 ? [`L ${A + n} ${M}`, `L ${A} ${M + c / 2}`] : [],
+      ...i > 0 && c > 0 ? [`L ${A + i} ${M}`, `L ${A} ${M + c / 2}`] : [],
       `V ${N - f}`,
       `A ${f} ${f} 0 0 1 ${A - f} ${N}`,
       `H ${C + f}`,
@@ -3589,15 +3577,15 @@ function hi(t) {
       `H ${C + f}`,
       `A ${f} ${f} 0 0 1 ${C} ${N - f}`,
       `V ${M + c / 2}`,
-      ...n > 0 && c > 0 ? [`L ${C - n} ${M}`, `L ${C} ${M - c / 2}`] : [],
+      ...i > 0 && c > 0 ? [`L ${C - i} ${M}`, `L ${C} ${M - c / 2}`] : [],
       `V ${T + f}`,
       `A ${f} ${f} 0 0 1 ${C + f} ${T}`,
       "Z"
     ].join(" ");
   else if (r === "top")
     G = [
-      `M ${S} ${T - n}`,
-      ...n > 0 && c > 0 ? [`L ${S + c / 2} ${T}`] : [],
+      `M ${S} ${T - i}`,
+      ...i > 0 && c > 0 ? [`L ${S + c / 2} ${T}`] : [],
       `H ${A - f}`,
       `A ${f} ${f} 0 0 1 ${A} ${T + f}`,
       `V ${N - f}`,
@@ -3606,7 +3594,7 @@ function hi(t) {
       `A ${f} ${f} 0 0 1 ${C} ${N - f}`,
       `V ${T + f}`,
       `A ${f} ${f} 0 0 1 ${C + f} ${T}`,
-      ...n > 0 && c > 0 ? [`H ${S - c / 2}`] : [],
+      ...i > 0 && c > 0 ? [`H ${S - c / 2}`] : [],
       "Z"
     ].join(" ");
   else if (r === "bottom") {
@@ -3617,9 +3605,9 @@ function hi(t) {
       `V ${N - f}`,
       `A ${f} ${f} 0 0 1 ${A - f} ${N}`
     ];
-    n > 0 && c > 0 && Y.push(
+    i > 0 && c > 0 && Y.push(
       `H ${S + c / 2}`,
-      `L ${S} ${N + n}`,
+      `L ${S} ${N + i}`,
       `L ${S - c / 2} ${N}`
     ), Y.push(
       `H ${C + f}`,
@@ -3630,7 +3618,7 @@ function hi(t) {
       "Z"
     ), G = Y.join(" ");
   }
-  const te = { top: r === "top" ? -n : 0, left: r === "left" ? -n : 0 }, Q = { x: E + p, y: x + p };
+  const te = { top: r === "top" ? -i : 0, left: r === "left" ? -i : 0 }, Q = { x: E + p, y: x + p };
   return {
     // géométrie
     outlineD: G,
@@ -3656,7 +3644,7 @@ function Bi({
   arrowBase: e = 20,
   arrowLength: s = 10,
   borderRadius: r = 10,
-  stroke: i = "#111827",
+  stroke: n = "#111827",
   bubbleFill: o = "#fff",
   arrowFill: h = "#fff",
   strokeWidth: l = 2,
@@ -3665,8 +3653,8 @@ function Bi({
   children: k,
   ...b
 }) {
-  const c = g.useRef(null), { width: n = 0, height: a = 0 } = He({ targetRef: c }), p = g.useMemo(() => !n || !a ? null : hi({
-    width: n,
+  const c = g.useRef(null), { width: i = 0, height: a = 0 } = He({ targetRef: c }), p = g.useMemo(() => !i || !a ? null : hi({
+    width: i,
     // = clientWidth (inclut padding)
     height: a,
     // = clientHeight (inclut padding)
@@ -3679,7 +3667,7 @@ function Bi({
     strokeWidth: l,
     seamOverlap: u
   }), [
-    n,
+    i,
     a,
     t,
     e,
@@ -3704,7 +3692,7 @@ function Bi({
       "svg",
       {
         "aria-hidden": !0,
-        viewBox: `0 0 ${n} ${a}`,
+        viewBox: `0 0 ${i} ${a}`,
         preserveAspectRatio: "none",
         style: {
           position: "absolute",
@@ -3722,7 +3710,7 @@ function Bi({
         {
           d: p.outlineD,
           fill: "none",
-          stroke: i,
+          stroke: n,
           strokeWidth: p.strokeWidth,
           strokeLinejoin: "round",
           strokeLinecap: "round"
