@@ -6,6 +6,11 @@ import React, {
     useState
 } from "react";
 
+import '../style/dot-notification.scss';
+import {
+    flip,
+    useFloating
+} from "@floating-ui/react";
 
 
 export default props => {
@@ -13,7 +18,6 @@ export default props => {
         notifications,
         variant,
         visible = false,
-        targetRef,
         bordered = false,
         size
     } = props;
@@ -50,36 +54,8 @@ export default props => {
         return () => document.removeEventListener('mousedown', listener);
     }, []);
 
-
-    if(targetRef) {
-        return <Anchor
-            anchor={'TOP-RIGHT'}
-            align={'TOP-LEFT'}
-            targetRef={targetRef}>
-            <div
-                ref={ref}
-                onClick={expand}
-                className={classNames(
-                    size,
-                    variant,
-                    "dot-notification",
-                    "anchored",
-                    {
-                        bordered,
-                        "hidden": !visible,
-                        "expanded": expanded
-                    }
-                )}>
-                <div ref={contentRef}
-                     className="content">
-                    {notifications}
-                </div>
-            </div>
-        </Anchor>
-    }
-
-    else if(props.children) {
-        return <div style={{position:"relative"}}>
+    if(props.children) {
+        return <div style={{position:"relative", width:"fit-content"}}>
             <div
                 ref={ref}
                 onClick={expand}

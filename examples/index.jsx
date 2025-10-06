@@ -20,6 +20,7 @@ import Bubble from "./bubble";
 import Pinnable from "./pinnable";
 import RadioCollapse from "./radio";
 import Modal from "./modal";
+import DotNotification from "./dot-notif.jsx";
 
 const domRoot = document.getElementById("content");
 
@@ -48,6 +49,9 @@ const Root = props => {
         case "modal":
             example = <Modal/>;
             break;
+        case "dot-notification":
+            example = <DotNotification/>;
+            break;
     }
 
     return <div style={{
@@ -64,6 +68,7 @@ const Root = props => {
                 pinnable: "Collapsible component",
                 radio: "Radio collapsible",
                 modal: "Message modal",
+                "dot-notification": "Dot notification",
             }}/>
 
         <div style={{

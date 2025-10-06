@@ -14,24 +14,7 @@ import {
     broadcast,
     noOp
 } from "velor-utils/utils/functional.mjs";
-import RadioStore from "./RadioStore.mjs";
 import {RadioContext} from "../core/RadioProvider.jsx";
-
-export function useLocalStorage(name, value) {
-
-}
-
-export function usePersistedState(name, value) {
-    const [state, setState] = useState(getPersistedValue(name, value));
-
-    return [
-        state,
-        value => {
-            setState(value);
-            setPersistedValue(name, value)
-        }
-    ];
-}
 
 export function useInvalidate() {
     const [resolve, setResolver] = useState(() => () => {
@@ -289,4 +272,21 @@ export function useGetGroupValue(group) {
 export function useSetGroupValue(group) {
     const store = useRadioStore();
     return useCallback((key) => store.set(group, key), [store, group]);
+}
+
+export function usePointerPosition() {
+    const posRef = useRef({x: 0, y: 0});
+
+    useEffect(() => {
+        let listener = evt => {
+            posRef.current.x = evt.pageX;
+            posRef.current.y = evt.pageY;
+        };
+        document.addEventListener('mousemove', listener);
+        return () => {
+            document.removeEventListener('mousemove', listener);
+        }
+    }, []);
+
+    return posRef.current;
 }
