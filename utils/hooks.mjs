@@ -1,5 +1,4 @@
 import {
-    createContext,
     useCallback,
     useContext,
     useEffect,
@@ -114,12 +113,18 @@ export function useInvalidateOnAnyEmitterEvent(emitters, event) {
     useEffect(broadcast(...emitters.map(e => e.on(event, invalidate))), [emitters]);
 }
 
-export function useKeyDown(callback, keyOrKeys = [], target = document) {
+export function useKeyDown(callback, keyOrKeys = [], {
+    target = document,
+    ctrl = false,
+    shift = false,
+} = {}) {
     useEffect(() => {
         const onKeyDown = (event) => {
             const keys = Array.isArray(keyOrKeys) ? keyOrKeys : [keyOrKeys];
-            if (keys.includes(event.key) || keys.length === 0) {
-                callback(event);
+            if (keys.includes(event.code) || keys.length === 0) {
+                if ((ctrl && event.ctrlKey || !ctrl) && (shift && event.shiftKey || !shift)) {
+                    callback(event);
+                }
             }
         };
         target.addEventListener('keydown', onKeyDown);
@@ -137,16 +142,16 @@ export function useRangeSelection(range) {
     const [isSelecting, setIsSelecting] = useState(false);
 
     const onClick = useCallback((event, item) => {
-        console.log(event)
         if (event.shiftKey) {
             if (range.valid) {
                 // A range is already defined. Add a new item to the selection range.
-                range.growTo(item);
+                let di = item > range.last ? 1 : 0;
+                range.growTo(item + di);
             } else {
                 // Only one item is selected.
                 range.setValue({
                     first: item,
-                    last: item,
+                    last: item + 1,
                 });
             }
         }
@@ -175,13 +180,26 @@ export function useRangeSelection(range) {
             // and a previous click was registered (i.e., a drag state)
 
             if (!range.valid) {
-                // it will be reordered correctly internally
-                range.setValue({
-                    first: index,
-                    last: location,
-                });
+                if (index < location) {
+                    range.setValue({
+                        first: index,
+                        last: location + 1,
+                    });
+                } else {
+                    range.setValue({
+                        first: location,
+                        last: index + 1,
+                    });
+                }
             } else {
-                range.adjustTo(index, location);
+                if (index < location) {
+                    range.first = index;
+                } else if (index === location) {
+                    range.first = index;
+                    range.last = index + 1;
+                } else {
+                    range.last = index + 1;
+                }
             }
             setIsSelecting(true);
         }
@@ -236,6 +254,7 @@ export function useRangeKeyBindings(range, keyBindings = {}, target) {
         home: 'Home',
         down: 'ArrowDown',
         up: 'ArrowUp',
+        all: 'KeyA',
 
         ...keyBindings,
     };

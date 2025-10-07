@@ -11,7 +11,7 @@ import {
 
 export default () => {
     const range = useRange({
-        max: 9999
+        max: 1000
     });
 
     const selectionRange = useRange({
@@ -21,6 +21,7 @@ export default () => {
     useRangeKeyBindings(range);
 
     useKeyDown(() => selectionRange.invalidate(), 'Escape');
+    useKeyDown(() => selectionRange.all(), 'KeyA', {ctrl: true});
 
     useKeyDown(() => range.max++, '+');
 
@@ -40,24 +41,34 @@ export default () => {
     }
 
 
-    return <DynamicList style={{
-        height: '510px',
-        width: '500px',
-        position: 'relative'
-    }}
-                 itemSize={20}
-                 range={range}
-                 selectionRange={selectionRange}
-                 itemRenderer={render}
-                 indicators={[
-                     {
-                         name: 'selection',
-                         range: selectionRange,
-                         caption: 'Selection',
-                         enabled: selectionRange.valid,
-                     }
-                 ]}
-    >
+    return <>
+        <style>
+            {`.list-item:hover {
+                border: 1px solid blue;
+                padding-left: -1px;
+            }
+            .list-item {
+                box-sizing: border-box;
+            }`}
+        </style>
+        <DynamicList style={{
+            height: '510px',
+            width: '500px',
+            position: 'relative'
+        }}
+                     itemSize={20}
+                     range={range}
+                     selectionRange={selectionRange}
+                     itemRenderer={render}
+                     indicators={[
+                         {
+                             name: 'selection',
+                             range: selectionRange,
+                             caption: 'Selection',
+                             enabled: selectionRange.valid,
+                         }
+                     ]}
+        >
 
-    </DynamicList>
+        </DynamicList></>
 };

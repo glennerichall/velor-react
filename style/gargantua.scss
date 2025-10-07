@@ -66,6 +66,8 @@
   --gutter-margin: 5px;
   --indicator-min-height: 10px;
 
+  user-select: none;
+
   .indicator {
     border-radius: 2px;
     width: 10px;

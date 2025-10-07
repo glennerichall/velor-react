@@ -10,6 +10,7 @@ export function IntervalOnHover(props) {
         onEvent,
         enabled = true,
         style = {},
+        delay= 100,
         ...otherProps
     } = props;
 
@@ -18,7 +19,7 @@ export function IntervalOnHover(props) {
     function startInterval() {
         const event = () => {
             onEvent();
-            timeout.current = setTimeout(event, 100);
+            timeout.current = setTimeout(event, delay);
         }
         if (enabled) {
             event();

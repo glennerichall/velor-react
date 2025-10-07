@@ -42,11 +42,11 @@ export default props => {
     }, [range, isSelecting, itemRenderer]);
 
     const autoScrollStyle = {
-        width: "5000px",
+        width: 5000,
         position: "absolute",
-        height: "5000px",
-        left: "-2500px",
+        left: -2500,
         zIndex: 1000,
+        height: 5000
     };
 
     function createIndicator(item) {
@@ -78,23 +78,26 @@ export default props => {
         style={{
             position: "relative",
         }}>
-        <IntervalOnHover
-            style={{
-                ...autoScrollStyle,
-                top: "-5000px",
-            }}
-            className={"auto-scroll auto-scroll-up"}
-            onMouseUp={onMouseUp}
-            enabled={isSelecting}
-            onEvent={() => {
-                range.moveUp();
-                if (range.first < selectionRange.first) {
-                    selectionRange.first = range.first;
-                } else if (range.first < selectionRange.last) {
-                    selectionRange.last = range.first;
-                }
-            }}
-        />
+        <div style={{position: "relative"}}>
+            <IntervalOnHover
+                style={{
+                    ...autoScrollStyle,
+                    bottom: -itemSize,
+
+                }}
+                className={"auto-scroll auto-scroll-up"}
+                onMouseUp={onMouseUp}
+                enabled={isSelecting}
+                onEvent={() => {
+                    range.moveUp();
+                    if (range.first < selectionRange.first) {
+                        selectionRange.first = range.first;
+                    } else if (range.first > selectionRange.first && range.first < selectionRange.last) {
+                        selectionRange.last = range.first + 1;
+                    }
+                }}
+            />
+        </div>
 
         <GargantuaList itemSize={itemSize}
                        itemRenderer={render}
@@ -122,24 +125,27 @@ export default props => {
 
         </div>
 
-        <IntervalOnHover
-            style={{
-                ...autoScrollStyle,
-                bottom: "-5000px",
-            }}
-            className={"auto-scroll auto-scroll-down"}
-            onMouseUp={onMouseUp}
-            enabled={isSelecting}
-            onEvent={() => {
-                range.moveDown();
-                if (range.last > selectionRange.last) {
-                    selectionRange.last = range.last;
-                } else if (range.last > selectionRange.first) {
-                    selectionRange.first = range.last;
-                }
-
-            }}
-        />
+        <div style={{position: "relative"}}>
+            <IntervalOnHover
+                style={{
+                    ...autoScrollStyle,
+                    top: -itemSize - 40,
+                }}
+                className={"auto-scroll auto-scroll-down"}
+                onMouseUp={onMouseUp}
+                enabled={isSelecting}
+                onEvent={() => {
+                    range.moveDown();
+                    if (range.last > selectionRange.last) {
+                        selectionRange.last = range.last;
+                    }  else if (range.last !== range.max &&
+                        range.last <= selectionRange.last &&
+                        range.last > selectionRange.first) {
+                        selectionRange.first = range.last - 1;
+                    }
+                }}
+            />
+        </div>
 
 
     </div>;
