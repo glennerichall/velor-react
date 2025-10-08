@@ -1,0 +1,86 @@
+:root {
+  --layer-drawers: 2;
+}
+
+.drawer {
+  position: absolute;
+  transition: left 0.3s, right 0.3s;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  width: 600px;
+  max-width: 100%;
+  z-index: var(--layer-drawers);
+  pointer-events: all;
+  flex-direction: column;
+  background-color: rgb(var(--widget-bg-rgb), 0.9);
+  backdrop-filter: blur(5px);
+  padding: 1em;
+
+  h5.title  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--gap);
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+    }
+  }
+
+  &.left-drawer {
+    left: 0;
+
+    h5.title {
+      flex-direction: row-reverse;
+    }
+  }
+
+   &.right-drawer {
+     right: 0;
+   }
+
+  > * {
+    margin-left: 0!important;
+    margin-right: 0!important;
+  }
+
+  h5 {
+    border-bottom: 1px solid grey;
+    color: grey;
+  }
+
+  // when hidden, svg may still capture events so disable them
+  &:is(.animate__slideOutRight, .initial) {
+    svg {
+      pointer-events: none;
+    }
+  }
+
+
+  &.initial:not(.initially-visible) {
+    visibility: hidden;
+  }
+
+  .nav {
+    --bs-nav-link-padding-y: 0.2rem;
+  }
+
+  .nav-tabs {
+    --bs-nav-tabs-link-active-bg: gray;
+    --bs-nav-link-color:  gray;
+    --bs-nav-tabs-link-active-color: white;
+    --bs-nav-tabs-link-hover-border-color:lightgray;
+    --bs-nav-tabs-border-color: lightgray;
+    --bs-nav-link-hover-color: var(--bs-dark);
+  }
+
+}

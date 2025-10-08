@@ -13,18 +13,22 @@ import {
 } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 
+import '../style/drawer.scss';
+import {noOp} from "velor-utils/utils/functional.mjs";
+
 export default props => {
 
     const {
         visible,
-        onClose,
+        onClose = noOp,
         title,
         loading,
         className = '',
         id,
         name,
         location = 'right',
-        clearChilds = true
+        clearChilds = true,
+        style = {}
     } = props;
 
 
@@ -63,11 +67,6 @@ export default props => {
         {foldIcon}
     </Button>;
 
-    const spinner = <Spinner className={classNames({hidden: !loading})}
-                             animation="border"
-                             role="status"
-                             variant="secondary"/>;
-
     let titleElem;
     if (title) {
         titleElem = <h5 className="title">
@@ -76,18 +75,17 @@ export default props => {
             </span>
 
             <span className="buttons">
-                {spinner}
                 {fold}
             </span>
         </h5>;
     } else {
         titleElem = <div className="title">
-            {spinner}
             <span className="buttons">{fold}</span>
         </div>;
     }
 
     return <div
+        style={style}
         id={id}
         onAnimationEnd={event => setChildVisible(visible)}
         onMouseDown={event => {
@@ -98,16 +96,14 @@ export default props => {
             `name-${name}`,
             "drawer",
             `${location}-drawer`,
-            "animate__animated",
-            "animate__faster",
             {
                 initial,
                 'willbe-visible': visible,
                 'initially-visible': iVis,
-                animate__slideInRight: location === 'right' && visible && !initial,
-                animate__slideOutRight: location === 'right' && !visible && !initial,
-                animate__slideInLeft: location === 'left' && visible && !initial,
-                animate__slideOutLeft: location === 'left' && !visible && !initial,
+                slideInRight: location === 'right' && visible && !initial,
+                aslideOutRight: location === 'right' && !visible && !initial,
+                slideInLeft: location === 'left' && visible && !initial,
+                slideOutLeft: location === 'left' && !visible && !initial,
             })
         }>
         {titleElem}
