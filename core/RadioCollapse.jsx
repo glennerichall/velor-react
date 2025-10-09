@@ -9,9 +9,8 @@ import {noOp} from "velor-utils/utils/functional.mjs";
 
 import Pinnable from "./Pinnable";
 import {
-    useGetGroupValue,
-    useSetGroupValue
-} from "../utils/hooks.mjs";
+    useRadio,
+} from "../utils/radioStoreHooks.js";
 
 export default props => {
 
@@ -26,8 +25,8 @@ export default props => {
         collapsible = true
     } = props;
 
-    const selected = useGetGroupValue(group) === eventKey;
-    const setGroup = useSetGroupValue(group);
+    const [selectedGroup, setGroup] = useRadio(group);
+    const selected = selectedGroup === eventKey;
 
     return <Pinnable
         {...props}

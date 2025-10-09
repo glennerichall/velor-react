@@ -1,10 +1,8 @@
 import {
     useCallback,
-    useContext,
     useEffect,
     useRef,
-    useState,
-    useSyncExternalStore
+    useState
 } from "react";
 
 import {Range} from 'velor-utils/utils/Range.mjs';
@@ -13,7 +11,6 @@ import {
     broadcast,
     noOp
 } from "velor-utils/utils/functional.mjs";
-import {RadioContext} from "../core/RadioProvider.jsx";
 
 export function useInvalidate() {
     const [resolve, setResolver] = useState(() => () => {
@@ -273,25 +270,6 @@ export function useRangeKeyBindings(range, keyBindings = {}, target) {
     }
 }
 
-
-function useRadioStore() {
-    const ctx = useContext(RadioContext);
-    if (!ctx) throw new Error("useRadioStore must be used inside <RadioProvider>");
-    return ctx;
-}
-
-
-export function useGetGroupValue(group) {
-    const store = useRadioStore();
-    const subscribe = useCallback((onChange) => store.subscribe(group, onChange), [store, group]);
-    const getSnapshot = useCallback(() => store.get(group), [store, group]);
-    return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
-}
-
-export function useSetGroupValue(group) {
-    const store = useRadioStore();
-    return useCallback((key) => store.set(group, key), [store, group]);
-}
 
 export function usePointerPosition() {
     const posRef = useRef({x: 0, y: 0});

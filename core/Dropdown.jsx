@@ -26,7 +26,9 @@ export default function Dropdown(props) {
     const selected = opts.find(o => o.value === value);
 
     return (<DropdownBS>
-        <DropdownBS.Toggle disabled={disabled}>
+        <DropdownBS.Toggle disabled={disabled}
+                           onMouseDown={e=>e.stopPropagation()}
+        >
             {selected ? selected.label : placeholder}
         </DropdownBS.Toggle>
         <DropdownMenu>

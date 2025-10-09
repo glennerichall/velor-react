@@ -3,14 +3,12 @@ import React, {
     createContext,
     useRef
 } from "react";
-import RadioStore from "../utils/RadioStore.mjs";
+import {useRadioStoreRef} from "../utils/radioStoreHooks.js";
 
 export const RadioContext = createContext(null);
 
-export default function RadioProvider({ children }) {
-    const storeRef = useRef();
-    if (!storeRef.current) storeRef.current = new RadioStore();
-    const store = storeRef.current;
+export default function RadioProvider({children}) {
+    const store = useRadioStoreRef();
     return <RadioContext.Provider value={store}>
         {children}
     </RadioContext.Provider>;
