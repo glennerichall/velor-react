@@ -77,7 +77,8 @@ const Root = props => {
             }}/>
 
         <div style={{
-            marginTop: "20px"
+            marginTop: "20px",
+            display: "flex",
         }}>
             {example}
         </div>

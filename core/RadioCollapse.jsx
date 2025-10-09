@@ -8,9 +8,8 @@ import React, {
 import {noOp} from "velor-utils/utils/functional.mjs";
 
 import Pinnable from "./Pinnable";
-import {
-    useRadio,
-} from "../utils/radioStoreHooks.js";
+
+import {useRadio} from "../utils/hooks.mjs";
 
 export default props => {
 

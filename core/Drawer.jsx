@@ -7,34 +7,34 @@ import React, {
 import classNames from 'classnames';
 
 import '../style/drawer.scss';
-import {noOp} from "velor-utils/utils/functional.mjs";
 
 export default props => {
 
     const {
         visible,
-        onClose = noOp,
         className = '',
         location = 'left',
-        style = {}
+        ...otherProps
     } = props;
 
     // console.log('Drawer.jsx');
 
 
-    return <div
-        style={{
-            ...style,
-        }}
-        className={classNames(
-            className,
-            `name-${name}`,
-            "drawer",
-            `${location}-drawer`,
-            {
-                visible,
-            })
-        }>
-        {props.children}
-    </div>
+    return <div className={classNames(
+        "drawer-container",
+        `${location}-drawer`,
+        {
+            'horizontal-drawer': location === 'left' || location === 'right',
+            'vertical-drawer': location === 'top' || location === 'bottom',
+        })}>
+        <div
+            {...otherProps}
+            className={classNames(
+                className,
+                {visible},
+                "drawer"
+            )}>
+            {props.children}
+        </div>
+    </div>;
 }

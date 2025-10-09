@@ -3,7 +3,8 @@ import React, {
     createContext,
     useRef
 } from "react";
-import {useRadioStoreRef} from "../utils/radioStoreHooks.js";
+
+import {useRadioStoreRef} from "../utils/hooks.mjs";
 
 export const RadioContext = createContext(null);
 

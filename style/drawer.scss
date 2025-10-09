@@ -1,25 +1,72 @@
 :root {
   --layer-drawers: 2;
   --drawer-width: 600px;
+  --drawer-height: 500px;
 }
 
-.drawer {
+.drawer-container {
+  pointer-events: none;
   position: absolute;
-  transition: left 0.3s, right 0.3s;
-  top: 0;
-  bottom: 0;
-  width: var(--drawer-width);
-  max-width: 100%;
-  z-index: var(--layer-drawers);
-  pointer-events: all;
+  overflow: hidden;
+
+  &.horizontal-drawer {
+    top: 0;
+    bottom: 0;
+    width: var(--drawer-width);
+  }
+
+  &.vertical-drawer {
+    left: 0;
+    right: 0;
+    height: var(--drawer-height);
+  }
 
   &.left-drawer {
+    left: 0;
 
-    left: calc(var(--drawer-width) * -1);
+    .drawer {
+      left: calc(var(--drawer-width) * -1);
 
-    &.visible {
-      left: 0;
+      &.visible {
+        transform: translateX(var(--drawer-width));
+      }
     }
   }
 
+  &.right-drawer {
+    right: 0;
+
+    .drawer {
+      right: calc(var(--drawer-width) * -1);
+
+      &.visible {
+        transform: translateX(calc(0px - var(--drawer-width)));
+      }
+    }
+  }
+  
+  &.bottom-drawer {
+    bottom: 0;
+    
+    .drawer {
+      bottom: calc(var(--drawer-height) * -1);
+      
+      &.visible {
+        transform: translateY(calc(0px - var(--drawer-height)));
+      }
+    }
+  }
+
+  .drawer {
+    transition: left 0.3s, right 0.3s, top 0.3s, bottom 0.3s, transform 0.3s;
+
+    z-index: var(--layer-drawers);
+    pointer-events: all;
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 }
+
+

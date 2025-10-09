@@ -5,41 +5,74 @@ import React, {
 } from "react";
 import {Drawer} from "../core/index.mjs";
 import Button from "react-bootstrap/Button";
-import {useRadioStore} from "../utils/radioStoreHooks.js";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import {useRadioStore} from "../utils/hooks.mjs";
 
 export default props => {
 
-    const [visible, setVisible] = useState(true);
     const [opened, setOpened] = useRadioStore("default");
-
-    console.log(opened)
 
     useEffect(() => {
         const onClick = () => {
-            console.log('Drawer.jsx', visible);
-            setVisible(visible => !visible);
+            setOpened(null);
         }
         document.addEventListener('mousedown', onClick);
         return () => document.removeEventListener('mousedown', onClick);
-    }, [visible]);
+    }, []);
 
     return <>
-        <Button onClick={() => setOpened("left")}>
-            Left
-        </Button>
-        <Button onClick={() => setOpened("right")}>
-            Right
-        </Button>
+        <div style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            justifySelf: "center",
+            flexGrow: 1,
+            marginTop: "auto",
+            marginBottom: "auto"
+        }}>
+            <ButtonGroup>
+                <Button onClick={() => setOpened("left")}>
+                    Left
+                </Button>
+                <Button onClick={() => setOpened("right")}>
+                    Right
+                </Button>
+                <Button onClick={() => setOpened("bottom")}>
+                    Bottom
+                </Button>
+            </ButtonGroup>
+        </div>
+        <Drawer
+            onMouseDown={event => {event.stopPropagation();}}
+            style={{
+                border: "1px solid black",
+                backdropFilter: "blur(10px)",
+                backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+            visible={opened === "left"}
+            location={"left"}>
+        </Drawer>
         <Drawer
             style={{
                 border: "1px solid black",
                 backdropFilter: "blur(10px)",
                 backgroundColor: "rgba(0,0,0,0.5)",
             }}
-            onClose={() => setVisible(false)}
-            visible={opened === "left"}
-            location={"left"}>
-            Hello World
+            visible={opened === "right"}
+            location={"right"}>
+            Right
+        </Drawer>
+        <Drawer
+            style={{
+                border: "1px solid black",
+                backdropFilter: "blur(10px)",
+                backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+            visible={opened === "bottom"}
+            location={"bottom"}>
+            Bottom
         </Drawer>
     </>
 }
