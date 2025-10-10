@@ -1,4 +1,10 @@
 
+.splitpane {
+  .pinnable-container {
+    height: 100%;
+  }
+}
+
 .pinnable-container {
   position: relative;
   pointer-events: all;
