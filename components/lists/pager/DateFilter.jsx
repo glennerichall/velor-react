@@ -6,7 +6,7 @@ import {
 
 import "react-datepicker/dist/react-datepicker.css";
 import {XLg} from "react-bootstrap-icons";
-import {RangeFilter} from "./RangeFilter";
+import {RangeFilter} from "./RangeFilter.jsx";
 
 import {
     formatDistanceToNow
@@ -36,7 +36,7 @@ const DateButton = forwardRef((props, ref) => {
         internalValue = "";
     }
 
-    return <div className={"btn-light pinnable-container pin-right"}>
+    return <div className={"btn-light decorated-container pin-right"}>
         <input type={"datetime-local"}
                onChange={(event) => {
                    let date = event.target.value;

@@ -1,5 +1,5 @@
-import {IntervalOnHover} from "./IntervalOnHover.jsx";
-import {GargantuaList} from "./index.mjs";
+import {IntervalOnHover} from "../IntervalOnHover.jsx";
+import {GargantuaList} from "../index.mjs";
 // noinspection ES6UnusedImports
 import React, {
     useCallback,
@@ -8,7 +8,7 @@ import React, {
     useRef,
     useState
 } from "react";
-import {useRangeSelection} from "../utils/hooks.mjs";
+import {useRangeSelection} from "../../utils/hooks.mjs";
 import classNames from "classnames";
 
 export default props => {

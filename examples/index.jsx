@@ -13,7 +13,7 @@ import '../style/widgets.scss';
 import '../style/gargantua.scss';
 import '../style/scrollbar.scss';
 import * as ReactDom from "preact";
-import Dropdown from "../core/Dropdown.jsx";
+import Dropdown from "../components/forms/Dropdown.jsx";
 import Slider from "./slider";
 import List from "./dynamicList";
 import Bubble from "./bubble";
@@ -22,6 +22,7 @@ import RadioCollapse from "./radio";
 import Modal from "./modal";
 import DotNotification from "./dot-notif.jsx";
 import Drawer from "./drawer.jsx";
+import {DecorationExample as Decorated} from "./decoration.jsx";
 
 const domRoot = document.getElementById("content");
 
@@ -56,6 +57,9 @@ const Root = props => {
         case "drawer":
             example = <Drawer/>;
             break;
+        case "decoration":
+            example = <Decorated/>;
+            break;
     }
 
     return <div style={{
@@ -74,6 +78,7 @@ const Root = props => {
                 modal: "Message modal",
                 "dot-notification": "Dot notification",
                 drawer: "Drawer",
+                decoration: "Decorated",
             }}/>
 
         <div style={{

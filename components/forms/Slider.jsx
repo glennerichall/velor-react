@@ -17,7 +17,7 @@ import {
 import {
     useInvalidate,
     useInvalidateOnce
-} from "../utils/hooks.mjs";
+} from "../../utils/hooks.mjs";
 
 export default ({
                     min, max, ticks, value, onChange,

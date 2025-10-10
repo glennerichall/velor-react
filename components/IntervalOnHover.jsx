@@ -4,35 +4,28 @@ import React, {
     useRef,
     useState
 } from "react";
+import {useIntervalOnHover} from "../utils/hooks.mjs";
 
 export function IntervalOnHover(props) {
     const {
         onEvent,
         enabled = true,
         style = {},
-        delay= 100,
+        delay,
         ...otherProps
     } = props;
 
-    const timeout = useRef();
-
-    function startInterval() {
-        const event = () => {
-            onEvent();
-            timeout.current = setTimeout(event, delay);
+    const {onMouseEnter, onMouseLeave} = useIntervalOnHover(
+        {
+            onEvent,
+            interval: delay,
+            enabled
         }
-        if (enabled) {
-            event();
-        }
-    }
-
-    function stopInterval() {
-        clearTimeout(timeout.current);
-    }
+    )
 
     return <div
-        onMouseEnter={startInterval}
-        onMouseLeave={stopInterval}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         {...otherProps}
         style={{
             ...style,

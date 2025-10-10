@@ -1,7 +1,7 @@
 // noinspection ES6UnusedImports
 
 import React from "react";
-import DynamicList from "../core/DynamicList.jsx";
+import DynamicList from "../components/lists/DynamicList.jsx";
 import {
     useKeyDown,
     useRange,

@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 // noinspection ES6UnusedImports
 import React, {useState} from "react";
-import {MessageModal} from "../core/index.mjs";
+import {MessageModal} from "../components/index.mjs";
 import {Bell} from "react-bootstrap-icons";
 
 

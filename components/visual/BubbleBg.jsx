@@ -1,6 +1,6 @@
 import React from "react";
 import {useResizeDetector} from "react-resize-detector";
-import {createBubblePath} from "../utils/svgGeometry.mjs";
+import {createBubblePath} from "../../utils/svgGeometry.mjs";
 
 export default function BubbleBg({
                                      side = "right",
@@ -41,7 +41,6 @@ export default function BubbleBg({
             ref={ref}
             style={{
                 position: "relative",
-                // Pour que width inclus le padding:
                 boxSizing: "border-box",
                 ...style,
             }}

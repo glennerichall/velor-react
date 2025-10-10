@@ -3,7 +3,7 @@ import React, {
     useEffect,
     useState
 } from "react";
-import {Drawer} from "../core/index.mjs";
+import {Drawer} from "../components/index.mjs";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import {useRadioStore} from "../utils/hooks.mjs";

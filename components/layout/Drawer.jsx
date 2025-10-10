@@ -6,7 +6,7 @@ import React, {
 
 import classNames from 'classnames';
 
-import '../style/drawer.scss';
+import '../../style/drawer.scss';
 
 export default props => {
 

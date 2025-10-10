@@ -64,7 +64,7 @@ export const TextFilter = props => {
 
     return <div {...otherProps} className={`filter-selector filter-selector-${type} ${className}`}>
 
-        <div className="btn-light pinnable-container pin-right pin-center pin-inner ">
+        <div className="btn-light decorated-container pin-right pin-center pin-inner ">
             <input type={type}
                    ref={ref}
                    value={newValue}

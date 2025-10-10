@@ -11,7 +11,7 @@ import {Alert} from "react-bootstrap";
 
 const regex = /__date:(?<dateStr>(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minutes>\d{2}):(?<seconds>\d{2})(?<offset>-?\d{2}(-?:\d{2})?))/g;
 
-import "../style/messages.scss";
+import "../../style/messages.scss";
 
 function formatDate(msg) {
     let match;

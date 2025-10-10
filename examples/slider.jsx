@@ -5,7 +5,7 @@ import React, {
     useRef,
     useState
 } from 'react';
-import Slider from "../core/Slider.jsx";
+import Slider from "../components/forms/Slider.jsx";
 
 export default props => {
 

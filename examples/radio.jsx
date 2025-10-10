@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {
     RadioProvider,
     RadioCollapse,
-} from "../core/index.mjs";
+} from "../components/index.mjs";
 import {
     Moon,
     Sun

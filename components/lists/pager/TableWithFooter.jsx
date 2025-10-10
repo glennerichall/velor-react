@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import Table from "./Table.jsx";
 import {Alert} from "react-bootstrap";
-import Disable from "../Disable";
+import Disable from "../../Disable.jsx";
 import {noOp} from "velor-utils/utils/functional.mjs";
 
 export default props => {

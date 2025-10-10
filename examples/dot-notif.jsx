@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
 import classNames from "classnames";
-import {DotNotification} from "../core/index.mjs";
+import {DotNotification} from "../components/index.mjs";
 
 
 export default props => {

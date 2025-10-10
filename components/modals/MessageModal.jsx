@@ -5,7 +5,7 @@ import React, {
 } from "react";
 
 import Modal from "react-bootstrap/Modal";
-import Messages from "./Messages.jsx";
+import Messages from "../lists/Messages.jsx";
 
 
 export default props => {

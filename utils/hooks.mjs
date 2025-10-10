@@ -13,7 +13,7 @@ import {
     broadcast,
     noOp
 } from "velor-utils/utils/functional.mjs";
-import {RadioContext} from "../core/RadioProvider.jsx";
+import {RadioContext} from "../components/interactive/RadioProvider.jsx";
 import RadioStore from "./RadioStore.mjs";
 
 export function useInvalidate() {
@@ -327,4 +327,27 @@ export function useRadioStoreRef() {
         storeRef.current = new RadioStore();
     }
     return storeRef.current;
+}
+
+export function useIntervalOnHover({
+                                       onEvent,
+                                       interval = 100,
+                                       enabled = true
+                                   }) {
+    const intervalRef = useRef(null);
+
+    const onMouseEnter = useCallback(() => {
+        if (enabled) {
+            intervalRef.current = setInterval(onEvent, interval);
+        }
+    }, [onEvent, interval, enabled]);
+
+    const onMouseLeave = useCallback(() => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    }, []);
+
+    return { onMouseEnter, onMouseLeave };
 }

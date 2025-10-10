@@ -9,10 +9,10 @@ import React, {
     Children
 } from "react";
 
-import "../style/collapsible.scss";
+import "../../style/collapsible.scss";
 
 import {useResizeDetector} from "react-resize-detector";
-import {waitForStableBoundingRect} from "../utils/utils.mjs";
+import {waitForStableBoundingRect} from "../../utils/utils.mjs";
 import {noOp} from "velor-utils/utils/functional.mjs";
 
 

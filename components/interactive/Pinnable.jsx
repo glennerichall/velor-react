@@ -10,10 +10,12 @@ import {
     PinAngle,
     XLg
 } from "react-bootstrap-icons";
-import Collapsible from "./Collapsible";
+import Collapsible from "./Collapsible.jsx";
 import classNames from "classnames";
 
-import PinButtons from "./PinButtons";
+import "../../style/pinnable.scss";
+
+import Decorated from "../layout/Decorated.jsx";
 
 export default forwardRef((props, ref) => {
     let {
@@ -25,7 +27,7 @@ export default forwardRef((props, ref) => {
         pinned,
         setPinned,
         className,
-        pinReceiver,
+        children
     } = props;
 
     const [] = useState(false);
@@ -66,17 +68,16 @@ export default forwardRef((props, ref) => {
         onExpand={setExpanded}
         ref={ref}>
 
-        {
-            pinReceiver ? <>
-                <PinButtons buttons={buttons}>
-                    {pinReceiver}
-                </PinButtons>
-                {props.children}
-            </> : <PinButtons buttons={buttons}>
-                {props.children}
-            </PinButtons>
-
-        }
+        <Decorated>
+            <Decorated.Decoration
+                direction={"row"}
+                positionH={"right"}
+                anchorH={"right"}
+                positionV={"top"}>
+                {buttons}
+            </Decorated.Decoration>
+            {children}
+        </Decorated>
 
     </Collapsible>
 })

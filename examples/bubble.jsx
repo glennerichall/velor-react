@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import {createBubblePath} from "../utils/svgGeometry.mjs";
-import BubbleBg from "../core/BubbleBg.jsx";
+import BubbleBg from "../components/visual/BubbleBg.jsx";
 
 export default props => {
 

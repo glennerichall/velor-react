@@ -6,7 +6,7 @@ import React, {
     useState
 } from "react";
 
-import '../style/dot-notification.scss';
+import '../../style/dot-notification.scss';
 import {
     flip,
     useFloating

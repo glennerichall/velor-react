@@ -7,8 +7,8 @@ import React, {
 } from "react";
 import {useResizeDetector} from "react-resize-detector";
 
-import '../style/scrollbar.scss';
-import '../style/gargantua.scss';
+import '../../style/scrollbar.scss';
+import '../../style/gargantua.scss';
 
 export default (props) => {
 

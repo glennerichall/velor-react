@@ -1,6 +1,6 @@
 import {noOp} from "velor-utils/utils/functional.mjs";
 import classNames from "classnames";
-import {Datum} from "./Datum";
+import {Datum} from "./Datum.jsx";
 import {normalizeValue} from "./filter.mjs";
 
 export const Body = props => {

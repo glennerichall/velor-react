@@ -1,7 +1,7 @@
 // noinspection ES6UnusedImports
 
 import React, {useState} from "react"
-import {Pinnable} from "../core/index.mjs";
+import {Pinnable} from "../components/index.mjs";
 import {
     FunnelFill,
     Sun

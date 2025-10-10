@@ -7,12 +7,12 @@ import {
 import classNames from "classnames";
 import {Funnel} from "react-bootstrap-icons";
 import {Overlay,} from "react-bootstrap";
-import {TextFilter} from "./TextFilter";
+import {TextFilter} from "./TextFilter.jsx";
 import {RangeFilter} from "./RangeFilter.jsx";
-import {DateFilter} from "./DateFilter";
+import {DateFilter} from "./DateFilter.jsx";
 
 import {noOp} from "velor-utils/utils/functional.mjs";
-import {ListFilter} from "./ListFilter";
+import {ListFilter} from "./ListFilter.jsx";
 
 export function hasFilter(value) {
     return value && (
