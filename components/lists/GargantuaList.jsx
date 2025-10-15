@@ -67,7 +67,12 @@ export default (props) => {
             </div>
 
             <input type="range"
+                   onFocus={evt=> {
+                       // this is mandatory to avoid double pageUp/Down handling from hooks and form native input
+                       evt.target.blur();
+                   }}
                    className="vertical-range"
+                   onClick={event => event.stopPropagation()}
                    onChange={event => range.jumpToFirst(event.target.value)}
                    disabled={!enabled}
                    value={range.first}

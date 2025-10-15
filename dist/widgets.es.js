@@ -6,8 +6,8 @@ import O from "react-bootstrap/Modal";
 import { InfoCircleFill as Xe, ExclamationTriangleFill as Bt, ExclamationSquareFill as Vt, ExclamationDiamondFill as Ot, Pin as Ft, PinAngle as qt, XLg as Zt, PlusCircleFill as Ke, DashCircleFill as Je } from "react-bootstrap-icons";
 import { Alert as Ye, ProgressBar as jt, Form as et, FormControl as Wt, Dropdown as tt, DropdownMenu as Gt, DropdownItem as Qt } from "react-bootstrap";
 import Y from "react-bootstrap/Button";
-import { u as Ut, a as Xt, b as Kt, c as Jt } from "./hooks-OqpD1trf.js";
-import { R as Hi } from "./hooks-OqpD1trf.js";
+import { u as Ut, a as Xt, b as Kt, c as Jt } from "./hooks-DQ3Kw_iX.js";
+import { R as Hi } from "./hooks-DQ3Kw_iX.js";
 import "react-range-slider-input/dist/style.css";
 import Yt from "react-range-slider-input";
 import st from "react-bootstrap/ButtonGroup";
@@ -284,7 +284,11 @@ const B = /* @__PURE__ */ Ve(is), $e = "animating-expand", Te = "animating-colla
       "input",
       {
         type: "range",
+        onFocus: (k) => {
+          k.target.blur();
+        },
         className: "vertical-range",
+        onClick: (k) => k.stopPropagation(),
         onChange: (k) => n.jumpToFirst(k.target.value),
         disabled: !h,
         value: n.first,

@@ -130,7 +130,7 @@ export function useKeyDown(callback, keyOrKeys = [], {
         };
         target.addEventListener('keydown', onKeyDown);
         return () => target.removeEventListener('keydown', onKeyDown);
-    });
+    }, [keyOrKeys, callback]);
 }
 
 export function useInvalidateOnKeyDown(keyOrKeys = []) {
@@ -261,12 +261,12 @@ export function useRangeKeyBindings(range, keyBindings = {}, target) {
     };
 
     const keyBindingCallbacks = {
-        pageUp: () => range.pageUp(),
-        pageDown: () => range.pageDown(),
-        end: () => range.jumpToLast(),
-        home: () => range.jumpToFirst(),
-        up: () => range.moveUp(),
-        down: () => range.moveDown(),
+        pageUp: useCallback(() => range.pageUp(), [range]),
+        pageDown: useCallback(() => range.pageDown(), [range]),
+        end: useCallback(() => range.jumpToLast(), [range]),
+        home: useCallback(() => range.jumpToFirst(), [range]),
+        up: useCallback(() => range.moveUp(), [range]),
+        down: useCallback(() => range.moveDown(), [range]),
     };
 
     for (let key in keyBindingCallbacks) {

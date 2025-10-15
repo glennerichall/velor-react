@@ -1,10 +1,10 @@
-import S, { createContext as k, useState as v, useEffect as f, useRef as p, useCallback as a, useSyncExternalStore as D, useContext as I } from "react";
-import { Range as A } from "velor-utils/utils/Range.mjs";
-import { noOp as y, broadcast as M } from "velor-utils/utils/functional.mjs";
-const h = k(null);
-function x({ children: e }) {
+import S, { createContext as D, useState as v, useEffect as f, useRef as p, useCallback as r, useSyncExternalStore as I, useContext as A } from "react";
+import { Range as k } from "velor-utils/utils/Range.mjs";
+import { noOp as h, broadcast as M } from "velor-utils/utils/functional.mjs";
+const y = D(null);
+function O({ children: e }) {
   const t = b();
-  return /* @__PURE__ */ S.createElement(h.Provider, { value: t }, e);
+  return /* @__PURE__ */ S.createElement(y.Provider, { value: t }, e);
 }
 class P {
   constructor() {
@@ -33,31 +33,31 @@ function m() {
     t(() => n);
   }));
 }
-function G() {
+function T() {
   const e = m();
   f(() => {
     e();
   }, []);
 }
-function T() {
+function j() {
   const e = p(null);
   return f(() => {
     e.current && e.current.focus();
   }, []), e;
 }
-function j(e = {}) {
+function B(e = {}) {
   const {
-    onClick: t = y,
-    onKeyDown: n = y,
+    onClick: t = h,
+    onKeyDown: n = h,
     show: o = !0
   } = e;
   f(() => {
     if (o) {
-      let r = function(i) {
-        return i.stopPropagation(), i.stopImmediatePropagation(), i.preventDefault(), t(), !0;
+      let i = function(c) {
+        return c.stopPropagation(), c.stopImmediatePropagation(), c.preventDefault(), t(), !0;
       };
       const s = document.createElement("div");
-      return document.body.append(s), s.style.left = "0", s.style.right = "0", s.style.top = "0", s.style.bottom = "0", s.style.position = "absolute", s.style.zIndex = "1000", document.addEventListener("keydown", n), s.onmousedown = (i) => (i.stopPropagation(), i.stopImmediatePropagation(), !0), s.onclick = r, s.oncontextmenu = r, s.onauxclick = r, () => {
+      return document.body.append(s), s.style.left = "0", s.style.right = "0", s.style.top = "0", s.style.bottom = "0", s.style.position = "absolute", s.style.zIndex = "1000", document.addEventListener("keydown", n), s.onmousedown = (c) => (c.stopPropagation(), c.stopImmediatePropagation(), !0), s.onclick = i, s.oncontextmenu = i, s.onauxclick = i, () => {
         s.remove(), document.removeEventListener("keydown", n);
       };
     }
@@ -67,15 +67,15 @@ function w() {
   const [e, t] = v(0);
   return [e, () => t((n) => n + 1)];
 }
-function B(e, t) {
+function F(e, t) {
   const [n, o] = w();
   f(() => e.on(t, o), [e]);
 }
-function F(e) {
+function H(e) {
   const [t, n] = w();
   f(() => e.onAny(n), [e]);
 }
-function H(e, t) {
+function g(e, t) {
   const [n, o] = w();
   f(M(...e.map((s) => s.on(t, o))), [e]);
 }
@@ -85,20 +85,20 @@ function R(e, t = [], {
   shift: s = !1
 } = {}) {
   f(() => {
-    const r = (i) => {
+    const i = (c) => {
       const d = Array.isArray(t) ? t : [t];
-      (d.includes(i.code) || d.length === 0) && (o && i.ctrlKey || !o) && (s && i.shiftKey || !s) && e(i);
+      (d.includes(c.code) || d.length === 0) && (o && c.ctrlKey || !o) && (s && c.shiftKey || !s) && e(c);
     };
-    return n.addEventListener("keydown", r), () => n.removeEventListener("keydown", r);
-  });
+    return n.addEventListener("keydown", i), () => n.removeEventListener("keydown", i);
+  }, [t, e]);
 }
 function z(e = []) {
   const t = m();
   R(t, e);
 }
 function N(e) {
-  const t = p(null), [n, o] = v(!1), s = a((c, u) => {
-    if (c.shiftKey)
+  const t = p(null), [n, o] = v(!1), s = r((a, u) => {
+    if (a.shiftKey)
       if (e.valid) {
         let l = u > e.last ? 1 : 0;
         e.growTo(u + l);
@@ -107,11 +107,11 @@ function N(e) {
           first: u,
           last: u + 1
         });
-  }, e.toArray()), r = a((c, u) => {
+  }, e.toArray()), i = r((a, u) => {
     o(!1), t.current = null;
-  }, []), i = a((c, u) => {
-    c.button === 0 && (c.shiftKey || e.invalidate(), t.current = u);
-  }, []), d = a((c, u) => {
+  }, []), c = r((a, u) => {
+    a.button === 0 && (a.shiftKey || e.invalidate(), t.current = u);
+  }, []), d = r((a, u) => {
     const l = t.current;
     u !== null && l !== null && (e.valid ? u < l ? e.first = u : (u === l && (e.first = u), e.last = u + 1) : u < l ? e.setValue({
       first: u,
@@ -122,16 +122,16 @@ function N(e) {
     }), o(!0));
   }, [t, e]);
   return {
-    callbacks: (c) => ({
-      onMouseDown: (u) => i(u, c),
-      onMouseUp: (u) => r(u, c),
-      onMouseEnter: (u) => d(u, c),
+    callbacks: (a) => ({
+      onMouseDown: (u) => c(u, a),
+      onMouseUp: (u) => i(u, a),
+      onMouseEnter: (u) => d(u, a),
       onMouseLeave: (u) => d(u, null),
-      onClick: (u) => s(u, c)
+      onClick: (u) => s(u, a)
     }),
     onClick: s,
-    onMouseDown: i,
-    onMouseUp: r,
+    onMouseDown: c,
+    onMouseUp: i,
     onMouseHover: d,
     isSelecting: n
   };
@@ -143,12 +143,12 @@ function X({
 } = {}) {
   const o = m(), s = p(null);
   if (s.current === null) {
-    const r = new A({
+    const i = new k({
       first: e,
       last: t,
       max: n
     });
-    r.valueChanged = o, s.current = r;
+    i.valueChanged = o, s.current = i;
   }
   return s.current;
 }
@@ -163,15 +163,15 @@ function _(e, t = {}, n) {
     all: "KeyA",
     ...t
   }, s = {
-    pageUp: () => e.pageUp(),
-    pageDown: () => e.pageDown(),
-    end: () => e.jumpToLast(),
-    home: () => e.jumpToFirst(),
-    up: () => e.moveUp(),
-    down: () => e.moveDown()
+    pageUp: r(() => e.pageUp(), [e]),
+    pageDown: r(() => e.pageDown(), [e]),
+    end: r(() => e.jumpToLast(), [e]),
+    home: r(() => e.jumpToFirst(), [e]),
+    up: r(() => e.moveUp(), [e]),
+    down: r(() => e.moveDown(), [e])
   };
-  for (let r in s)
-    R(s[r], o[r], n);
+  for (let i in s)
+    R(s[i], o[i], n);
 }
 function q() {
   const e = p({ x: 0, y: 0 });
@@ -185,17 +185,17 @@ function q() {
   }, []), e.current;
 }
 function E() {
-  const e = I(h);
+  const e = A(y);
   if (!e) throw new Error("useRadioStore must be used inside <RadioProvider>");
   return e;
 }
 function C(e, t) {
   t = t ?? E();
-  const n = a((s) => t.subscribe(e, s), [t, e]), o = a(() => t.get(e), [t, e]);
-  return D(n, o, o);
+  const n = r((s) => t.subscribe(e, s), [t, e]), o = r(() => t.get(e), [t, e]);
+  return I(n, o, o);
 }
 function L(e, t) {
-  return t = t ?? E(), a((n) => t.set(e, n), [t, e]);
+  return t = t ?? E(), r((n) => t.set(e, n), [t, e]);
 }
 function K(e, t) {
   const n = C(e, t), o = L(e, t);
@@ -214,25 +214,25 @@ function J({
   interval: t = 100,
   enabled: n = !0
 }) {
-  const o = p(null), s = a(() => {
+  const o = p(null), s = r(() => {
     n && (o.current = setInterval(e, t));
-  }, [e, t, n]), r = a(() => {
+  }, [e, t, n]), i = r(() => {
     o.current && (clearInterval(o.current), o.current = null);
   }, []);
-  return { onMouseEnter: s, onMouseLeave: r };
+  return { onMouseEnter: s, onMouseLeave: i };
 }
 export {
-  x as R,
+  O as R,
   m as a,
   K as b,
   N as c,
-  G as d,
-  T as e,
-  j as f,
+  T as d,
+  j as e,
+  B as f,
   w as g,
-  B as h,
-  F as i,
-  H as j,
+  F as h,
+  H as i,
+  g as j,
   R as k,
   z as l,
   X as m,
