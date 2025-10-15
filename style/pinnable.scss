@@ -1,0 +1,36 @@
+
+.btn.btn-round {
+  --size: 18px;
+  border-radius: calc(var(--size) / 2);
+  width: var(--size);
+  height: var(--size);
+  line-height: calc(var(--size) - 2px);
+  font-size: var(--size);
+  padding: 0;
+
+
+  > svg {
+    font-size: 0.7em;
+    vertical-align: initial;
+  }
+}
+
+.collapsible {
+  .decorated-container {
+
+    .decoration {
+      .wrapper {
+        gap: 2px;
+      }
+
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    &:hover {
+      .decoration {
+        opacity: 1;
+      }
+    }
+  }
+}

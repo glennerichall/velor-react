@@ -1,25 +1,26 @@
 import "react";
 import "velor-utils/utils/Range.mjs";
 import "velor-utils/utils/functional.mjs";
-import { d as o, e as t, f as i, o as d, u as r, h as l, i as p, g as R, k as v, c as m, j as I, n as c, a as g, q as y, r as O, l as A, m as E, b as S, p as f } from "./hooks-C8d8C3fv.js";
+import { e as o, f as t, g as i, p as r, u as d, a as l, i as v, j as p, h as R, l as I, d as m, k as O, o as c, b as g, r as y, s as A, m as E, n as S, c as f, q as G } from "./hooks-OqpD1trf.js";
 export {
   o as useAutoFocus,
   t as useCaptureAll,
   i as useEpoch,
-  d as useGetRadioGroupValue,
-  r as useInvalidate,
-  l as useInvalidateOnAny,
+  r as useGetRadioGroupValue,
+  d as useIntervalOnHover,
+  l as useInvalidate,
+  v as useInvalidateOnAny,
   p as useInvalidateOnAnyEmitterEvent,
   R as useInvalidateOnEvent,
-  v as useInvalidateOnKeyDown,
+  I as useInvalidateOnKeyDown,
   m as useInvalidateOnce,
-  I as useKeyDown,
+  O as useKeyDown,
   c as usePointerPosition,
   g as useRadio,
   y as useRadioStore,
-  O as useRadioStoreRef,
-  A as useRange,
-  E as useRangeKeyBindings,
-  S as useRangeSelection,
-  f as useSetRadioGroupValue
+  A as useRadioStoreRef,
+  E as useRange,
+  S as useRangeKeyBindings,
+  f as useRangeSelection,
+  G as useSetRadioGroupValue
 };

@@ -20,7 +20,7 @@ export default defineConfig({
             entry: {
                 utils: 'utils/utils.mjs',
                 hooks: 'utils/hooks.mjs',
-                widgets: 'core/index.mjs',
+                widgets: 'components/index.mjs',
             },
             name: 'VelorReact',
             fileName: (format, entry) => `${entry}.${format}.js`, // Output filenames

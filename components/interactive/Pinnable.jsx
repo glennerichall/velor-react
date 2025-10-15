@@ -27,6 +27,7 @@ export default forwardRef((props, ref) => {
         pinned,
         setPinned,
         className,
+        pin = {},
         children
     } = props;
 
@@ -34,9 +35,18 @@ export default forwardRef((props, ref) => {
 
     const buttons = [];
 
+    pin = {
+        direction: "row",
+        positionH: "right",
+        anchorH: "right",
+        anchorV: "center",
+        positionV: "top",
+        ...pin,
+    };
+
     if (canPin) {
         buttons.push(
-            <div className="btn-light"
+            <div className="btn btn-light btn-round"
                  onClick={(e) => {
                      e.stopPropagation();
                      setPinned(!pinned);
@@ -48,7 +58,7 @@ export default forwardRef((props, ref) => {
 
     if (canClose) {
         buttons.push(
-            <div className="btn-light"
+            <div className="btn btn-light btn-round"
                  onClick={(e) => {
                      e.stopPropagation();
                      onClose();
@@ -69,11 +79,7 @@ export default forwardRef((props, ref) => {
         ref={ref}>
 
         <Decorated>
-            <Decorated.Decoration
-                direction={"row"}
-                positionH={"right"}
-                anchorH={"right"}
-                positionV={"top"}>
+            <Decorated.Decoration {...pin} >
                 {buttons}
             </Decorated.Decoration>
             {children}

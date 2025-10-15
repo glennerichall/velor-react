@@ -27,6 +27,10 @@ export default props => {
             border: 1px solid black;
             // --animation-duration: 1s;
           }
+          .my-widget.collapsible .wrapper {
+            padding-right: 3px;
+            padding-top: 3px;
+          }
         `}
         </style>
 
@@ -36,6 +40,15 @@ export default props => {
             expanded={expanded}
             setExpanded={setExpanded}
             pinned={pinned}
+            pin={
+                {
+                    direction: "column",
+                    positionH: "right",
+                    positionV: "top",
+                    anchorH: "right",
+                    anchorV: "top",
+                }
+            }
             setPinned={setPinned}>
 
             <div style={{
