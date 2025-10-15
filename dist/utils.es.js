@@ -1,79 +1,97 @@
-import u from "react";
-import { isBrowser as c } from "velor-utils/utils/platform.mjs";
-function w(t, n) {
-  return t = new Date(t), t.toLocaleDateString(n) + " " + t.toLocaleTimeString(n);
+import c from "react";
+import { isBrowser as a } from "velor-utils/utils/platform.mjs";
+function w(e, n) {
+  return e = new Date(e), e.toLocaleDateString(n) + " " + e.toLocaleTimeString(n);
 }
-function l(t, n, { frames: e = 2, timeout: s = 50 } = {}) {
-  let i = t.getBoundingClientRect();
-  function r(a) {
-    if (a <= 0) {
-      const o = t.getBoundingClientRect();
-      i.top === o.top && i.left === o.left && i.width === o.width && i.height === o.height ? n() : setTimeout(() => {
-        n(), l(t, n, { frames: e, timeout: s });
-      }, s);
+function l(e, n, { frames: t = 2, timeout: r = 50 } = {}) {
+  let i = e.getBoundingClientRect();
+  function o(u) {
+    if (u <= 0) {
+      const s = e.getBoundingClientRect();
+      i.top === s.top && i.left === s.left && i.width === s.width && i.height === s.height ? n() : setTimeout(() => {
+        n(), l(e, n, { frames: t, timeout: r });
+      }, r);
       return;
     }
     requestAnimationFrame(() => {
-      r(a - 1);
+      o(u - 1);
     });
   }
-  r(e);
+  o(t);
 }
-function h(t, n) {
-  return new Promise((e) => {
-    f(t, e, n);
+function h(e, n) {
+  return new Promise((t) => {
+    d(e, t, n);
   });
 }
-function f(t, n, { frames: e = 2, timeout: s = 50 } = {}) {
-  let i = t.getBoundingClientRect(), r = 0;
-  function a() {
-    const o = t.getBoundingClientRect();
-    if (i.top === o.top && i.left === o.left && i.width === o.width && i.height === o.height) {
-      if (r++, r > e) {
+function d(e, n, { frames: t = 2, timeout: r = 50 } = {}) {
+  let i = e.getBoundingClientRect(), o = 0;
+  function u() {
+    const s = e.getBoundingClientRect();
+    if (i.top === s.top && i.left === s.left && i.width === s.width && i.height === s.height) {
+      if (o++, o > t) {
         n();
         return;
       }
     } else
-      r = 0, i = o;
-    requestAnimationFrame(a);
+      o = 0, i = s;
+    requestAnimationFrame(u);
   }
-  a();
+  u();
 }
-function d(t, n) {
-  return u.Children.map(t, (e) => u.isValidElement(e) ? (e.props.children && (e = u.cloneElement(e, {
-    children: d(e.props.children, n)
-  })), n(e)) : e);
+function m(e, n) {
+  return c.Children.map(e, (t) => c.isValidElement(t) ? (t.props.children && (t = c.cloneElement(t, {
+    children: m(t.props.children, n)
+  })), n(t)) : t);
 }
-function R(t, n) {
-  return u.Children.map(
-    t,
-    (e) => u.cloneElement(e, {
-      ...e.props,
+function E(e, n) {
+  return c.Children.map(
+    e,
+    (t) => c.cloneElement(t, {
+      ...t.props,
       ...n
     })
   );
 }
-function P(t) {
-  return window.matchMedia(`(max-width: ${t}px)`).matches;
+function g(e) {
+  return window.matchMedia(`(max-width: ${e}px)`).matches;
 }
-function m() {
-  let t = null;
-  if (c) {
-    let n = window.navigator.userAgent, e = window.navigator?.userAgentData?.platform || window.navigator.platform, s = ["Macintosh", "MacIntel", "MacPPC", "Mac68K", "macOS"], i = ["Win32", "Win64", "Windows", "WinCE"], r = ["iPhone", "iPad", "iPod"];
-    s.indexOf(e) !== -1 ? t = "macos" : r.indexOf(e) !== -1 ? t = "ios" : i.indexOf(e) !== -1 ? t = "windows" : /Android/.test(n) ? t = "android" : /Linux/.test(e) && (t = "linux");
+function f() {
+  let e = null;
+  if (a) {
+    let n = window.navigator.userAgent, t = window.navigator?.userAgentData?.platform || window.navigator.platform, r = ["Macintosh", "MacIntel", "MacPPC", "Mac68K", "macOS"], i = ["Win32", "Win64", "Windows", "WinCE"], o = ["iPhone", "iPad", "iPod"];
+    r.indexOf(t) !== -1 ? e = "macos" : o.indexOf(t) !== -1 ? e = "ios" : i.indexOf(t) !== -1 ? e = "windows" : /Android/.test(n) ? e = "android" : /Linux/.test(t) && (e = "linux");
   } else
-    t = "nodejs";
-  return t;
+    e = "nodejs";
+  return e;
 }
-const S = m();
+const L = f();
+function R(e = document) {
+  let n = !1, t = !1;
+  const r = () => {
+    t && (n = !0);
+  }, i = () => {
+    n = !1, t = !0;
+  }, o = (u) => {
+    n || e.dispatchEvent(new CustomEvent("strictClick", {
+      detail: { originalEvent: u },
+      bubbles: !0,
+      cancelable: !0
+    })), n = !1, t = !1;
+  };
+  return e.addEventListener("mousemove", r), e.addEventListener("mousedown", i), e.addEventListener("mouseup", o), e.addEventListener("touchmove", r), e.addEventListener("touchstart", i), e.addEventListener("touchend", o), () => {
+    e.removeEventListener("mousemove", r), e.removeEventListener("mousedown", i), e.removeEventListener("mouseup", o), e.removeEventListener("touchmove", r), e.removeEventListener("touchstart", i), e.removeEventListener("touchend", o);
+  };
+}
 export {
   w as convertDate,
-  m as detectOS,
+  f as detectOS,
   l as doUntilStableBoundingRect,
-  P as isSmaller,
-  R as passProps,
-  S as platform,
-  d as recursiveMap,
-  f as waitForStableBoundingRect,
+  R as enableStrictClick,
+  g as isSmaller,
+  E as passProps,
+  L as platform,
+  m as recursiveMap,
+  d as waitForStableBoundingRect,
   h as waitForStableBoundingRectAsync
 };

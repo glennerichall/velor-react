@@ -8,17 +8,28 @@
   pointer-events: none;
   position: absolute;
   overflow: hidden;
+  //background: red;
 
   &.horizontal-drawer {
     top: 0;
     bottom: 0;
-    width: var(--drawer-width);
+    width: 100%;
+
+    .drawer {
+      width: var(--drawer-width);
+      height: 100%;
+    }
   }
 
   &.vertical-drawer {
     left: 0;
     right: 0;
-    height: var(--drawer-height);
+    height: 100%;
+
+    .drawer {
+      width: 100%;
+      height: var(--drawer-height);
+    }
   }
 
   &.left-drawer {
@@ -58,13 +69,12 @@
   }
 
   .drawer {
-    transition: left 0.3s, right 0.3s, top 0.3s, bottom 0.3s, transform 0.3s;
+    transition: left, right, top, bottom, transform;
+    transition-duration: 0.3s;
 
     z-index: var(--layer-drawers);
     pointer-events: all;
 
-    width: 100%;
-    height: 100%;
     position: absolute;
   }
 }

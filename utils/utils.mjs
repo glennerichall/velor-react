@@ -131,3 +131,48 @@ export function detectOS() {
 }
 
 export const platform = detectOS();
+
+export function enableStrictClick(target = document) {
+    let dragging = false;
+    let isDown = false;
+
+    const onMove = () => {
+        if (isDown) dragging = true;
+    };
+
+    const onStart = () => {
+        dragging = false;
+        isDown = true;
+    };
+
+    const onEnd = (e) => {
+        if (!dragging) {
+            target.dispatchEvent(new CustomEvent('strictClick', {
+                detail: { originalEvent: e },
+                bubbles: true,
+                cancelable: true,
+            }));
+        }
+        dragging = false;
+        isDown = false;
+    };
+
+    // Souris
+    target.addEventListener('mousemove', onMove);
+    target.addEventListener('mousedown', onStart);
+    target.addEventListener('mouseup', onEnd);
+
+    // Tactile
+    target.addEventListener('touchmove', onMove);
+    target.addEventListener('touchstart', onStart);
+    target.addEventListener('touchend', onEnd);
+
+    return () => {
+        target.removeEventListener('mousemove', onMove);
+        target.removeEventListener('mousedown', onStart);
+        target.removeEventListener('mouseup', onEnd);
+        target.removeEventListener('touchmove', onMove);
+        target.removeEventListener('touchstart', onStart);
+        target.removeEventListener('touchend', onEnd);
+    };
+}
