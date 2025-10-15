@@ -56,8 +56,16 @@ export default props => {
             name
         } = item;
 
-        let height = indicatorRange.count;
-        let top = indicatorRange.first;
+        let height;
+        let top;
+
+        if (typeof indicatorRange === 'object') {
+            height = indicatorRange.count;
+            top = indicatorRange.first;
+        } else {
+            height = 1;
+            top = indicatorRange;
+        }
 
         return <div
             onClick={(event) => {
@@ -138,7 +146,7 @@ export default props => {
                     range.moveDown();
                     if (range.last > selectionRange.last) {
                         selectionRange.last = range.last;
-                    }  else if (range.last !== range.max &&
+                    } else if (range.last !== range.max &&
                         range.last <= selectionRange.last &&
                         range.last > selectionRange.first) {
                         selectionRange.first = range.last - 1;
