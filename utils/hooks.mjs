@@ -138,7 +138,10 @@ export function useInvalidateOnKeyDown(keyOrKeys = []) {
     useKeyDown(invalidate, keyOrKeys);
 }
 
-export function useRangeSelection(range) {
+export function useRangeSelection(range, {
+    onSelectionStart = noOp,
+    onSelectionEnd = noOp
+} = {}) {
     const pointerDownLocation = useRef(null);
     const [isSelecting, setIsSelecting] = useState(false);
 
@@ -161,6 +164,7 @@ export function useRangeSelection(range) {
     const onMouseUp = useCallback((event, index) => {
         setIsSelecting(false);
         pointerDownLocation.current = null;
+        onSelectionEnd();
     }, []);
 
     const onMouseDown = useCallback((event, index) => {
@@ -171,6 +175,7 @@ export function useRangeSelection(range) {
             range.invalidate();
         }
         pointerDownLocation.current = index;
+        onSelectionStart();
     }, []);
 
     const onMouseHover = useCallback((event, index) => {
@@ -349,5 +354,5 @@ export function useIntervalOnHover({
         }
     }, []);
 
-    return { onMouseEnter, onMouseLeave };
+    return {onMouseEnter, onMouseLeave};
 }

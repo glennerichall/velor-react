@@ -1,12 +1,12 @@
-import S, { createContext as D, useState as v, useEffect as f, useRef as p, useCallback as r, useSyncExternalStore as I, useContext as A } from "react";
-import { Range as k } from "velor-utils/utils/Range.mjs";
-import { noOp as h, broadcast as M } from "velor-utils/utils/functional.mjs";
-const y = D(null);
-function O({ children: e }) {
-  const t = b();
-  return /* @__PURE__ */ S.createElement(y.Provider, { value: t }, e);
+import I, { createContext as A, useState as w, useEffect as f, useRef as d, useCallback as r, useSyncExternalStore as k, useContext as M } from "react";
+import { Range as P } from "velor-utils/utils/Range.mjs";
+import { noOp as v, broadcast as C } from "velor-utils/utils/functional.mjs";
+const E = A(null);
+function j({ children: e }) {
+  const t = D();
+  return /* @__PURE__ */ I.createElement(E.Provider, { value: t }, e);
 }
-class P {
+class L {
   constructor() {
     this.active = /* @__PURE__ */ new Map(), this.listeners = /* @__PURE__ */ new Map();
   }
@@ -26,29 +26,29 @@ class P {
     };
   }
 }
-function m() {
-  const [e, t] = v(() => () => {
+function h() {
+  const [e, t] = w(() => () => {
   });
   return e(), () => new Promise(((n) => {
     t(() => n);
   }));
 }
-function T() {
-  const e = m();
+function B() {
+  const e = h();
   f(() => {
     e();
   }, []);
 }
-function j() {
-  const e = p(null);
+function F() {
+  const e = d(null);
   return f(() => {
     e.current && e.current.focus();
   }, []), e;
 }
-function B(e = {}) {
+function H(e = {}) {
   const {
-    onClick: t = h,
-    onKeyDown: n = h,
+    onClick: t = v,
+    onKeyDown: n = v,
     show: o = !0
   } = e;
   f(() => {
@@ -63,41 +63,44 @@ function B(e = {}) {
     }
   }, [o]);
 }
-function w() {
-  const [e, t] = v(0);
+function y() {
+  const [e, t] = w(0);
   return [e, () => t((n) => n + 1)];
 }
-function F(e, t) {
-  const [n, o] = w();
+function g(e, t) {
+  const [n, o] = y();
   f(() => e.on(t, o), [e]);
 }
-function H(e) {
-  const [t, n] = w();
+function z(e) {
+  const [t, n] = y();
   f(() => e.onAny(n), [e]);
 }
-function g(e, t) {
-  const [n, o] = w();
-  f(M(...e.map((s) => s.on(t, o))), [e]);
+function N(e, t) {
+  const [n, o] = y();
+  f(C(...e.map((s) => s.on(t, o))), [e]);
 }
-function R(e, t = [], {
+function b(e, t = [], {
   target: n = document,
   ctrl: o = !1,
   shift: s = !1
 } = {}) {
   f(() => {
     const i = (c) => {
-      const d = Array.isArray(t) ? t : [t];
-      (d.includes(c.code) || d.length === 0) && (o && c.ctrlKey || !o) && (s && c.shiftKey || !s) && e(c);
+      const p = Array.isArray(t) ? t : [t];
+      (p.includes(c.code) || p.length === 0) && (o && c.ctrlKey || !o) && (s && c.shiftKey || !s) && e(c);
     };
     return n.addEventListener("keydown", i), () => n.removeEventListener("keydown", i);
   }, [t, e]);
 }
-function z(e = []) {
-  const t = m();
-  R(t, e);
+function X(e = []) {
+  const t = h();
+  b(t, e);
 }
-function N(e) {
-  const t = p(null), [n, o] = v(!1), s = r((a, u) => {
+function _(e, {
+  onSelectionStart: t = v,
+  onSelectionEnd: n = v
+} = {}) {
+  const o = d(null), [s, i] = w(!1), c = r((a, u) => {
     if (a.shiftKey)
       if (e.valid) {
         let l = u > e.last ? 1 : 0;
@@ -107,43 +110,43 @@ function N(e) {
           first: u,
           last: u + 1
         });
-  }, e.toArray()), i = r((a, u) => {
-    o(!1), t.current = null;
-  }, []), c = r((a, u) => {
-    a.button === 0 && (a.shiftKey || e.invalidate(), t.current = u);
-  }, []), d = r((a, u) => {
-    const l = t.current;
+  }, e.toArray()), p = r((a, u) => {
+    i(!1), o.current = null, n();
+  }, []), R = r((a, u) => {
+    a.button === 0 && (a.shiftKey || e.invalidate(), o.current = u, t());
+  }, []), m = r((a, u) => {
+    const l = o.current;
     u !== null && l !== null && (e.valid ? u < l ? e.first = u : (u === l && (e.first = u), e.last = u + 1) : u < l ? e.setValue({
       first: u,
       last: l + 1
     }) : e.setValue({
       first: l,
       last: u + 1
-    }), o(!0));
-  }, [t, e]);
+    }), i(!0));
+  }, [o, e]);
   return {
     callbacks: (a) => ({
-      onMouseDown: (u) => c(u, a),
-      onMouseUp: (u) => i(u, a),
-      onMouseEnter: (u) => d(u, a),
-      onMouseLeave: (u) => d(u, null),
-      onClick: (u) => s(u, a)
+      onMouseDown: (u) => R(u, a),
+      onMouseUp: (u) => p(u, a),
+      onMouseEnter: (u) => m(u, a),
+      onMouseLeave: (u) => m(u, null),
+      onClick: (u) => c(u, a)
     }),
-    onClick: s,
-    onMouseDown: c,
-    onMouseUp: i,
-    onMouseHover: d,
-    isSelecting: n
+    onClick: c,
+    onMouseDown: R,
+    onMouseUp: p,
+    onMouseHover: m,
+    isSelecting: s
   };
 }
-function X({
+function q({
   first: e = 0,
   last: t = 0,
   max: n = Number.MAX_SAFE_INTEGER
 } = {}) {
-  const o = m(), s = p(null);
+  const o = h(), s = d(null);
   if (s.current === null) {
-    const i = new k({
+    const i = new P({
       first: e,
       last: t,
       max: n
@@ -152,7 +155,7 @@ function X({
   }
   return s.current;
 }
-function _(e, t = {}, n) {
+function Y(e, t = {}, n) {
   const o = {
     pageUp: "PageUp",
     pageDown: "PageDown",
@@ -171,10 +174,10 @@ function _(e, t = {}, n) {
     down: r(() => e.moveDown(), [e])
   };
   for (let i in s)
-    R(s[i], o[i], n);
+    b(s[i], o[i], n);
 }
-function q() {
-  const e = p({ x: 0, y: 0 });
+function J() {
+  const e = d({ x: 0, y: 0 });
   return f(() => {
     let t = (n) => {
       e.current.x = n.pageX, e.current.y = n.pageY;
@@ -184,37 +187,37 @@ function q() {
     };
   }, []), e.current;
 }
-function E() {
-  const e = A(y);
+function S() {
+  const e = M(E);
   if (!e) throw new Error("useRadioStore must be used inside <RadioProvider>");
   return e;
 }
-function C(e, t) {
-  t = t ?? E();
-  const n = r((s) => t.subscribe(e, s), [t, e]), o = r(() => t.get(e), [t, e]);
-  return I(n, o, o);
-}
-function L(e, t) {
-  return t = t ?? E(), r((n) => t.set(e, n), [t, e]);
-}
 function K(e, t) {
-  const n = C(e, t), o = L(e, t);
+  t = t ?? S();
+  const n = r((s) => t.subscribe(e, s), [t, e]), o = r(() => t.get(e), [t, e]);
+  return k(n, o, o);
+}
+function U(e, t) {
+  return t = t ?? S(), r((n) => t.set(e, n), [t, e]);
+}
+function V(e, t) {
+  const n = K(e, t), o = U(e, t);
   return [n, o];
 }
-function Y(e) {
-  const t = b();
-  return K(e, t);
+function Q(e) {
+  const t = D();
+  return V(e, t);
 }
-function b() {
-  const e = p();
-  return e.current || (e.current = new P()), e.current;
+function D() {
+  const e = d();
+  return e.current || (e.current = new L()), e.current;
 }
-function J({
+function W({
   onEvent: e,
   interval: t = 100,
   enabled: n = !0
 }) {
-  const o = p(null), s = r(() => {
+  const o = d(null), s = r(() => {
     n && (o.current = setInterval(e, t));
   }, [e, t, n]), i = r(() => {
     o.current && (clearInterval(o.current), o.current = null);
@@ -222,25 +225,25 @@ function J({
   return { onMouseEnter: s, onMouseLeave: i };
 }
 export {
-  O as R,
-  m as a,
-  K as b,
-  N as c,
-  T as d,
-  j as e,
-  B as f,
-  w as g,
-  F as h,
-  H as i,
-  g as j,
-  R as k,
-  z as l,
-  X as m,
-  _ as n,
-  q as o,
-  C as p,
-  L as q,
-  Y as r,
-  b as s,
-  J as u
+  j as R,
+  h as a,
+  V as b,
+  _ as c,
+  B as d,
+  F as e,
+  H as f,
+  y as g,
+  g as h,
+  z as i,
+  N as j,
+  b as k,
+  X as l,
+  q as m,
+  Y as n,
+  J as o,
+  K as p,
+  U as q,
+  Q as r,
+  D as s,
+  W as u
 };

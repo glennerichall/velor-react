@@ -17,6 +17,8 @@ export default props => {
 
     const {
         className,
+        onSelectionStart,
+        onSelectionEnd,
         range,
         itemSize,
         selectionRange,
@@ -32,7 +34,10 @@ export default props => {
         callbacks,
         isSelecting,
         onMouseUp,
-    } = useRangeSelection(selectionRange);
+    } = useRangeSelection(selectionRange, {
+        onSelectionStart,
+        onSelectionEnd
+    });
 
     const render = useCallback(item => {
         return itemRenderer(item, callbacks(item), {
