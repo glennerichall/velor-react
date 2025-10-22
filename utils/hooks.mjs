@@ -18,8 +18,7 @@ import RadioStore from "./RadioStore.mjs";
 
 export function useElementEvent(name, callback, target = document) {
     useEffect(() => {
-        target.addEventListener(name, (evt)=> {
-            console.log(evt)
+        target.addEventListener(name, (evt) => {
             callback(evt)
         });
         return () => target.removeEventListener(name, callback)
@@ -313,7 +312,6 @@ export function usePointerPosition() {
 
 export function useGetRadioGroupValue(group, store) {
     store = store ?? useContext(RadioContext);
-    console.log(store, RadioContext.id)
     const subscribe = useCallback((onChange) => store.subscribe(group, onChange), [store, group]);
     const getSnapshot = useCallback(() => store.get(group), [store, group]);
     return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);

@@ -1,14 +1,12 @@
-import { createContext as M, useEffect as l, useState as h, useRef as d, useCallback as c, useContext as b, useSyncExternalStore as A } from "react";
+import { createContext as A, useEffect as l, useState as w, useRef as d, useCallback as c, useContext as D, useSyncExternalStore as M } from "react";
 import { Range as L } from "velor-utils/utils/Range.mjs";
-import { noOp as m, broadcast as S } from "velor-utils/utils/functional.mjs";
-const v = M(null);
-v.id = Math.random();
-console.trace(v.id);
-class y {
+import { noOp as v, broadcast as S } from "velor-utils/utils/functional.mjs";
+const b = A(null);
+class h {
   #e;
   static #t = 0;
   constructor() {
-    this.active = /* @__PURE__ */ new Map(), this.listeners = /* @__PURE__ */ new Map(), this.#e = y.#t++;
+    this.active = /* @__PURE__ */ new Map(), this.listeners = /* @__PURE__ */ new Map(), this.#e = h.#t++;
   }
   get(t) {
     return this.active.get(t) ?? null;
@@ -28,35 +26,35 @@ class y {
 }
 function k(e, t, n = document) {
   l(() => (n.addEventListener(e, (o) => {
-    console.log(o), t(o);
+    t(o);
   }), () => n.removeEventListener(e, t)), []);
 }
-function g(e, t = document) {
+function j(e, t = document) {
   return k("mousedown", e, t);
 }
-function E() {
-  const [e, t] = h(() => () => {
+function y() {
+  const [e, t] = w(() => () => {
   });
   return e(), () => new Promise(((n) => {
     t(() => n);
   }));
 }
-function j() {
-  const e = E();
+function B() {
+  const e = y();
   l(() => {
     e();
   }, []);
 }
-function B() {
+function F() {
   const e = d(null);
   return l(() => {
     e.current && e.current.focus();
   }, []), e;
 }
-function F(e = {}) {
+function H(e = {}) {
   const {
-    onClick: t = m,
-    onKeyDown: n = m,
+    onClick: t = v,
+    onKeyDown: n = v,
     show: o = !0
   } = e;
   l(() => {
@@ -71,20 +69,20 @@ function F(e = {}) {
     }
   }, [o]);
 }
-function R() {
-  const [e, t] = h(0);
+function E() {
+  const [e, t] = w(0);
   return [e, () => t((n) => n + 1)];
 }
-function H(e, t) {
-  const [n, o] = R();
+function x(e, t) {
+  const [n, o] = E();
   l(() => e.on(t, o), [e]);
 }
-function x(e) {
-  const [t, n] = R();
+function z(e) {
+  const [t, n] = E();
   l(() => e.onAny(n), [e]);
 }
-function z(e, t) {
-  const [n, o] = R();
+function N(e, t) {
+  const [n, o] = E();
   l(S(...e.map((s) => s.on(t, o))), [e]);
 }
 function I(e, t = [], {
@@ -100,15 +98,15 @@ function I(e, t = [], {
     return n.addEventListener("keydown", i), () => n.removeEventListener("keydown", i);
   }, [t, e]);
 }
-function N(e = []) {
-  const t = E();
+function X(e = []) {
+  const t = y();
   I(t, e);
 }
-function X(e, {
-  onSelectionStart: t = m,
-  onSelectionEnd: n = m
+function g(e, {
+  onSelectionStart: t = v,
+  onSelectionEnd: n = v
 } = {}) {
-  const o = d(null), [s, i] = h(!1), r = c((a, u) => {
+  const o = d(null), [s, i] = w(!1), r = c((a, u) => {
     if (a.shiftKey)
       if (e.valid) {
         let f = u > e.last ? 1 : 0;
@@ -120,9 +118,9 @@ function X(e, {
         });
   }, e.toArray()), p = c((a, u) => {
     i(!1), o.current = null, n();
-  }, []), D = c((a, u) => {
+  }, []), R = c((a, u) => {
     a.button === 0 && (a.shiftKey || e.invalidate(), o.current = u, t());
-  }, []), w = c((a, u) => {
+  }, []), m = c((a, u) => {
     const f = o.current;
     u !== null && f !== null && (e.valid ? u < f ? e.first = u : (u === f && (e.first = u), e.last = u + 1) : u < f ? e.setValue({
       first: u,
@@ -134,16 +132,16 @@ function X(e, {
   }, [o, e]);
   return {
     callbacks: (a) => ({
-      onMouseDown: (u) => D(u, a),
+      onMouseDown: (u) => R(u, a),
       onMouseUp: (u) => p(u, a),
-      onMouseEnter: (u) => w(u, a),
-      onMouseLeave: (u) => w(u, null),
+      onMouseEnter: (u) => m(u, a),
+      onMouseLeave: (u) => m(u, null),
       onClick: (u) => r(u, a)
     }),
     onClick: r,
-    onMouseDown: D,
+    onMouseDown: R,
     onMouseUp: p,
-    onMouseHover: w,
+    onMouseHover: m,
     isSelecting: s
   };
 }
@@ -152,7 +150,7 @@ function q({
   last: t = 0,
   max: n = Number.MAX_SAFE_INTEGER
 } = {}) {
-  const o = E(), s = d(null);
+  const o = y(), s = d(null);
   if (s.current === null) {
     const i = new L({
       first: e,
@@ -196,12 +194,12 @@ function _() {
   }, []), e.current;
 }
 function C(e, t) {
-  t = t ?? b(v), console.log(t, v.id);
+  t = t ?? D(b);
   const n = c((s) => t.subscribe(e, s), [t, e]), o = c(() => t.get(e), [t, e]);
-  return A(n, o, o);
+  return M(n, o, o);
 }
 function P(e, t) {
-  return t = t ?? b(v), c((n) => t.set(e, n), [t, e]);
+  return t = t ?? D(b), c((n) => t.set(e, n), [t, e]);
 }
 function K(e, t) {
   const n = C(e, t), o = P(e, t);
@@ -213,7 +211,7 @@ function J(e) {
 }
 function U() {
   const e = d();
-  return e.current || (e.current = new y()), e.current;
+  return e.current || (e.current = new h()), e.current;
 }
 function Q({
   onEvent: e,
@@ -228,22 +226,22 @@ function Q({
   return { onMouseEnter: s, onMouseLeave: i };
 }
 export {
-  v as R,
-  E as a,
+  b as R,
+  y as a,
   K as b,
-  X as c,
+  g as c,
   C as d,
   k as e,
-  g as f,
-  j as g,
-  B as h,
-  F as i,
-  R as j,
-  H as k,
-  x as l,
-  z as m,
+  j as f,
+  B as g,
+  F as h,
+  H as i,
+  E as j,
+  x as k,
+  z as l,
+  N as m,
   I as n,
-  N as o,
+  X as o,
   q as p,
   Y as q,
   _ as r,
