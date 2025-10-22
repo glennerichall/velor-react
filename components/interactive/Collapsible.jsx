@@ -2,11 +2,11 @@ import classNames from "classnames";
 
 // noinspection ES6UnusedImports
 import React, {
+    Children,
     forwardRef,
     useEffect,
     useRef,
-    useState,
-    Children
+    useState
 } from "react";
 
 import "../../style/collapsible.scss";
@@ -33,9 +33,12 @@ export default forwardRef((props, ref) => {
         expanded,
         onExpand = noOp,
         onStateChanged = noOp,
+        onTransitionEnd = noOp,
         caption,
         className,
-        style = {}
+        fitParentWidth = false,
+        fitParentHeight = false,
+        style = {},
     } = props;
 
     if (Children.count(children) === 0) return null;
@@ -43,11 +46,26 @@ export default forwardRef((props, ref) => {
     const containerRef = useRef();
     const contentRef = useRef();
     const [isInitial, setInitial] = useState(true);
+    const [cls, setCls] = useState([]);
+
 
     const calcExpanded = () => {
         const rect = contentRef.current.getBoundingClientRect();
-        containerRef.current.style.width = (rect.width) + 'px';
-        containerRef.current.style.height = (rect.height) + 'px';
+        const parent = containerRef.current.parentElement;
+        let parentStyle = window.getComputedStyle(parent);
+        const parentRect = parent.getBoundingClientRect();
+        let width = rect.width
+        let height = rect.height;
+
+        if (fitParentWidth) {
+            width = parentRect.width - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight);
+        }
+        if (fitParentHeight) {
+            height = parentRect.height - parseFloat(parentStyle.paddingTop) - parseFloat(parentStyle.paddingBottom);
+        }
+
+        containerRef.current.style.width = `${width}px`;
+        containerRef.current.style.height = `${height}px`;
     }
 
     const calcCollapsed = () => {
@@ -56,28 +74,38 @@ export default forwardRef((props, ref) => {
     }
 
     const collapse = () => {
-        containerRef.current.classList.remove(EXPANDED);
-        containerRef.current.classList.add(ANIMATION_COLLAPSE, ANIMATION);
+        setCls([
+            ANIMATION_COLLAPSE,
+            ANIMATION
+        ]);
         calcCollapsed();
     };
 
     const expand = () => {
-        containerRef.current.classList.remove(COLLAPSED);
-        containerRef.current.classList.add(ANIMATION_EXPAND, ANIMATION);
+        setCls([
+            ANIMATION_EXPAND,
+            ANIMATION
+        ]);
+
         calcExpanded();
     }
 
-    const isExpanding = () => containerRef.current.classList.contains(ANIMATION_EXPAND);
-    const isCollapsing = () => containerRef.current.classList.contains(ANIMATION_COLLAPSE);
+
+    const isExpanding = () => cls.includes(ANIMATION_EXPAND);
+    const isCollapsing = () => cls.includes(ANIMATION_COLLAPSE);
 
     useEffect(() => {
         if (expanded) {
-            containerRef.current.classList.add(EXPANDED);
+            setCls([
+                EXPANDED
+            ]);
             calcExpanded();
             onExpand(true);
             onStateChanged(true);
         } else {
-            containerRef.current.classList.add(COLLAPSED);
+            setCls([
+                COLLAPSED
+            ]);
             calcCollapsed();
             onExpand(false);
             onStateChanged(false);
@@ -89,9 +117,7 @@ export default forwardRef((props, ref) => {
         setInitial(false);
 
         document.addEventListener('mousedown', onClick);
-        return () => {
-            document.removeEventListener('mousedown', onClick);
-        }
+        return () => document.removeEventListener('mousedown', onClick)
     }, []);
 
 
@@ -109,26 +135,35 @@ export default forwardRef((props, ref) => {
     useResizeDetector({
         targetRef: contentRef,
         onResize: (width, height) => {
-            if (containerRef.current.classList.contains("expanded")) {
+            if (cls.includes(EXPANDED)) {
                 waitForStableBoundingRect(contentRef.current, calcExpanded);
             }
         }
     });
 
+    useEffect(() => {
+        if (ref) {
+            ref.current = containerRef.current;
+        }
+    }, [ref, containerRef.current]);
+
+
     return <div ref={containerRef}
                 onTransitionEnd={(event) => {
+                    onTransitionEnd(event);
                     if (event.propertyName === 'width') {
                         if (isCollapsing() && !expanded) {
-                            containerRef.current.classList.add(COLLAPSED);
+                            setCls([
+                                COLLAPSED
+                            ]);
                             onStateChanged(false);
                         } else if (isExpanding() && expanded) {
-                            containerRef.current.classList.add(EXPANDED);
+                            setCls([
+                                EXPANDED
+                            ]);
                             onStateChanged(true);
                         }
-                        containerRef.current.classList.remove(
-                            ANIMATION_COLLAPSE,
-                            ANIMATION_EXPAND,
-                            ANIMATION);
+
                     }
                 }}
                 onMouseDown={evt => evt.stopPropagation()}
@@ -138,6 +173,7 @@ export default forwardRef((props, ref) => {
                 }}
                 style={style}
                 className={classNames(
+                    cls,
                     className,
                     "collapsible",
                 )}>

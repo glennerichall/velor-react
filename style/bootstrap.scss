@@ -57,12 +57,6 @@ hr {
   --bs-btn-font-size: 0.9em !important;
 }
 
-.btn-group-sm > .btn,
-.input-group-sm > .btn,
-.btn-sm {
-
-}
-
 :not(.widget-group-vertical) {
   > .btn-group + .btn-group {
     margin-left: var(--gap);
@@ -140,31 +134,29 @@ hr {
 }
 
 
-
-
 .tooltip-inner {
   margin-left: 7px;
 }
 
-.options {
-  .nav-item .nav-link {
-    &.active {
-      background: var(--widget-bg-color);
-    }
-  }
-
-  .tab-pane.border-start {
-    border-left-color: transparent !important;
-  }
-
-  .tab-pane.border-end {
-    border-right-color: transparent !important;
-  }
-
-  .tab-pane.border-bottom {
-    border-bottom-color: transparent !important;
-  }
-}
+//.options {
+//  .nav-item .nav-link {
+//    &.active {
+//      background: var(--widget-bg-color);
+//    }
+//  }
+//
+//  .tab-pane.border-start {
+//    border-left-color: transparent !important;
+//  }
+//
+//  .tab-pane.border-end {
+//    border-right-color: transparent !important;
+//  }
+//
+//  .tab-pane.border-bottom {
+//    border-bottom-color: transparent !important;
+//  }
+//}
 
 .spinner-border  {
   --bs-spinner-height: 1.5rem;
@@ -180,7 +172,6 @@ hr {
     margin-top: -0.12em;
   }
 }
-
 
 .form-switch {
   line-height: var(--font-size);

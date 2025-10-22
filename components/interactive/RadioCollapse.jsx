@@ -23,14 +23,16 @@ export default props => {
         setPinned = noOp,
         group = "global",
         collapsible = true,
-        visible = true
+        visible = true,
+        children,
+        ...others
     } = props;
 
     const [selectedGroup, setGroup] = useRadio(group);
     const selected = selectedGroup === eventKey;
 
     return visible ? <Pinnable
-        {...props}
+        {...others}
         pinned={pinned}
         onClose={onClose}
         setPinned={setPinned}
@@ -41,6 +43,6 @@ export default props => {
         }}
         canPin={canPin}
         canClose={canClose}>
-        {props.children}
+        {children}
     </Pinnable> : null;
 }

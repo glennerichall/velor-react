@@ -6,9 +6,11 @@ import {
     RadioCollapse,
 } from "../components/index.mjs";
 import {
+    GlobeAmericas,
     Moon,
     Sun
 } from "react-bootstrap-icons";
+import RadioStacked from "../components/interactive/RadioStacked.jsx";
 
 export default props => {
 
@@ -53,8 +55,6 @@ export default props => {
                 caption={<Sun/>}
             >
                 <div style={{
-                    height: 200,
-                    width: 300,
                     padding: 10,
                     display: "inline-block",
                 }}>
@@ -84,6 +84,20 @@ export default props => {
                 </div>
             </RadioCollapse>
 
+            <RadioCollapse
+                value={"globe"}
+                group={"group1"}
+                className={"my-widget"}
+                caption={<GlobeAmericas/>}
+            >
+                <div style={{
+                    textWrapMode: "nowrap",
+                    padding: 10,
+                    display: "inline-block",
+                }}>
+                    Hello world, Hola mundo, Allo le monde, Konnichiwa sekai, Privet mir
+                </div>
+            </RadioCollapse>
 
         </RadioProvider>
     </div>;

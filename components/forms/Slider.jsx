@@ -56,6 +56,7 @@ export default ({
     }
 
     function onWheel(event) {
+        if(disabled) return;
         const dir = -Math.sign(event.deltaY);
         const {
             min,

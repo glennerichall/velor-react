@@ -23,6 +23,7 @@ import Modal from "./modal";
 import DotNotification from "./dot-notif.jsx";
 import Drawer from "./drawer.jsx";
 import {DecorationExample as Decorated} from "./decoration.jsx";
+import Restack from "./restack.jsx";
 
 const domRoot = document.getElementById("content");
 
@@ -60,6 +61,9 @@ const Root = props => {
         case "decoration":
             example = <Decorated/>;
             break;
+        case "restack":
+            example = <Restack/>;
+            break;
     }
 
     return <div style={{
@@ -79,6 +83,7 @@ const Root = props => {
                 "dot-notification": "Dot notification",
                 drawer: "Drawer",
                 decoration: "Decorated",
+                restack: "Stacked collapsible",
             }}/>
 
         <div style={{

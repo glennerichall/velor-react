@@ -2,11 +2,12 @@
 .collapsible {
   position: relative;
   transition-duration: var(--animation-duration);
-  transition-property: width, height, border-radius, background-color, border-style, border-width, border-color;
+  transition-property: all;
   overflow: hidden;
   pointer-events: none;
   display: flex;
   justify-content: center;
+  left: 0;
 
   &.expanded {
     overflow: visible;
@@ -89,4 +90,22 @@
     }
   }
 
+}
+
+.restack {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+
+  &:not(.no-selection) {
+    :is(.expanded, .animating-expand) ~ .collapsed {
+      transform: translateX(100px);
+    }
+
+    .collapsed {
+      transform: translateX(-100px);
+      //opacity: 0;
+      pointer-events: none;
+    }
+  }
 }

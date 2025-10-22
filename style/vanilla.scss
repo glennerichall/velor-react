@@ -1,3 +1,13 @@
+:root {
+  --gap: 5px;
+  --gap-h: 5px;
+  --gap-v: 1px;
+  --font-size: 12px;
+  --border-radius: 4px;
+  --disabled-opacity: 0.45;
+  --animation-duration: 0.3s;
+}
+
 
 input:not([disabled]) {
   cursor: pointer;
@@ -26,4 +36,20 @@ input[type="number"] {
 .grid-2 {
   grid-template-columns: max-content 1fr;
   height: fit-content;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.gap {
+  gap: var(--gap);
 }
