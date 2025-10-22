@@ -13,8 +13,22 @@ import {
     broadcast,
     noOp
 } from "velor-utils/utils/functional.mjs";
-import {RadioContext} from "../components/interactive/RadioProvider.jsx";
+import {RadioContext} from "./RadioProvider.js";
 import RadioStore from "./RadioStore.mjs";
+
+export function useElementEvent(name, callback, target = document) {
+    useEffect(() => {
+        target.addEventListener(name, (evt)=> {
+            console.log(evt)
+            callback(evt)
+        });
+        return () => target.removeEventListener(name, callback)
+    }, []);
+}
+
+export function useMouseDown(callback, target = document) {
+    return useElementEvent('mousedown', callback, target);
+}
 
 export function useInvalidate() {
     const [resolve, setResolver] = useState(() => () => {
@@ -297,21 +311,16 @@ export function usePointerPosition() {
     return posRef.current;
 }
 
-function useRadioStoreContext() {
-    const ctx = useContext(RadioContext);
-    if (!ctx) throw new Error("useRadioStore must be used inside <RadioProvider>");
-    return ctx;
-}
-
 export function useGetRadioGroupValue(group, store) {
-    store = store ?? useRadioStoreContext();
+    store = store ?? useContext(RadioContext);
+    console.log(store, RadioContext.id)
     const subscribe = useCallback((onChange) => store.subscribe(group, onChange), [store, group]);
     const getSnapshot = useCallback(() => store.get(group), [store, group]);
     return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 }
 
 export function useSetRadioGroupValue(group, store) {
-    store = store ?? useRadioStoreContext();
+    store = store ?? useContext(RadioContext);
     return useCallback((key) => store.set(group, key), [store, group]);
 }
 
@@ -323,7 +332,7 @@ export function useRadio(group, store) {
 
 export function useRadioStore(group) {
     const store = useRadioStoreRef();
-    return useRadio(group, store);
+    return [...useRadio(group, store), store];
 }
 
 export function useRadioStoreRef() {

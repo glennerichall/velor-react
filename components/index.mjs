@@ -26,6 +26,6 @@ export {default as ReactSlider} from './forms/ReactSlider.jsx';
 export {default as SplitPaneH} from './layout/SplitPaneH.jsx';
 export {default as DynamicList} from './lists/DynamicList.jsx';
 export {default as Bubble} from './visual/BubbleBg.jsx';
-export {default as RadioProvider} from './interactive/RadioProvider.jsx';
+export {RadioContext} from '../utils/RadioProvider.js';
 export {default as RadioStacked} from './interactive/RadioStacked.jsx';
 export {RadioStackContainer} from './interactive/RadioStackContainer.jsx';

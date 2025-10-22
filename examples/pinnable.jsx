@@ -1,16 +1,25 @@
 // noinspection ES6UnusedImports
 
-import React, {useState} from "react"
+import React, {
+    useEffect,
+    useState
+} from "react"
 import {Pinnable} from "../components/index.mjs";
 import {
     FunnelFill,
     Sun
 } from "react-bootstrap-icons";
+import {
+    useElementEvent,
+    useMouseDown
+} from "../utils/hooks.mjs";
 
 export default props => {
 
     const [pinned, setPinned] = useState(false);
     const [expanded, setExpanded] = useState(false);
+
+    useMouseDown(() => setExpanded(false));
 
     return <>
         <style>
@@ -38,7 +47,7 @@ export default props => {
             caption={<Sun/>}
             className={"my-widget"}
             expanded={expanded}
-            setExpanded={setExpanded}
+            onClick={()=>setExpanded(true)}
             pinned={pinned}
             pin={
                 {

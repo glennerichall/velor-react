@@ -16,7 +16,7 @@ import {RadioGroupContext} from "./RadioStackContainer.jsx";
 export default props => {
     const {
         value: eventKey,
-        onExpand = noOp,
+        onClick = noOp,
         children,
         className,
         store,
@@ -50,9 +50,9 @@ export default props => {
         }}
         className={className}
         expanded={selected}
-        onExpand={value => {
-            onExpand(value);
-            setGroup(value ? eventKey : null);
+        onClick={() => {
+            onClick();
+            setGroup(eventKey);
         }}>
         {children}
     </Collapsible>;

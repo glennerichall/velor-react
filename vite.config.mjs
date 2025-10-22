@@ -31,7 +31,7 @@ export default defineConfig({
                 return [
                     "preact", "velor", "crypto", "react-bootstrap", "react",
                     "@radix-ui", "@base-ui"]
-                    .some(x => id.startsWith(x));
+                    .some(x => id.toLowerCase().startsWith(x));
             },
         }
     },

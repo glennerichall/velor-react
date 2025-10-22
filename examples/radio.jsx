@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {
-    RadioProvider,
+    RadioContext,
     RadioCollapse,
 } from "../components/index.mjs";
 import {
@@ -11,10 +11,18 @@ import {
     Sun
 } from "react-bootstrap-icons";
 import RadioStacked from "../components/interactive/RadioStacked.jsx";
+import {
+    useMouseDown,
+    useRadio,
+    useRadioStore
+} from "../utils/hooks.mjs";
 
 export default props => {
 
     const [pinned, setPinned] = useState({});
+
+    const [selected, setSelected, store] = useRadioStore("group1");
+    useMouseDown(() => setSelected(null));
 
     return <div style={{
         display: "flex",
@@ -39,7 +47,7 @@ export default props => {
         `}
         </style>
 
-        <RadioProvider>
+        <RadioContext.Provider value={store}>
 
             <RadioCollapse
                 value={"day"}
@@ -99,6 +107,6 @@ export default props => {
                 </div>
             </RadioCollapse>
 
-        </RadioProvider>
+        </RadioContext.Provider>
     </div>;
 }

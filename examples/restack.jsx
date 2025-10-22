@@ -10,13 +10,21 @@ import {
 } from "react-bootstrap-icons";
 import RadioStacked from "../components/interactive/RadioStacked.jsx";
 import {
-    RadioProvider,
+    RadioContext,
     RadioStackContainer
 } from "../components/index.mjs";
+import {
+    useMouseDown,
+    useRadioStore
+} from "../utils/hooks.mjs";
 
 export default props => {
 
-    return <RadioProvider>
+    const [selected, setSelected, store] = useRadioStore("group1");
+
+    useMouseDown(() => setSelected(null));
+
+    return <RadioContext.Provider value={store}>
         <style>
             {`
             .my-widget {
@@ -92,6 +100,6 @@ export default props => {
 
 
         </RadioStackContainer>
-    </RadioProvider>
+    </RadioContext.Provider>
 
 }

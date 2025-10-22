@@ -31,7 +31,7 @@ export default forwardRef((props, ref) => {
     const {
         children,
         expanded,
-        onExpand = noOp,
+        onClick = noOp,
         onStateChanged = noOp,
         onTransitionEnd = noOp,
         caption,
@@ -96,28 +96,16 @@ export default forwardRef((props, ref) => {
 
     useEffect(() => {
         if (expanded) {
-            setCls([
-                EXPANDED
-            ]);
+            setCls([EXPANDED]);
             calcExpanded();
-            onExpand(true);
             onStateChanged(true);
         } else {
-            setCls([
-                COLLAPSED
-            ]);
+            setCls([COLLAPSED]);
             calcCollapsed();
-            onExpand(false);
             onStateChanged(false);
         }
 
-        const onClick = () => {
-            onExpand(false);
-        }
         setInitial(false);
-
-        document.addEventListener('mousedown', onClick);
-        return () => document.removeEventListener('mousedown', onClick)
     }, []);
 
 
@@ -153,14 +141,10 @@ export default forwardRef((props, ref) => {
                     onTransitionEnd(event);
                     if (event.propertyName === 'width') {
                         if (isCollapsing() && !expanded) {
-                            setCls([
-                                COLLAPSED
-                            ]);
+                            setCls([                                COLLAPSED                            ]);
                             onStateChanged(false);
                         } else if (isExpanding() && expanded) {
-                            setCls([
-                                EXPANDED
-                            ]);
+                            setCls([                                EXPANDED                            ]);
                             onStateChanged(true);
                         }
 
@@ -169,7 +153,7 @@ export default forwardRef((props, ref) => {
                 onMouseDown={evt => evt.stopPropagation()}
                 onClick={evt => {
                     evt.stopPropagation();
-                    onExpand(true);
+                    onClick();
                 }}
                 style={style}
                 className={classNames(

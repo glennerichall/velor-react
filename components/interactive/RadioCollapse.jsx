@@ -18,7 +18,7 @@ export default props => {
         canClose = false,
         onClose,
         value: eventKey,
-        onExpand = noOp,
+        onClick = noOp,
         pinned = false,
         setPinned = noOp,
         group = "global",
@@ -37,9 +37,9 @@ export default props => {
         onClose={onClose}
         setPinned={setPinned}
         expanded={(selected || !collapsible)}
-        setExpanded={value => {
-            onExpand(value);
-            setGroup(value ? eventKey : null)
+        onClick={() => {
+            onClick();
+            setGroup(eventKey);
         }}
         canPin={canPin}
         canClose={canClose}>

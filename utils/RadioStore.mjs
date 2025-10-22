@@ -1,7 +1,10 @@
 export default class RadioStore {
+    #id;
+    static #count = 0;
     constructor() {
         this.active = new Map(); // Map<string, string|null>
         this.listeners = new Map(); // Map<string, Set<() => void>>
+        this.#id = RadioStore.#count++;
     }
 
     get(group) {

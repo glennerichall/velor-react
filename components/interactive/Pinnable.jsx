@@ -20,7 +20,7 @@ import Decorated from "../layout/Decorated.jsx";
 export default forwardRef((props, ref) => {
     let {
         expanded,
-        setExpanded,
+        onClick,
         canPin = true,
         canClose = true,
         onClose = noOp,
@@ -75,7 +75,7 @@ export default forwardRef((props, ref) => {
             closable: canClose
         })}
         expanded={expanded || pinned}
-        onExpand={setExpanded}
+        onClick={onClick}
         ref={ref}>
 
         <Decorated>
