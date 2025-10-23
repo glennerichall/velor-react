@@ -16,17 +16,15 @@ import {
 import {RadioContext} from "./RadioProvider.js";
 import RadioStore from "./RadioStore.mjs";
 
-export function useElementEvent(name, callback, target = document) {
+export function useElementEvent(name, callback, {target = document, capture} = {}) {
     useEffect(() => {
-        target.addEventListener(name, (evt) => {
-            callback(evt)
-        });
-        return () => target.removeEventListener(name, callback)
-    }, []);
+        target.addEventListener(name, callback, capture);
+        return () => target.removeEventListener(name, callback, capture)
+    }, [name, callback, target]);
 }
 
-export function useMouseDown(callback, target = document) {
-    return useElementEvent('mousedown', callback, target);
+export function useMouseDown(callback, options) {
+    return useElementEvent('mousedown', callback, options);
 }
 
 export function useInvalidate() {

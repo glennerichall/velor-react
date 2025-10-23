@@ -27,26 +27,32 @@ export default props => {
     const [selectedGroup, setGroup] = useRadio(group, store);
     const selected = selectedGroup === eventKey;
     const ref = useRef();
-
-    let rect = {
+    const [pos, setPos] = useState({
         x: 0,
         y: 0
-    };
-    if (selectedGroup !== null && !!ref.current && selected) {
-        let parentStyle = window.getComputedStyle(ref.current.parentNode);
-        let x = -ref.current.offsetLeft + parseFloat(parentStyle.paddingLeft);
-        let y = -ref.current.offsetTop + parseFloat(parentStyle.paddingTop);
-        rect = {x, y};
-    }
+    });
+
+    useEffect(() => {
+        if (selectedGroup !== null && !!ref.current && selected) {
+            let parentStyle = window.getComputedStyle(ref.current.parentNode);
+            let x = -ref.current.offsetLeft + parseFloat(parentStyle.paddingLeft);
+            let y = -ref.current.offsetTop + parseFloat(parentStyle.paddingTop);
+            setPos({x, y});
+        } else {
+            setPos({
+                x: 0,
+                y: 0
+            });
+        }
+    }, [selectedGroup, ref.current, selected]);
 
 
     return <Collapsible
         ref={ref}
         {...others}
         style={{
-            left: rect.x,
-            top: rect.y,
-            // position: !!selectedGroup && !selected ? "absolute" : "relative"
+            left: pos.x,
+            top: pos.y,
         }}
         className={className}
         expanded={selected}

@@ -1,7 +1,7 @@
-import { createContext as A, useEffect as l, useState as w, useRef as d, useCallback as c, useContext as D, useSyncExternalStore as M } from "react";
+import { createContext as A, useContext as D, useCallback as c, useSyncExternalStore as M, useEffect as l, useState as w, useRef as d } from "react";
 import { Range as L } from "velor-utils/utils/Range.mjs";
 import { noOp as v, broadcast as S } from "velor-utils/utils/functional.mjs";
-const b = A(null);
+const I = A(null);
 class h {
   #e;
   static #t = 0;
@@ -24,12 +24,10 @@ class h {
     };
   }
 }
-function k(e, t, n = document) {
-  l(() => (n.addEventListener(e, (o) => {
-    t(o);
-  }), () => n.removeEventListener(e, t)), []);
+function k(e, t, { target: n = document, capture: o } = {}) {
+  l(() => (n.addEventListener(e, t, o), () => n.removeEventListener(e, t, o)), [e, t, n]);
 }
-function j(e, t = document) {
+function j(e, t) {
   return k("mousedown", e, t);
 }
 function y() {
@@ -85,7 +83,7 @@ function N(e, t) {
   const [n, o] = E();
   l(S(...e.map((s) => s.on(t, o))), [e]);
 }
-function I(e, t = [], {
+function b(e, t = [], {
   target: n = document,
   ctrl: o = !1,
   shift: s = !1
@@ -100,9 +98,9 @@ function I(e, t = [], {
 }
 function X(e = []) {
   const t = y();
-  I(t, e);
+  b(t, e);
 }
-function g(e, {
+function q(e, {
   onSelectionStart: t = v,
   onSelectionEnd: n = v
 } = {}) {
@@ -145,7 +143,7 @@ function g(e, {
     isSelecting: s
   };
 }
-function q({
+function Y({
   first: e = 0,
   last: t = 0,
   max: n = Number.MAX_SAFE_INTEGER
@@ -161,7 +159,7 @@ function q({
   }
   return s.current;
 }
-function Y(e, t = {}, n) {
+function _(e, t = {}, n) {
   const o = {
     pageUp: "PageUp",
     pageDown: "PageDown",
@@ -180,9 +178,9 @@ function Y(e, t = {}, n) {
     down: c(() => e.moveDown(), [e])
   };
   for (let i in s)
-    I(s[i], o[i], n);
+    b(s[i], o[i], n);
 }
-function _() {
+function g() {
   const e = d({ x: 0, y: 0 });
   return l(() => {
     let t = (n) => {
@@ -194,12 +192,12 @@ function _() {
   }, []), e.current;
 }
 function C(e, t) {
-  t = t ?? D(b);
+  t = t ?? D(I);
   const n = c((s) => t.subscribe(e, s), [t, e]), o = c(() => t.get(e), [t, e]);
   return M(n, o, o);
 }
 function P(e, t) {
-  return t = t ?? D(b), c((n) => t.set(e, n), [t, e]);
+  return t = t ?? D(I), c((n) => t.set(e, n), [t, e]);
 }
 function K(e, t) {
   const n = C(e, t), o = P(e, t);
@@ -226,10 +224,10 @@ function Q({
   return { onMouseEnter: s, onMouseLeave: i };
 }
 export {
-  b as R,
+  I as R,
   y as a,
   K as b,
-  g as c,
+  q as c,
   C as d,
   k as e,
   j as f,
@@ -240,11 +238,11 @@ export {
   x as k,
   z as l,
   N as m,
-  I as n,
+  b as n,
   X as o,
-  q as p,
-  Y as q,
-  _ as r,
+  Y as p,
+  _ as q,
+  g as r,
   P as s,
   J as t,
   Q as u,

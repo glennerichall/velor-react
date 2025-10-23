@@ -51,21 +51,19 @@ export default forwardRef((props, ref) => {
 
     const calcExpanded = () => {
         const rect = contentRef.current.getBoundingClientRect();
-        const parent = containerRef.current.parentElement;
-        let parentStyle = window.getComputedStyle(parent);
-        const parentRect = parent.getBoundingClientRect();
-        let width = rect.width
-        let height = rect.height;
+        let width = rect.width + 'px';
+        let height = rect.height + 'px';
 
         if (fitParentWidth) {
-            width = parentRect.width - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight);
+            width = '100%';
         }
         if (fitParentHeight) {
-            height = parentRect.height - parseFloat(parentStyle.paddingTop) - parseFloat(parentStyle.paddingBottom);
+            height = '100%';
         }
+        containerRef.current.style.width = width;
+        containerRef.current.style.height = height;
 
-        containerRef.current.style.width = `${width}px`;
-        containerRef.current.style.height = `${height}px`;
+
     }
 
     const calcCollapsed = () => {
@@ -141,10 +139,10 @@ export default forwardRef((props, ref) => {
                     onTransitionEnd(event);
                     if (event.propertyName === 'width') {
                         if (isCollapsing() && !expanded) {
-                            setCls([                                COLLAPSED                            ]);
+                            setCls([COLLAPSED]);
                             onStateChanged(false);
                         } else if (isExpanding() && expanded) {
-                            setCls([                                EXPANDED                            ]);
+                            setCls([EXPANDED]);
                             onStateChanged(true);
                         }
 

@@ -1,13 +1,12 @@
-import React from "react";
+import React, {forwardRef} from "react";
 import {
     useGetRadioGroupValue,
-    useRadio
 } from "../../utils/hooks.mjs";
 import classNames from "classnames";
 
 export const RadioGroupContext = React.createContext();
 
-export const RadioStackContainer = props => {
+export const RadioStackContainer = forwardRef((props, ref) => {
     const {
         children,
         store,
@@ -19,8 +18,12 @@ export const RadioStackContainer = props => {
     const selected = useGetRadioGroupValue(group, store);
 
     return <RadioGroupContext.Provider value={group}>
-        <div style={style} className={classNames("restack", className, selected ?? "no-selection", group)}>
+        <div style={style}
+             ref={ref}
+             className={classNames("restack",
+                 className, selected ?? "no-selection", group
+             )}>
             {children}
         </div>
     </RadioGroupContext.Provider>;
-};
+});
